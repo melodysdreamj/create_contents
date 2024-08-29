@@ -12,6 +12,8 @@ async function main() {
 
     dotenv.config();
 
+    var prompt = "girl with a sword";
+
     const response = await fetch('https://api.aimlapi.com/luma-ai/generations', {
         method: 'POST',
         headers: {
@@ -21,7 +23,7 @@ async function main() {
         body: JSON.stringify({
             "aspect_ratio": "16:9",
             "expand_prompt": true,
-            "user_prompt": "girl with a sword"
+            "user_prompt": prompt
         }),
     });
 

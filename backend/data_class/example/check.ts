@@ -1,6 +1,6 @@
 import {LegoUtil} from "../../../util";
 import {Sub} from "./sub";
-import {TestEnumTest, TestEnumTestHelper} from "../enum_example/_new";
+import {TestEnumTest, TestEnumTestHelper} from "./test_enum";
 
 export class Check {
 
