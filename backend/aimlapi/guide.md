@@ -1,0 +1,1 @@
+key url: https://aimlapi.com/app/keys
