@@ -2,7 +2,9 @@ import {LegoUtil} from "../../../../util";
 
 const PocketBase = require('pocketbase').default;
 // PocketBase 클라이언트 초기화
-const pb = new PocketBase('https://june.pockethost.io/'); // PocketBase 서버 주소 설정
+dotenv.config();
+// PocketBase 클라이언트 초기화
+const pb = new PocketBase(process.env.POCKET_BASE_URL);
 
 import dotenv from "dotenv";
 import sqlite3 from "sqlite3";
@@ -1999,7 +2001,7 @@ export class ExamplePocketBaseCollection {
         if (ExamplePocketBaseCollection._ready) return;
         dotenv.config();
         // 어드민 로그인 (아이디와 비밀번호 설정 필요)
-        await pb.admins.authWithPassword(process.env.POCKETBASE_ADMIN_EMAIL, process.env.POCKETBASE_ADMIN_PASSWORD);
+        await pb.admins.authWithPassword(process.env.POCKET_BASE_ADMIN_EMAIL, process.env.POCKET_BASE_ADMIN_PASSWORD);
         ExamplePocketBaseCollection._ready = true;
     }
 

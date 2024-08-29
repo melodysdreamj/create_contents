@@ -1,15 +1,16 @@
 import {LegoUtil} from "../../../../util";
 import * as fs from "fs";
+import dotenv from 'dotenv';
 
-
-import dotenv from "dotenv";
 import path from "path";
 import FormData from "form-data";
 import axios, {AxiosResponse} from "axios";
 
+dotenv.config();
+
 const PocketBase = require('pocketbase').default;
 // PocketBase 클라이언트 초기화
-const pb = new PocketBase('https://june.pockethost.io/'); // PocketBase 서버 주소 설정
+const pb = new PocketBase(process.env.POCKET_BASE_URL);
 
 export class New {
 
@@ -2005,7 +2006,7 @@ export class NewPocketBaseCollection {
         if (NewPocketBaseCollection._ready) return;
         dotenv.config();
         // 어드민 로그인 (아이디와 비밀번호 설정 필요)
-        await pb.admins.authWithPassword(process.env.POCKETBASE_ADMIN_EMAIL, process.env.POCKETBASE_ADMIN_PASSWORD);
+        await pb.admins.authWithPassword(process.env.POCKET_BASE_ADMIN_EMAIL, process.env.POCKET_BASE_ADMIN_PASSWORD);
         NewPocketBaseCollection._ready = true;
 
     }
