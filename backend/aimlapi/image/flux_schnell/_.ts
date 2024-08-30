@@ -71,7 +71,8 @@ export async function generateFluxSchnellImageSaveImage(prompt: string): Promise
     const imageUrl = await generateFluxSchnellImageUrl(prompt);
 
     if (imageUrl) {
-        const savePath = path.resolve('./data/image/flux_schnell/image.jpeg');
+        const extension = path.extname(imageUrl) || '.jpeg'; // 확장자가 없으면 기본값으로 .jpeg 사용
+        const savePath = path.resolve(`./data/image/flux_schnell/image${extension}`);
         const dirPath = path.dirname(savePath);
 
         // 폴더가 없으면 생성

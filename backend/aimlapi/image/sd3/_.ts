@@ -70,8 +70,10 @@ export async function generateSd3ImageSaveImage(prompt: string): Promise<string 
     const imageUrl = await generateSd3ImageUrl(prompt);
 
     if (imageUrl) {
-        const savePath = path.resolve('./data/image/sd3/image.jpeg');
+        const extension = path.extname(imageUrl) || '.jpeg'; // 확장자가 없으면 기본값으로 .jpeg 사용
+        const savePath = path.resolve(`./data/image/sd3/image${extension}`);
         const dirPath = path.dirname(savePath);
+
 
         // 폴더가 없으면 생성
         if (!fs.existsSync(dirPath)) {

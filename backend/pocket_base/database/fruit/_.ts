@@ -12,16 +12,16 @@ const PocketBase = require('pocketbase').default;
 // PocketBase 클라이언트 초기화
 const pb = new PocketBase(process.env.POCKET_BASE_URL);
 
-export class New {
+export class Fruit {
 
     constructor() {
         this.docId = LegoUtil.randomString(10);
     }
 
-    // s000: string = "";
-    // s001: string = "";
-    // s002: string = "";
-    // s003: string = "";
+    definition: string = "";
+    history: string = "";
+    food: string = "";
+    imageUrl: string = "";
     // s004: string = "";
     // s005: string = "";
     // s006: string = "";
@@ -412,10 +412,10 @@ export class New {
 
     toDataString(): string {
         return btoa(Array.from(new TextEncoder().encode(new URLSearchParams({
-            // s000: this.s000,
-            // s001: this.s001,
-            // s002: this.s002,
-            // s003: this.s003,
+            definition: this.definition,
+            history: this.history,
+            food: this.food,
+            imageUrl: this.imageUrl,
             // s004: this.s004,
             // s005: this.s005,
             // s006: this.s006,
@@ -805,15 +805,15 @@ export class New {
         }).toString())).map(byte => String.fromCharCode(byte)).join(""));
     }
 
-    static fromDataString(dataString: string): New {
+    static fromDataString(dataString: string): Fruit {
         const queryParams = Object.fromEntries(new URLSearchParams(atob(dataString)));
 
-        const object = new New();
+        const object = new Fruit();
 
-        // object.s000 = queryParams["s000"] || "";
-        // object.s001 = queryParams["s001"] || "";
-        // object.s002 = queryParams["s002"] || "";
-        // object.s003 = queryParams["s003"] || "";
+        object.definition = queryParams["definition"] || "";
+        object.history = queryParams["history"] || "";
+        object.food = queryParams["food"] || "";
+        object.imageUrl = queryParams["imageUrl"] || "";
         // object.s004 = queryParams["s004"] || "";
         // object.s005 = queryParams["s005"] || "";
         // object.s006 = queryParams["s006"] || "";
@@ -1206,10 +1206,10 @@ export class New {
 
     toMap(): object {
         return {
-            // s000: this.s000,
-            // s001: this.s001,
-            // s002: this.s002,
-            // s003: this.s003,
+            definition: this.definition,
+            history: this.history,
+            food: this.food,
+            imageUrl: this.imageUrl,
             // s004: this.s004,
             // s005: this.s005,
             // s006: this.s006,
@@ -1599,13 +1599,13 @@ export class New {
         };
     }
 
-    static fromMap(queryParams: any): New {
-        const object = new New();
+    static fromMap(queryParams: any): Fruit {
+        const object = new Fruit();
 
-        // object.s000 = queryParams.s000 || '';
-        // object.s001 = queryParams.s001 || '';
-        // object.s002 = queryParams.s002 || '';
-        // object.s003 = queryParams.s003 || '';
+        object.definition = queryParams.definition || '';
+        object.history = queryParams.history || '';
+        object.food = queryParams.food || '';
+        object.imageUrl = queryParams.imageUrl || '';
         // object.s004 = queryParams.s004 || '';
         // object.s005 = queryParams.s005 || '';
         // object.s006 = queryParams.s006 || '';
@@ -1997,31 +1997,31 @@ export class New {
     }
 }
 
-export class NewPocketBaseCollection {
+export class FruitPocketBaseCollection {
 
 
     static _ready = false;
 
     static async getDb() {
-        if (NewPocketBaseCollection._ready) return;
+        if (FruitPocketBaseCollection._ready) return;
         dotenv.config();
         // 어드민 로그인 (아이디와 비밀번호 설정 필요)
         await pb.admins.authWithPassword(process.env.POCKET_BASE_ADMIN_EMAIL, process.env.POCKET_BASE_ADMIN_PASSWORD);
-        NewPocketBaseCollection._ready = true;
+        FruitPocketBaseCollection._ready = true;
 
     }
 
     static async createTable() {
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
         const collectionData = {
-            name: "New",
+            name: "Fruit",
             type: "base",
             schema: [
                 {name: 'docId', type: 'text', required: true, unique: true},
-                // {name: 's000', type: 'text', required: false},
-                // {name: 's001', type: 'text', required: false},
-                // {name: 's002', type: 'text', required: false},
-                // {name: 's003', type: 'text', required: false},
+                {name: 'definition', type: 'text', required: false},
+                {name: 'history', type: 'text', required: false},
+                {name: 'food', type: 'text', required: false},
+                {name: 'imageUrl', type: 'text', required: false},
                 // {name: 's004', type: 'text', required: false},
                 // {name: 's005', type: 'text', required: false},
                 // {name: 's006', type: 'text', required: false},
@@ -2416,6 +2416,8 @@ export class NewPocketBaseCollection {
             indexes: [],  // 인덱스 설정
         }
 
+        // console.log('collectionData:', collectionData);
+
         try {
             // 컬렉션 생성 요청
             const collection = await pb.collections.create(collectionData);
@@ -2427,16 +2429,16 @@ export class NewPocketBaseCollection {
 
     }
 
-    static async insert(object: New): Promise<string> {
+    static async insert(object: Fruit): Promise<string> {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         const recordData = {
             docId: object.docId,
-            // s000: object.s000,
-            // s001: object.s001,
-            // s002: object.s002,
-            // s003: object.s003,
+            definition: object.definition,
+            history: object.history,
+            food: object.food,
+            imageUrl: object.imageUrl,
             // s004: object.s004,
             // s005: object.s005,
             // s006: object.s006,
@@ -2835,15 +2837,15 @@ export class NewPocketBaseCollection {
         }
 
         // 레코드 삽입 요청
-        const record = await pb.collection('New').create(recordData);
+        const record = await pb.collection('Fruit').create(recordData);
         console.log('레코드 삽입 완료:', record);
 
         return record.id;
     }
 
-    static async upsert(object: New): Promise<string | null> {
+    static async upsert(object: Fruit): Promise<string | null> {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         const rawObj = await this.getRow(object.docId);
 
@@ -2852,10 +2854,10 @@ export class NewPocketBaseCollection {
         } else {
             const updatedData = {
                 docId: object.docId,
-                // s000: object.s000,
-                // s001: object.s001,
-                // s002: object.s002,
-                // s003: object.s003,
+                definition: object.definition,
+                history: object.history,
+                food: object.food,
+                imageUrl: object.imageUrl,
                 // s004: object.s004,
                 // s005: object.s005,
                 // s006: object.s006,
@@ -3255,7 +3257,7 @@ export class NewPocketBaseCollection {
             }
 
             try {
-                const updatedRecord = await pb.collection('New').update(rawObj.id, updatedData);
+                const updatedRecord = await pb.collection('Fruit').update(rawObj.id, updatedData);
                 return updatedRecord.id;
             } catch (e) {
                 console.log('failed to upsert', e);
@@ -3266,25 +3268,25 @@ export class NewPocketBaseCollection {
 
     static async delete(docId: string) {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         const rawObj = await this.getRow(docId);
 
         if (rawObj != null) {
-            await pb.collection('New').delete(rawObj.id);
+            await pb.collection('Fruit').delete(rawObj.id);
         } else {
             console.log('failed to delete because object is not found');
         }
     }
 
-    static async get(docId: string): Promise<New | null> {
+    static async get(docId: string): Promise<Fruit | null> {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         try {
-            const xs = await pb.collection('New').getFirstListItem(`docId="${docId}"`);
+            const xs = await pb.collection('Fruit').getFirstListItem(`docId="${docId}"`);
 
-            return New.fromMap(xs);
+            return Fruit.fromMap(xs);
 
 
         } catch (e) {
@@ -3295,10 +3297,10 @@ export class NewPocketBaseCollection {
 
     static async getRow(docId: string): Promise<any> {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         try {
-            return await pb.collection('New').getFirstListItem(`docId="${docId}"`);
+            return await pb.collection('Fruit').getFirstListItem(`docId="${docId}"`);
 
         } catch (e) {
             // console.log(e);
@@ -3306,9 +3308,9 @@ export class NewPocketBaseCollection {
         }
     }
 
-    static async getAll(): Promise<New[]> {
+    static async getAll(): Promise<Fruit[]> {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         try {
             let page = 1;
@@ -3318,7 +3320,7 @@ export class NewPocketBaseCollection {
 
             while (hasMore) {
                 // 각 페이지별 레코드 리스트 가져오기
-                const resultList = await pb.collection('New').getList({page: page, perPage: perPage});
+                const resultList = await pb.collection('Fruit').getList({page: page, perPage: perPage});
                 // 레코드를 allRecords 배열에 추가
                 allRecords = allRecords.concat(resultList.items);
 
@@ -3332,10 +3334,10 @@ export class NewPocketBaseCollection {
 
             }
 
-            const result: New[] = [];
+            const result: Fruit[] = [];
 
             for (let i = 0; i < allRecords.length; i++) {
-                result.push(New.fromMap(allRecords[i]));
+                result.push(Fruit.fromMap(allRecords[i]));
             }
 
             return result;
@@ -3347,14 +3349,14 @@ export class NewPocketBaseCollection {
 
     }
 
-    static async getByI000(value: number): Promise<New | null> {
+    static async getByI000(value: number): Promise<Fruit | null> {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         try {
-            const xs = await pb.collection('New').getFirstListItem(`i000=${value}`);
+            const xs = await pb.collection('Fruit').getFirstListItem(`i000=${value}`);
 
-            return New.fromMap(xs);
+            return Fruit.fromMap(xs);
 
         } catch (e) {
             return null;
@@ -3364,7 +3366,7 @@ export class NewPocketBaseCollection {
     }
 
     static async deleteAll() {
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         let page = 1;
         const perPage = 100; // 한 번에 가져올 레코드 수
@@ -3373,7 +3375,7 @@ export class NewPocketBaseCollection {
 
         while (hasMore) {
             // 각 페이지별 레코드 리스트 가져오기
-            const resultList = await pb.collection('New').getList({page: page, perPage: perPage});
+            const resultList = await pb.collection('Fruit').getList({page: page, perPage: perPage});
             // 레코드를 allRecords 배열에 추가
             allRecords = allRecords.concat(resultList.items);
 
@@ -3388,7 +3390,7 @@ export class NewPocketBaseCollection {
         }
 
         for (let i = 0; i < allRecords.length; i++) {
-            await pb.collection('New').delete(allRecords[i].id);
+            await pb.collection('Fruit').delete(allRecords[i].id);
         }
 
         console.log('All records are deleted');
@@ -3396,32 +3398,32 @@ export class NewPocketBaseCollection {
 
     static async resetTable() {
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         // 모든 컬렉션 목록 가져오기
         const collections: any[] = await pb.collections.getFullList(); // 컬렉션 목록의 타입을 any로 설정
 
         // 이름으로 컬렉션 찾기
-        const collectionToDelete = collections.find((collection: any) => collection.name === 'New');
+        const collectionToDelete = collections.find((collection: any) => collection.name === 'Fruit');
 
         if (collectionToDelete) {
             // 컬렉션 삭제 요청
             await pb.collections.delete(collectionToDelete.id);
-            console.log('컬렉션 삭제 완료:', 'New');
+            console.log('컬렉션 삭제 완료:', 'Fruit');
         } else {
-            console.log('컬렉션을 찾을 수 없습니다:', 'New');
+            console.log('컬렉션을 찾을 수 없습니다:', 'Fruit');
         }
 
-        await NewPocketBaseCollection.createTable();
+        await FruitPocketBaseCollection.createTable();
 
 
     }
 
 
-    static async upsertFile(object: New, filePath: string) {
+    static async upsertFile(object: Fruit, filePath: string) {
         // 먼저 해당하는 파일이 있는지 확인후, 있을경우 업데이트 없을경우 삽입
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         const obj = await this.getRow(object.docId);
 
@@ -3438,14 +3440,14 @@ export class NewPocketBaseCollection {
                     filename: path.basename(filePath),
                 });
                 // Axios를 사용하여 업로드 요청 수행
-                const uploadResponse: AxiosResponse<any> = await axios.patch(`${pb.baseUrl}/api/collections/New/records/${id}`, formData, {
+                const uploadResponse: AxiosResponse<any> = await axios.patch(`${pb.baseUrl}/api/collections/Fruit/records/${id}`, formData, {
                     headers: {
                         ...formData.getHeaders(),
                         Authorization: `Bearer ${pb.authStore.token}`, // 인증 토큰 헤더에 추가
                     },
                 });
 
-                console.log('Buffer 업로드 완료:', uploadResponse.data);
+                // console.log('Buffer 업로드 완료:', uploadResponse.data);
 
                 return uploadResponse.data;
             } else {
@@ -3455,7 +3457,7 @@ export class NewPocketBaseCollection {
                     filename: path.basename(filePath),
                 });
                 // Axios를 사용하여 업로드 요청 수행
-                const uploadResponse: AxiosResponse<any> = await axios.patch(`${pb.baseUrl}/api/collections/New/records/${obj.id}`, formData, {
+                const uploadResponse: AxiosResponse<any> = await axios.patch(`${pb.baseUrl}/api/collections/Fruit/records/${obj.id}`, formData, {
                     headers: {
                         ...formData.getHeaders(),
                         Authorization: `Bearer ${pb.authStore.token}`, // 인증 토큰 헤더에 추가
@@ -3476,10 +3478,10 @@ export class NewPocketBaseCollection {
 
     }
 
-    static async downloadFile(object: New, filePath: string): Promise<boolean> {
+    static async downloadFile(object: Fruit, filePath: string): Promise<boolean> {
         // 먼저 해당하는 파일이 서버에 있는지 확인후, 있을경우 다운로드 없을경우 실패
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         const obj = await this.getRow(object.docId);
 
@@ -3509,13 +3511,13 @@ export class NewPocketBaseCollection {
         }
     }
 
-    static async getDownloadUrl(object: New | null): Promise<string | null> {
+    static async getDownloadUrl(object: Fruit | null): Promise<string | null> {
         if(object == null) {
             console.log('object is null');
             return null;
         }
 
-        await NewPocketBaseCollection.getDb();
+        await FruitPocketBaseCollection.getDb();
 
         const obj = await this.getRow(object.docId);
 

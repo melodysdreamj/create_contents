@@ -30,7 +30,7 @@ export async function generateTextLlama31_70b(prompt : string, system: string) :
         });
 
         const message = result.choices[0].message.content;
-        console.log(`Assistant: ${message}`);
+        // console.log(`Assistant: ${message}`);
 
         return message;
 

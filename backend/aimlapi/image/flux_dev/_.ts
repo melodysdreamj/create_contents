@@ -40,7 +40,7 @@ export async function generateFluxDevImageUrl(prompt: string): Promise<string | 
 }
 
 // URL에서 이미지를 다운로드하고 로컬에 저장하는 함수
-export async function downloadAndSaveImage(imageUrl: string, savePath: string): Promise<String | null> {
+export async function downloadAndSaveImage(imageUrl: string, savePath: string): Promise<string | null> {
     try {
         const response = await axios({
             url: imageUrl,
@@ -58,12 +58,14 @@ export async function downloadAndSaveImage(imageUrl: string, savePath: string): 
 }
 
 // 예시로 호출하는 함수
-export async function generateFluxDevImageSaveImage(prompt: string) : Promise<String | null> {
+export async function generateFluxDevImageSaveImage(prompt: string): Promise<string | null> {
     dotenv.config();
 
     const imageUrl = await generateFluxDevImageUrl(prompt);
     if (imageUrl) {
-        const savePath = path.resolve('./data/image/flux_dev/image.jpeg');
+        // 이미지 확장자 추출
+        const extension = path.extname(imageUrl) || '.jpeg'; // 확장자가 없으면 기본값으로 .jpeg 사용
+        const savePath = path.resolve(`./data/image/flux_dev/image${extension}`);
         const dirPath = path.dirname(savePath);
 
         // 폴더가 없으면 생성

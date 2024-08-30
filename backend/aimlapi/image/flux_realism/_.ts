@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import dotenv from "dotenv";
+
 const axios = require('axios');
 
 // // flux중 오픈소스 중간모델이지만 비상업라이센스임
@@ -71,12 +72,14 @@ export async function generateFluxRealismImageSaveImage(prompt: string): Promise
     const imageUrl = await generateFluxRealismImageUrl(prompt);
 
     if (imageUrl) {
-        const savePath = path.resolve('./data/image/flux_realism/image.jpeg');
+        // 이미지 확장자 추출
+        const extension = path.extname(imageUrl) || '.jpeg'; // 확장자가 없으면 기본값으로 .jpeg 사용
+        const savePath = path.resolve(`./data/image/flux_realism/image${extension}`);
         const dirPath = path.dirname(savePath);
 
         // 폴더가 없으면 생성
         if (!fs.existsSync(dirPath)) {
-            fs.mkdirSync(dirPath, { recursive: true });
+            fs.mkdirSync(dirPath, {recursive: true});
         }
 
         // 이미지 다운로드 및 저장
