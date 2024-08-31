@@ -33,8 +33,3 @@ export async function requestNewGpt4oParsedChat(question: string) : Promise<any 
     }
 }
 
-// Example usage:
-(async () => {
-    const event = await requestGpt4oParsedChat("Tell me about the upcoming meeting on Friday.");
-    console.log(event);
-})();

@@ -6,7 +6,7 @@ const fs = require('fs');
 async function main() {
     console.log("start");
 
-    let filePath = await generateFluxRealismImageSaveImage("apple",'/flux/realism');
+    let filePath = await generateFluxRealismImageSaveImage("beautiful k-pop idol man",'/flux/realism');
     console.log("Saved image file: ", filePath);
 }
 

@@ -31,9 +31,3 @@ export async function requestBookSubTitleGpt4oParsedChat(question: string) : Pro
         return null;
     }
 }
-
-// 예제 사용
-(async () => {
-    const subtitles = await requestBookSubTitleGpt4oParsedChat("자기개발책을 쓰는중인데 괜찮은 제목 10개를 물음표로 끝나도록 한국어로 적어줘");
-    console.log(subtitles.subtitles);
-})();
