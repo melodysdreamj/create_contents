@@ -20,7 +20,7 @@ async function main() {
     var appleCooking = await generateTextLlama31_70b("사과 요리에 대해서 2문단정도로 알려줘", 'You are an AI assistant who knows everything.');
     console.log(appleCooking);
 
-    var appleImagePath = await generateFluxDevImageSaveImage("apple") ?? '';
+    var appleImagePath = await generateFluxDevImageSaveImage("apple",'/flux/dev') ?? '';
     console.log("Saved image file: ", appleImagePath);
 
     var fruitObj = new Fruit();

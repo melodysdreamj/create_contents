@@ -58,22 +58,33 @@ export async function downloadAndSaveImage(imageUrl: string, savePath: string): 
 }
 
 // 예시로 호출하는 함수
-export async function generateFluxDevImageSaveImage(prompt: string): Promise<string | null> {
-    dotenv.config();
-
+export async function generateFluxDevImageSaveImage(prompt: string, folderPath: string): Promise<string | null> {
     const imageUrl = await generateFluxDevImageUrl(prompt);
     if (imageUrl) {
-        // 이미지 확장자 추출
-        const extension = path.extname(imageUrl) || '.jpeg'; // 확장자가 없으면 기본값으로 .jpeg 사용
-        const savePath = path.resolve(`./data/image/flux_dev/image${extension}`);
-        const dirPath = path.dirname(savePath);
+        const extension = path.extname(imageUrl) || '.jpeg';
+
+        // 폴더 경로 설정
+        const saveFolder = path.resolve(`./data/image/${folderPath}`);
 
         // 폴더가 없으면 생성
-        if (!fs.existsSync(dirPath)) {
-            fs.mkdirSync(dirPath, { recursive: true });
+        if (!fs.existsSync(saveFolder)) {
+            fs.mkdirSync(saveFolder, { recursive: true });
         }
+
+        // 랜덤 파일명 생성
+        const randomFileName = generateRandomString(12) + extension;
+        const savePath = path.join(saveFolder, randomFileName);
 
         return await downloadAndSaveImage(imageUrl, savePath);
     }
     return null;
+}
+
+function generateRandomString(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
 }

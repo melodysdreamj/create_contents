@@ -6,7 +6,6 @@ flux모델로 사과(apple)의 사진을 생성하고, 가져와서 저장하는
 import {generateTextLlama31_70b} from "../../backend/aimlapi/chat/lllama_31_70b/_";
 import {generateFluxDevImageSaveImage} from "../../backend/aimlapi/image/flux_dev/_";
 import {Fruit, FruitPocketBaseCollection} from "../../backend/pocket_base/database/fruit/_";
-import {TranslateText} from "../../backend/translate-google/_new/_";
 
 async function main() {
     console.log("start");
@@ -33,7 +32,7 @@ async function getFruitInfo(name:string) {
     var appleCooking = await generateTextLlama31_70b(`${name} 요리에 대해서 2문단정도로 알려줘`, 'You are an AI assistant who knows everything.');
     console.log(appleCooking);
 
-    var appleImagePath = await generateFluxDevImageSaveImage(name) ?? '';
+    var appleImagePath = await generateFluxDevImageSaveImage(name,'/flux/dev') ?? '';
     console.log("Saved image file: ", appleImagePath);
 
     var fruitObj = new Fruit();

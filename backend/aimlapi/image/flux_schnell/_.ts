@@ -65,23 +65,34 @@ export async function downloadAndSaveFluxSchnellImage(imageUrl: string, savePath
 }
 
 // Flux 프로 이미지 생성 후 다운로드 및 저장하는 함수
-export async function generateFluxSchnellImageSaveImage(prompt: string): Promise<string | null> {
-    dotenv.config();
-
+export async function generateFluxSchnellImageSaveImage(prompt: string, folderPath: string): Promise<string | null> {
     const imageUrl = await generateFluxSchnellImageUrl(prompt);
-
     if (imageUrl) {
-        const extension = path.extname(imageUrl) || '.jpeg'; // 확장자가 없으면 기본값으로 .jpeg 사용
-        const savePath = path.resolve(`./data/image/flux_schnell/image${extension}`);
-        const dirPath = path.dirname(savePath);
+        const extension = path.extname(imageUrl) || '.jpeg';
+
+        // 폴더 경로 설정
+        const saveFolder = path.resolve(`./data/image/${folderPath}`);
 
         // 폴더가 없으면 생성
-        if (!fs.existsSync(dirPath)) {
-            fs.mkdirSync(dirPath, { recursive: true });
+        if (!fs.existsSync(saveFolder)) {
+            fs.mkdirSync(saveFolder, { recursive: true });
         }
 
-        // 이미지 다운로드 및 저장
+        // 랜덤 파일명 생성
+        const randomFileName = generateRandomString(12) + extension;
+        const savePath = path.join(saveFolder, randomFileName);
+
         return await downloadAndSaveFluxSchnellImage(imageUrl, savePath);
     }
     return null;
+}
+
+// 랜덤 문자열 생성 함수
+function generateRandomString(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
 }

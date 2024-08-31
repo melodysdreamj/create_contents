@@ -6,7 +6,7 @@ const fs = require('fs');
 async function main() {
     console.log("start");
 
-    let filePath = await generateFluxSchnellImageSaveImage("apple");
+    let filePath = await generateFluxSchnellImageSaveImage("apple",'/flux/schnell');
     console.log("Saved image file: ", filePath);
 }
 

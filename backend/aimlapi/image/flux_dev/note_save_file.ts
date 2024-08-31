@@ -6,7 +6,7 @@ const fs = require('fs');
 async function main() {
     console.log("start");
 
-    let filePath = await generateFluxDevImageSaveImage("girl on sward");
+    let filePath = await generateFluxDevImageSaveImage("girl on sward",'/flux/dev');
     console.log("Saved image file: ", filePath);
 }
 
