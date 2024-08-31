@@ -15,7 +15,7 @@ const CalendarEvent = z.object({
     participants: z.array(z.string()),
 });
 
-export async function requestGpt4oParsedChat(question: string) : Promise<any | null> {
+export async function requestNewGpt4oParsedChat(question: string) : Promise<any | null> {
     try {
         const completion = await openai.beta.chat.completions.parse({
             model: "gpt-4o-2024-08-06",
