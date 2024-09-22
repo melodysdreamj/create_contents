@@ -1,5 +1,6 @@
 async function main() {
     console.log("start");
+
 }
 
 main().catch(err => {

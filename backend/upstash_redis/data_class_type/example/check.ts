@@ -1987,9 +1987,9 @@ export class Check {
 
 export class CheckRedis {
 
-    static ref:any;
+    private static ref:any;
 
-    static _ready = false;
+    private static _ready = false;
 
     static async getDb() {
         if (CheckRedis._ready) return;
@@ -2009,14 +2009,14 @@ export class CheckRedis {
 
     static async upsert(object: Check): Promise<void> {
         await CheckRedis.getDb();
-        await CheckRedis.ref.set(`class:${object.docId}`, object.toDataString())
+        await CheckRedis.ref.set(`class:Check:${object.docId}`, object.toDataString())
     }
 
 
     static async get(docId: string): Promise<Check | null> {
         try {
             await CheckRedis.getDb();
-            const result = await CheckRedis.ref.get(`class:${docId}`)
+            const result = await CheckRedis.ref.get(`class:Check:${docId}`)
             return Check.fromDataString(result as string);
         } catch (e) {
             console.log(e);
@@ -2026,6 +2026,6 @@ export class CheckRedis {
 
     static async delete(docId: string): Promise<void> {
         await CheckRedis.getDb();
-        await CheckRedis.ref.del(`class:${docId}`)
+        await CheckRedis.ref.del(`class:Check:${docId}`)
     }
 }

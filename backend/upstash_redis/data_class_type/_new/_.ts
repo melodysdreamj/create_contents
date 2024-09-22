@@ -1984,9 +1984,9 @@ export class New {
 
 export class NewRedis {
 
-    static ref:any;
+    private static ref:any;
 
-    static _ready = false;
+    private  static _ready = false;
 
     static async getDb() {
         if (NewRedis._ready) return;
@@ -2004,14 +2004,14 @@ export class NewRedis {
 
     static async upsert(object: New): Promise<void> {
         await NewRedis.getDb();
-        await NewRedis.ref.set(`class:${object.docId}`, object.toDataString())
+        await NewRedis.ref.set(`class:New:${object.docId}`, object.toDataString())
     }
 
 
     static async get(docId: string): Promise<New | null> {
         try {
             await NewRedis.getDb();
-            const result = await NewRedis.ref.get(`class:${docId}`)
+            const result = await NewRedis.ref.get(`class:New:${docId}`)
             return New.fromDataString(result as string);
         } catch (e) {
             console.log(e);
@@ -2021,6 +2021,6 @@ export class NewRedis {
 
     static async delete(docId: string): Promise<void> {
         await NewRedis.getDb();
-        await NewRedis.ref.del(`class:${docId}`)
+        await NewRedis.ref.del(`class:New:${docId}`)
     }
 }
