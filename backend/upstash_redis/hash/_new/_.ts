@@ -3,7 +3,7 @@ import { Redis } from "@upstash/redis";
 
 export class NewRedisHash {
 
-    private static ref: any;
+    private static ref: Redis;
 
     private static _ready = false;
 
@@ -12,7 +12,7 @@ export class NewRedisHash {
         dotenv.config();
         // 로그인 (아이디와 비밀번호 설정 필요)
         NewRedisHash.ref = new Redis({
-            url: process.env.UPSTASH_URL,
+            url: `https://${process.env.UPSTASH_URL}`,
             token: process.env.UPSTASH_TOKEN,
         });
 
@@ -22,7 +22,7 @@ export class NewRedisHash {
     // 해시 데이터 저장 및 업데이트 (필드-값 추가)
     static async upsert(key: string, field: string, value: string): Promise<void> {
         await NewRedisHash.getDb();
-        await NewRedisHash.ref.hset(`hash:New:${key}`, field, value);
+        await NewRedisHash.ref.hset(`hash:New:${key}`, { [field]: value });
     }
 
     // 해시에서 특정 필드 값을 가져오기

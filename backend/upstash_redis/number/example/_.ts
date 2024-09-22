@@ -3,7 +3,7 @@ import {Redis} from "@upstash/redis";
 
 export class ExampleRedisNumber {
 
-    private static ref:any;
+    private static ref: Redis;
 
     private static _ready = false;
 
@@ -14,7 +14,7 @@ export class ExampleRedisNumber {
 
 
         ExampleRedisNumber.ref = new Redis({
-            url: process.env.UPSTASH_URL,
+            url: `https://${process.env.UPSTASH_URL}`,
             token: process.env.UPSTASH_TOKEN,
         })
 

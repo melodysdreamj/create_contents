@@ -3,7 +3,7 @@ import { Redis } from "@upstash/redis";
 
 export class NewRedisSortedSet {
 
-    private static ref: any;
+    private static ref: Redis;
 
     private static _ready = false;
 
@@ -12,7 +12,7 @@ export class NewRedisSortedSet {
         dotenv.config();
         // 로그인 (아이디와 비밀번호 설정 필요)
         NewRedisSortedSet.ref = new Redis({
-            url: process.env.UPSTASH_URL,
+            url: `https://${process.env.UPSTASH_URL}`,
             token: process.env.UPSTASH_TOKEN,
         });
 
@@ -59,7 +59,8 @@ export class NewRedisSortedSet {
     static async getRangeByScoreDesc(key: string, start: number, end: number): Promise<string[] | null> {
         try {
             await NewRedisSortedSet.getDb();
-            const result = await NewRedisSortedSet.ref.zrevrange(`sortedset:New:${key}`, start, end);
+            // zrange를 사용하고 내림차순으로 정렬
+            const result = await NewRedisSortedSet.ref.zrange(`sortedset:New:${key}`, start, end, { rev: true });
             return result as string[];
         } catch (e) {
             console.log(e);
@@ -119,11 +120,10 @@ export class NewRedisSortedSet {
     static async getRangeByScore(key: string, minScore: number, maxScore: number): Promise<string[] | null> {
         try {
             await NewRedisSortedSet.getDb();
+            // zrange 사용, 점수 기반으로 범위 지정
             const result = await NewRedisSortedSet.ref.zrange(`sortedset:New:${key}`, minScore, maxScore, {
-                byScore: true, // 점수 기준으로 범위를 지정하는 옵션 추가
-                // minScore와 maxScore 값이 범위에 포함되도록 지정합니다.
-                min: `${minScore}`,
-                max: `${maxScore}`
+                byScore: true,  // 점수 기반으로 정렬
+                withScores: false,  // 점수 포함 여부 (false로 설정 가능)
             });
             return result as string[];
         } catch (e) {

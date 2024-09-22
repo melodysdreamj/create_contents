@@ -3,7 +3,7 @@ import { Redis } from "@upstash/redis";
 
 export class ExampleRedisList {
 
-    private static ref: any;
+    private static ref: Redis;
 
     private static _ready = false;
 
@@ -12,7 +12,7 @@ export class ExampleRedisList {
         dotenv.config();
         // 로그인 (아이디와 비밀번호 설정 필요)
         ExampleRedisList.ref = new Redis({
-            url: process.env.UPSTASH_URL,
+            url: `https://${process.env.UPSTASH_URL}`,
             token: process.env.UPSTASH_TOKEN,
         });
 

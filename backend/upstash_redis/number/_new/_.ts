@@ -3,7 +3,7 @@ import {Redis} from "@upstash/redis";
 
 export class NewRedisNumber {
 
-    private static ref: any;
+    private static ref: Redis;
 
     private static _ready = false;
 
@@ -12,7 +12,7 @@ export class NewRedisNumber {
         dotenv.config();
         // 로그인 (아이디와 비밀번호 설정 필요)
         NewRedisNumber.ref = new Redis({
-            url: process.env.UPSTASH_URL,
+            url: `https://${process.env.UPSTASH_URL}`,
             token: process.env.UPSTASH_TOKEN,
         });
 
@@ -28,7 +28,7 @@ export class NewRedisNumber {
         try {
             await NewRedisNumber.getDb();
             const result = await NewRedisNumber.ref.get(`num:New:${key}`);
-            return parseFloat(result); // 문자열을 숫자로 변환
+            return result as number;
         } catch (e) {
             console.log(e);
             return null;
@@ -67,7 +67,7 @@ export class NewRedisNumber {
         try {
             await NewRedisNumber.getDb();
             const result = await NewRedisNumber.ref.incrbyfloat(`num:New:${key}`, value);
-            return parseFloat(result); // 문자열을 숫자로 변환
+            return result as number; // 문자열을 숫자로 변환
         } catch (e) {
             console.log(e);
             return null;
@@ -80,7 +80,7 @@ export class NewRedisNumber {
             await NewRedisNumber.getDb();
             // 값을 빼려면 음수 값을 더하면 됨
             const result = await NewRedisNumber.ref.incrbyfloat(`num:New:${key}`, -value);
-            return parseFloat(result); // 문자열을 숫자로 변환
+            return result as number
         } catch (e) {
             console.log(e);
             return null;

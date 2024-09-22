@@ -8,7 +8,7 @@ async function main() {
     dotenv.config();
 
     const redis = new Redis({
-        url: process.env.UPSTASH_URL,
+        url: `https://${process.env.UPSTASH_URL}`,
         token: process.env.UPSTASH_TOKEN,
     })
 

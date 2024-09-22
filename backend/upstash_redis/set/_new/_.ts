@@ -3,7 +3,7 @@ import { Redis } from "@upstash/redis";
 
 export class NewRedisSet {
 
-    private static ref: any;
+    private static ref: Redis;
 
     private static _ready = false;
 
@@ -12,7 +12,7 @@ export class NewRedisSet {
         dotenv.config();
         // 로그인 (아이디와 비밀번호 설정 필요)
         NewRedisSet.ref = new Redis({
-            url: process.env.UPSTASH_URL,
+            url: `https://${process.env.UPSTASH_URL}`,
             token: process.env.UPSTASH_TOKEN,
         });
 
@@ -93,7 +93,9 @@ export class NewRedisSet {
     static async intersect(keys: string[]): Promise<string[] | null> {
         try {
             await NewRedisSet.getDb();
-            const result = await NewRedisSet.ref.sinter(...keys.map(key => `set:New:${key}`));
+            if (keys.length === 0) return null;
+            const [firstKey, ...restKeys] = keys.map(key => `set:New:${key}`);
+            const result = await NewRedisSet.ref.sinter(firstKey, ...restKeys);
             return result as string[];
         } catch (e) {
             console.log(e);
@@ -105,7 +107,9 @@ export class NewRedisSet {
     static async union(keys: string[]): Promise<string[] | null> {
         try {
             await NewRedisSet.getDb();
-            const result = await NewRedisSet.ref.sunion(...keys.map(key => `set:New:${key}`));
+            if (keys.length === 0) return null;
+            const [firstKey, ...restKeys] = keys.map(key => `set:New:${key}`);
+            const result = await NewRedisSet.ref.sunion(firstKey, ...restKeys);
             return result as string[];
         } catch (e) {
             console.log(e);
@@ -117,7 +121,9 @@ export class NewRedisSet {
     static async difference(keys: string[]): Promise<string[] | null> {
         try {
             await NewRedisSet.getDb();
-            const result = await NewRedisSet.ref.sdiff(...keys.map(key => `set:New:${key}`));
+            if (keys.length === 0) return null;
+            const [firstKey, ...restKeys] = keys.map(key => `set:New:${key}`);
+            const result = await NewRedisSet.ref.sdiff(firstKey, ...restKeys);
             return result as string[];
         } catch (e) {
             console.log(e);

@@ -1984,7 +1984,7 @@ export class New {
 
 export class NewRedis {
 
-    private static ref:any;
+    private static ref: Redis;
 
     private  static _ready = false;
 
@@ -1995,7 +1995,7 @@ export class NewRedis {
 
 
         NewRedis.ref = new Redis({
-            url: process.env.UPSTASH_URL,
+            url: `https://${process.env.UPSTASH_URL}`,
             token: process.env.UPSTASH_TOKEN,
         })
 
