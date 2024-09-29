@@ -30,3 +30,12 @@ The `serviceAccountKey.json` file is the service account key for your Firebase p
 ## 포컷베이스 와 b2 같이 사용할때 
 b2에서 keyID 가 Access Key이고 applicationKey 가 Secret Key이다. 그에 맞게 설정하면 된다.
 Endpoint, Bucket, Region(예: us-west-001)을 설정하면 된다.
+
+
+## Memcached
+### macOS
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install memcached
+memcached -d -p 11211
+brew services start memcached
+brew services list
