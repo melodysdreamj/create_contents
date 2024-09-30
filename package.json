@@ -16,7 +16,7 @@
     "@anthropic-ai/sdk": "^0.27.0",
     "@google-cloud/firestore": "^7.9.0",
     "@google-cloud/translate": "^8.3.0",
-    "@google/generative-ai": "^0.13.0",
+    "@google/generative-ai": "^0.20.0",
     "@melodysdreamj/cloudflare-workers-kv": "^1.0.4",
     "@types/memcached": "^2.2.10",
     "@upstash/redis": "^1.34.0",
