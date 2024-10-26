@@ -3636,6 +3636,798 @@ export class NewSqlite {
         await this.runQuery(sql, values);
     }
 
+    static async insertBulk(objects: New[]) {
+        await NewSqlite.getDb();
+
+        const sql = `insert into New (` +
+            `docId` +
+            // `,s000` +
+            // `,s001` +
+            // `,s002` +
+            // `,s003` +
+            // `,s004` +
+            // `,s005` +
+            // `,s006` +
+            // `,s007` +
+            // `,s008` +
+            // `,s009` +
+            // `,s010` +
+            // `,s011` +
+            // `,s012` +
+            // `,s013` +
+            // `,s014` +
+            // `,s015` +
+            // `,s016` +
+            // `,s017` +
+            // `,s018` +
+            // `,s019` +
+            // `,s020` +
+            // `,s021` +
+            // `,s022` +
+            // `,s023` +
+            // `,s024` +
+            // `,s025` +
+            // `,s026` +
+            // `,s027` +
+            // `,s028` +
+            // `,s029` +
+            // `,s030` +
+            // `,s031` +
+            // `,s032` +
+            // `,s033` +
+            // `,s034` +
+            // `,s035` +
+            // `,s036` +
+            // `,s037` +
+            // `,s038` +
+            // `,s039` +
+            // `,s040` +
+            // `,s041` +
+            // `,s042` +
+            // `,s043` +
+            // `,s044` +
+            // `,s045` +
+            // `,s046` +
+            // `,s047` +
+            // `,s048` +
+            // `,s049` +
+            // `,s050` +
+            // `,s051` +
+            // `,s052` +
+            // `,s053` +
+            // `,s054` +
+            // `,s055` +
+            // `,s056` +
+            // `,s057` +
+            // `,s058` +
+            // `,s059` +
+            // `,s060` +
+            // `,s061` +
+            // `,s062` +
+            // `,s063` +
+            // `,s064` +
+            // `,s065` +
+            // `,s066` +
+            // `,s067` +
+            // `,s068` +
+            // `,s069` +
+            // `,s070` +
+            // `,s071` +
+            // `,s072` +
+            // `,s073` +
+            // `,s074` +
+            // `,s075` +
+            // `,s076` +
+            // `,s077` +
+            // `,s078` +
+            // `,s079` +
+            // `,s080` +
+            // `,s081` +
+            // `,s082` +
+            // `,s083` +
+            // `,s084` +
+            // `,s085` +
+            // `,s086` +
+            // `,s087` +
+            // `,s088` +
+            // `,s089` +
+            // `,s090` +
+            // `,s091` +
+            // `,s092` +
+            // `,s093` +
+            // `,s094` +
+            // `,s095` +
+            // `,s096` +
+            // `,s097` +
+            // `,s098` +
+            // `,s099` +
+            // `,i000` +
+            // `,i001` +
+            // `,i002` +
+            // `,i003` +
+            // `,i004` +
+            // `,i005` +
+            // `,i006` +
+            // `,i007` +
+            // `,i008` +
+            // `,i009` +
+            // `,i010` +
+            // `,i011` +
+            // `,i012` +
+            // `,i013` +
+            // `,i014` +
+            // `,i015` +
+            // `,i016` +
+            // `,i017` +
+            // `,i018` +
+            // `,i019` +
+            // `,i020` +
+            // `,i021` +
+            // `,i022` +
+            // `,i023` +
+            // `,i024` +
+            // `,i025` +
+            // `,i026` +
+            // `,i027` +
+            // `,i028` +
+            // `,i029` +
+            // `,i030` +
+            // `,i031` +
+            // `,i032` +
+            // `,i033` +
+            // `,i034` +
+            // `,i035` +
+            // `,i036` +
+            // `,i037` +
+            // `,i038` +
+            // `,i039` +
+            // `,i040` +
+            // `,i041` +
+            // `,i042` +
+            // `,i043` +
+            // `,i044` +
+            // `,i045` +
+            // `,i046` +
+            // `,i047` +
+            // `,i048` +
+            // `,i049` +
+            // `,i050` +
+            // `,i051` +
+            // `,i052` +
+            // `,i053` +
+            // `,i054` +
+            // `,i055` +
+            // `,i056` +
+            // `,i057` +
+            // `,i058` +
+            // `,i059` +
+            // `,i060` +
+            // `,i061` +
+            // `,i062` +
+            // `,i063` +
+            // `,i064` +
+            // `,i065` +
+            // `,i066` +
+            // `,i067` +
+            // `,i068` +
+            // `,i069` +
+            // `,i070` +
+            // `,i071` +
+            // `,i072` +
+            // `,i073` +
+            // `,i074` +
+            // `,i075` +
+            // `,i076` +
+            // `,i077` +
+            // `,i078` +
+            // `,i079` +
+            // `,i080` +
+            // `,i081` +
+            // `,i082` +
+            // `,i083` +
+            // `,i084` +
+            // `,i085` +
+            // `,i086` +
+            // `,i087` +
+            // `,i088` +
+            // `,i089` +
+            // `,i090` +
+            // `,i091` +
+            // `,i092` +
+            // `,i093` +
+            // `,i094` +
+            // `,i095` +
+            // `,i096` +
+            // `,i097` +
+            // `,i098` +
+            // `,i099` +
+            // `,b000` +
+            // `,b001` +
+            // `,b002` +
+            // `,b003` +
+            // `,b004` +
+            // `,b005` +
+            // `,b006` +
+            // `,b007` +
+            // `,b008` +
+            // `,b009` +
+            // `,b010` +
+            // `,b011` +
+            // `,b012` +
+            // `,b013` +
+            // `,b014` +
+            // `,b015` +
+            // `,b016` +
+            // `,b017` +
+            // `,b018` +
+            // `,b019` +
+            // `,b020` +
+            // `,b021` +
+            // `,b022` +
+            // `,b023` +
+            // `,b024` +
+            // `,b025` +
+            // `,b026` +
+            // `,b027` +
+            // `,b028` +
+            // `,b029` +
+            // `,b030` +
+            // `,r000` +
+            // `,r001` +
+            // `,r002` +
+            // `,r003` +
+            // `,r004` +
+            // `,r005` +
+            // `,r006` +
+            // `,r007` +
+            // `,r008` +
+            // `,r009` +
+            // `,r010` +
+            // `,r011` +
+            // `,r012` +
+            // `,r013` +
+            // `,r014` +
+            // `,r015` +
+            // `,r016` +
+            // `,r017` +
+            // `,r018` +
+            // `,r019` +
+            // `,r020` +
+            // `,r021` +
+            // `,r022` +
+            // `,r023` +
+            // `,r024` +
+            // `,r025` +
+            // `,r026` +
+            // `,r027` +
+            // `,r028` +
+            // `,r029` +
+            // `,r030` +
+            // `,t000` +
+            // `,t001` +
+            // `,t002` +
+            // `,t003` +
+            // `,t004` +
+            // `,t005` +
+            // `,t006` +
+            // `,t007` +
+            // `,t008` +
+            // `,t009` +
+            // `,t010` +
+            // `,t011` +
+            // `,t012` +
+            // `,t013` +
+            // `,t014` +
+            // `,t015` +
+            // `,t016` +
+            // `,t017` +
+            // `,t018` +
+            // `,t019` +
+            // `,t020` +
+            // `,l000` +
+            // `,l001` +
+            // `,l002` +
+            // `,l003` +
+            // `,l004` +
+            // `,l005` +
+            // `,l006` +
+            // `,l007` +
+            // `,l008` +
+            // `,l009` +
+            // `,l010` +
+            // `,l011` +
+            // `,l012` +
+            // `,l013` +
+            // `,l014` +
+            // `,l015` +
+            // `,l016` +
+            // `,l017` +
+            // `,l018` +
+            // `,l019` +
+            // `,l020` +
+            // `,m000` +
+            // `,m001` +
+            // `,m002` +
+            // `,m003` +
+            // `,m004` +
+            // `,m005` +
+            // `,m006` +
+            // `,m007` +
+            // `,m008` +
+            // `,m009` +
+            // `,m010` +
+            // `,m011` +
+            // `,m012` +
+            // `,m013` +
+            // `,m014` +
+            // `,m015` +
+            // `,m016` +
+            // `,m017` +
+            // `,m018` +
+            // `,m019` +
+            // `,m020` +
+            // `,c000` +
+            // `,c001` +
+            // `,c002` +
+            // `,c003` +
+            // `,c004` +
+            // `,c005` +
+            // `,c006` +
+            // `,c007` +
+            // `,c008` +
+            // `,c009` +
+            // `,c010` +
+            // `,c011` +
+            // `,c012` +
+            // `,c013` +
+            // `,c014` +
+            // `,c015` +
+            // `,c016` +
+            // `,c017` +
+            // `,c018` +
+            // `,c019` +
+            // `,c020` +
+            // `,j000` +
+            // `,j001` +
+            // `,j002` +
+            // `,j003` +
+            // `,j004` +
+            // `,j005` +
+            // `,j006` +
+            // `,j007` +
+            // `,j008` +
+            // `,j009` +
+            // `,j010` +
+            // `,j011` +
+            // `,j012` +
+            // `,j013` +
+            // `,j014` +
+            // `,j015` +
+            // `,j016` +
+            // `,j017` +
+            // `,j018` +
+            // `,j019` +
+            // `,j020` +
+            // `,e000` +
+            // `,e001` +
+            // `,e002` +
+            // `,e003` +
+            // `,e004` +
+            // `,e005` +
+            // `,e006` +
+            // `,e007` +
+            // `,e008` +
+            // `,e009` +
+            // `,e010` +
+            // `,e011` +
+            // `,e012` +
+            // `,e013` +
+            // `,e014` +
+            // `,e015` +
+            // `,e016` +
+            // `,e017` +
+            // `,e018` +
+            // `,e019` +
+            // `,e020` +
+            `) values `;
+        const values = objects.map((object: New) => `(?)`).join(',');
+        const valuesArray = objects.map((object: New) => [
+            object.docId,
+            // object.s000,
+            // object.s001,
+            // object.s002,
+            // object.s003,
+            // object.s004,
+            // object.s005,
+            // object.s006,
+            // object.s007,
+            // object.s008,
+            // object.s009,
+            // object.s010,
+            // object.s011,
+            // object.s012,
+            // object.s013,
+            // object.s014,
+            // object.s015,
+            // object.s016,
+            // object.s017,
+            // object.s018,
+            // object.s019,
+            // object.s020,
+            // object.s021,
+            // object.s022,
+            // object.s023,
+            // object.s024,
+            // object.s025,
+            // object.s026,
+            // object.s027,
+            // object.s028,
+            // object.s029,
+            // object.s030,
+            // object.s031,
+            // object.s032,
+            // object.s033,
+            // object.s034,
+            // object.s035,
+            // object.s036,
+            // object.s037,
+            // object.s038,
+            // object.s039,
+            // object.s040,
+            // object.s041,
+            // object.s042,
+            // object.s043,
+            // object.s044,
+            // object.s045,
+            // object.s046,
+            // object.s047,
+            // object.s048,
+            // object.s049,
+            // object.s050,
+            // object.s051,
+            // object.s052,
+            // object.s053,
+            // object.s054,
+            // object.s055,
+            // object.s056,
+            // object.s057,
+            // object.s058,
+            // object.s059,
+            // object.s060,
+            // object.s061,
+            // object.s062,
+            // object.s063,
+            // object.s064,
+            // object.s065,
+            // object.s066,
+            // object.s067,
+            // object.s068,
+            // object.s069,
+            // object.s070,
+            // object.s071,
+            // object.s072,
+            // object.s073,
+            // object.s074,
+            // object.s075,
+            // object.s076,
+            // object.s077,
+            // object.s078,
+            // object.s079,
+            // object.s080,
+            // object.s081,
+            // object.s082,
+            // object.s083,
+            // object.s084,
+            // object.s085,
+            // object.s086,
+            // object.s087,
+            // object.s088,
+            // object.s089,
+            // object.s090,
+            // object.s091,
+            // object.s092,
+            // object.s093,
+            // object.s094,
+            // object.s095,
+            // object.s096,
+            // object.s097,
+            // object.s098,
+            // object.s099,
+            // object.i000,
+            // object.i001,
+            // object.i002,
+            // object.i003,
+            // object.i004,
+            // object.i005,
+            // object.i006,
+            // object.i007,
+            // object.i008,
+            // object.i009,
+            // object.i010,
+            // object.i011,
+            // object.i012,
+            // object.i013,
+            // object.i014,
+            // object.i015,
+            // object.i016,
+            // object.i017,
+            // object.i018,
+            // object.i019,
+            // object.i020,
+            // object.i021,
+            // object.i022,
+            // object.i023,
+            // object.i024,
+            // object.i025,
+            // object.i026,
+            // object.i027,
+            // object.i028,
+            // object.i029,
+            // object.i030,
+            // object.i031,
+            // object.i032,
+            // object.i033,
+            // object.i034,
+            // object.i035,
+            // object.i036,
+            // object.i037,
+            // object.i038,
+            // object.i039,
+            // object.i040,
+            // object.i041,
+            // object.i042,
+            // object.i043,
+            // object.i044,
+            // object.i045,
+            // object.i046,
+            // object.i047,
+            // object.i048,
+            // object.i049,
+            // object.i050,
+            // object.i051,
+            // object.i052,
+            // object.i053,
+            // object.i054,
+            // object.i055,
+            // object.i056,
+            // object.i057,
+            // object.i058,
+            // object.i059,
+            // object.i060,
+            // object.i061,
+            // object.i062,
+            // object.i063,
+            // object.i064,
+            // object.i065,
+            // object.i066,
+            // object.i067,
+            // object.i068,
+            // object.i069,
+            // object.i070,
+            // object.i071,
+            // object.i072,
+            // object.i073,
+            // object.i074,
+            // object.i075,
+            // object.i076,
+            // object.i077,
+            // object.i078,
+            // object.i079,
+            // object.i080,
+            // object.i081,
+            // object.i082,
+            // object.i083,
+            // object.i084,
+            // object.i085,
+            // object.i086,
+            // object.i087,
+            // object.i088,
+            // object.i089,
+            // object.i090,
+            // object.i091,
+            // object.i092,
+            // object.i093,
+            // object.i094,
+            // object.i095,
+            // object.i096,
+            // object.i097,
+            // object.i098,
+            // object.i099,
+            // object.b000 ? 1 : 0,
+            // object.b001 ? 1 : 0,
+            // object.b002 ? 1 : 0,
+            // object.b003 ? 1 : 0,
+            // object.b004 ? 1 : 0,
+            // object.b005 ? 1 : 0,
+            // object.b006 ? 1 : 0,
+            // object.b007 ? 1 : 0,
+            // object.b008 ? 1 : 0,
+            // object.b009 ? 1 : 0,
+            // object.b010 ? 1 : 0,
+            // object.b011 ? 1 : 0,
+            // object.b012 ? 1 : 0,
+            // object.b013 ? 1 : 0,
+            // object.b014 ? 1 : 0,
+            // object.b015 ? 1 : 0,
+            // object.b016 ? 1 : 0,
+            // object.b017 ? 1 : 0,
+            // object.b018 ? 1 : 0,
+            // object.b019 ? 1 : 0,
+            // object.b020 ? 1 : 0,
+            // object.b021 ? 1 : 0,
+            // object.b022 ? 1 : 0,
+            // object.b023 ? 1 : 0,
+            // object.b024 ? 1 : 0,
+            // object.b025 ? 1 : 0,
+            // object.b026 ? 1 : 0,
+            // object.b027 ? 1 : 0,
+            // object.b028 ? 1 : 0,
+            // object.b029 ? 1 : 0,
+            // object.b030 ? 1 : 0,
+            // object.r000,
+            // object.r001,
+            // object.r002,
+            // object.r003,
+            // object.r004,
+            // object.r005,
+            // object.r006,
+            // object.r007,
+            // object.r008,
+            // object.r009,
+            // object.r010,
+            // object.r011,
+            // object.r012,
+            // object.r013,
+            // object.r014,
+            // object.r015,
+            // object.r016,
+            // object.r017,
+            // object.r018,
+            // object.r019,
+            // object.r020,
+            // object.r021,
+            // object.r022,
+            // object.r023,
+            // object.r024,
+            // object.r025,
+            // object.r026,
+            // object.r027,
+            // object.r028,
+            // object.r029,
+            // object.r030,
+            // object.t000.getTime(),
+            // object.t001.getTime(),
+            // object.t002.getTime(),
+            // object.t003.getTime(),
+            // object.t004.getTime(),
+            // object.t005.getTime(),
+            // object.t006.getTime(),
+            // object.t007.getTime(),
+            // object.t008.getTime(),
+            // object.t009.getTime(),
+            // object.t010.getTime(),
+            // object.t011.getTime(),
+            // object.t012.getTime(),
+            // object.t013.getTime(),
+            // object.t014.getTime(),
+            // object.t015.getTime(),
+            // object.t016.getTime(),
+            // object.t017.getTime(),
+            // object.t018.getTime(),
+            // object.t019.getTime(),
+            // object.t020.getTime(),
+            // JSON.stringify(object.l000),
+            // JSON.stringify(object.l001),
+            // JSON.stringify(object.l002),
+            // JSON.stringify(object.l003),
+            // JSON.stringify(object.l004),
+            // JSON.stringify(object.l005),
+            // JSON.stringify(object.l006),
+            // JSON.stringify(object.l007),
+            // JSON.stringify(object.l008),
+            // JSON.stringify(object.l009),
+            // JSON.stringify(object.l010),
+            // JSON.stringify(object.l011),
+            // JSON.stringify(object.l012),
+            // JSON.stringify(object.l013),
+            // JSON.stringify(object.l014),
+            // JSON.stringify(object.l015),
+            // JSON.stringify(object.l016),
+            // JSON.stringify(object.l017),
+            // JSON.stringify(object.l018),
+            // JSON.stringify(object.l019),
+            // JSON.stringify(object.l020),
+            // JSON.stringify(object.m000),
+            // JSON.stringify(object.m001),
+            // JSON.stringify(object.m002),
+            // JSON.stringify(object.m003),
+            // JSON.stringify(object.m004),
+            // JSON.stringify(object.m005),
+            // JSON.stringify(object.m006),
+            // JSON.stringify(object.m007),
+            // JSON.stringify(object.m008),
+            // JSON.stringify(object.m009),
+            // JSON.stringify(object.m010),
+            // JSON.stringify(object.m011),
+            // JSON.stringify(object.m012),
+            // JSON.stringify(object.m013),
+            // JSON.stringify(object.m014),
+            // JSON.stringify(object.m015),
+            // JSON.stringify(object.m016),
+            // JSON.stringify(object.m017),
+            // JSON.stringify(object.m018),
+            // JSON.stringify(object.m019),
+            // JSON.stringify(object.m020),
+            // object.c000.toDataString(),
+            // object.c001.toDataString(),
+            // object.c002.toDataString(),
+            // object.c003.toDataString(),
+            // object.c004.toDataString(),
+            // object.c005.toDataString(),
+            // object.c006.toDataString(),
+            // object.c007.toDataString(),
+            // object.c008.toDataString(),
+            // object.c009.toDataString(),
+            // object.c010.toDataString(),
+            // object.c011.toDataString(),
+            // object.c012.toDataString(),
+            // object.c013.toDataString(),
+            // object.c014.toDataString(),
+            // object.c015.toDataString(),
+            // object.c016.toDataString(),
+            // object.c017.toDataString(),
+            // object.c018.toDataString(),
+            // object.c019.toDataString(),
+            // object.c020.toDataString(),
+            // JSON.stringify(object.j000.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j001.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j002.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j003.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j004.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j005.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j006.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j007.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j008.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j009.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j010.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j011.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j012.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j013.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j014.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j015.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j016.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j017.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j018.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j019.map((model: OtherModel) => model.toDataString())),
+            // JSON.stringify(object.j020.map((model: OtherModel) => model.toDataString())),
+            // object.e000,
+            // object.e001,
+            // object.e002,
+            // object.e003,
+            // object.e004,
+            // object.e005,
+            // object.e006,
+            // object.e007,
+            // object.e008,
+            // object.e009,
+            // object.e010,
+            // object.e011,
+            // object.e012,
+            // object.e013,
+            // object.e014,
+            // object.e015,
+            // object.e016,
+            // object.e017,
+            // object.e018,
+            // object.e019,
+            // object.e020,
+        ]);
+
+        await this.runQuery(sql + values, valuesArray);
+
+
+    }
+
     static async update(object: New) {
 
         await NewSqlite.getDb();
