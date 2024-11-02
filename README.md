@@ -1,11 +1,41 @@
-## Set Webstorm environment 
+## Set Up Environment for Running `npx tsx`
+
+### WebStorm
+
 1. Go to **Tools** -> **External Tools**.
 2. Click the **+** button to add a new tool.
 3. Set the name to `npx tsx`.
 4. Configure the Tool Settings as follows:
-    - **Program**: `npx`
-    - **Arguments**: `tsx $FilePathRelativeToProjectRoot$`
-    - **Working directory**: `$ProjectFileDir$`
+   - **Program**: `npx`
+   - **Arguments**: `tsx $FilePathRelativeToProjectRoot$`
+   - **Working directory**: `$ProjectFileDir$`
+
+### VS Code
+
+1. Install the **Code Runner** extension from the Extensions tab.
+2. Open **Settings** in JSON format:
+   - Press `Ctrl + Shift + P` (or `Cmd + Shift + P` on macOS) to open the Command Palette.
+   - Search for `Preferences: Open Settings (JSON)` and select it.
+3. Add the following configuration to your `settings.json` file:
+
+   \`\`\`json
+   {
+       "code-runner.executorMap": {
+           "typescript": "npx tsx ${file}"
+       },
+       "code-runner.runInTerminal": true
+   }
+   \`\`\`
+
+   - `"typescript": "npx tsx ${file}"`: This tells VS Code to use `npx tsx` for TypeScript files and passes the full file path with `${file}`.
+   - `"code-runner.runInTerminal": true`: Ensures the command runs in the terminal, preserving the correct file path.
+
+4. To execute a file:
+   - Open the file you want to run.
+   - Right-click within the file editor and select **Run Code**.
+
+This will run the current file using `npx tsx` directly in the terminal.
+
 
 ## Obtaining the `serviceAccountKey.json` File
 
