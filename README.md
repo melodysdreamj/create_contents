@@ -18,14 +18,14 @@
    - Search for `Preferences: Open Settings (JSON)` and select it.
 3. Add the following configuration to your `settings.json` file:
 
-   \`\`\`json
+   ```json
    {
        "code-runner.executorMap": {
            "typescript": "npx tsx ${file}"
        },
        "code-runner.runInTerminal": true
    }
-   \`\`\`
+   ```
 
    - `"typescript": "npx tsx ${file}"`: This tells VS Code to use `npx tsx` for TypeScript files and passes the full file path with `${file}`.
    - `"code-runner.runInTerminal": true`: Ensures the command runs in the terminal, preserving the correct file path.
@@ -69,3 +69,45 @@ brew install memcached
 memcached -d -p 11211
 brew services start memcached
 brew services list
+
+
+## client-DynamoDB
+
+To interact with DynamoDB from this client, you need to set up AWS credentials and region information.
+
+### Required Environment Variables
+
+Make sure to set the following environment variables in your project:
+
+```plaintext
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+AWS_REGION=us-east-1
+```
+
+### How to Obtain These Values
+
+1. **Create an IAM User** in the AWS Console:
+   - Go to [AWS IAM Console](https://console.aws.amazon.com/iam/) and create a new user with **programmatic access**.
+   - Attach the required permissions, such as \`AmazonDynamoDBFullAccess\` or \`AmazonDynamoDBReadOnlyAccess\`, depending on your application's needs.
+   - Once the user is created, you will see the **Access Key ID** and **Secret Access Key**. **Save these securely**, as you won't be able to view the Secret Access Key again.
+
+2. **Set the AWS Region**:
+   - Choose the AWS region where your DynamoDB table is located. 
+   - Common region codes include:
+     - \`us-east-1\` for US East (N. Virginia)
+     - \`us-west-1\` for US West (N. California)
+     - \`ap-northeast-2\` for Asia Pacific (Seoul)
+   - Set this region code as the value of \`AWS_REGION\`.
+
+### Example .env File
+
+For local development, you can create a \`.env\` file in the project root:
+
+```dotenv
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+AWS_REGION=us-east-1
+```
+
+Ensure that your environment is configured securely and that sensitive credentials are never exposed in public repositories.
