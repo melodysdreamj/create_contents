@@ -51,7 +51,6 @@
     "snoowrap": "^1.15.2",
     "sqlite3": "^5.1.7",
     "translate-google": "^1.5.0",
-    "tsx": "^3.12.1",
     "yahoo-finance2": "^2.11.3",
     "zod": "^3.23.8"
   },
@@ -60,6 +59,7 @@
     "@types/node": "^20.14.8",
     "@types/puppeteer": "^7.0.4",
     "@types/snoowrap": "^1.16.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.5.2"
   },
   "peerDependencies": {
