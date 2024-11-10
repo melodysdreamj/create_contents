@@ -1,9 +1,6 @@
 import { DynamoDBClient, CreateTableCommand, ScalarAttributeType, PutItemCommand, GetItemCommand, QueryCommand, DeleteItemCommand, UpdateItemCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
 import { LegoUtil } from "../../../util";
 import path from 'path';
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export class New {
 

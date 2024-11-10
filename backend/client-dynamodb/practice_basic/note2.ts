@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import dotenv from "dotenv";
 
 async function main() {
-  console.log("데이터 쓰기 시작");
+  console.log("데이터 쓰기 시작 PutItem는 upsert하고 같은 의미");
 
   // .env 파일 로드
   dotenv.config();

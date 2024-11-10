@@ -1,17 +1,14 @@
-import { DynamoDBClient, CreateTableCommand, ScalarAttributeType, PutItemCommand, GetItemCommand, QueryCommand, DeleteItemCommand, UpdateItemCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
-import { LegoUtil } from "../../../util";
-import path from 'path';
-import dotenv from "dotenv";
+import {LegoUtil} from "../../../util";
+import {Sub2} from "./sub2";
+import {TestEnumTest, TestEnumTestHelper} from "./test_enum";
 
-dotenv.config();
-
-export class New {
+export class Sub {
 
     constructor() {
         this.docId = LegoUtil.randomString(10);
     }
 
-    // s000: string = "";
+    s000: string = "";
     // s001: string = "";
     // s002: string = "";
     // s003: string = "";
@@ -111,7 +108,7 @@ export class New {
     // s097: string = "";
     // s098: string = "";
     // s099: string = "";
-    // i000: number = 0;
+    i000: number = 0;
     // i001: number = 0;
     // i002: number = 0;
     // i003: number = 0;
@@ -211,7 +208,7 @@ export class New {
     // i097: number = 0;
     // i098: number = 0;
     // i099: number = 0;
-    // b000: boolean = false;
+    b000: boolean = false;
     // b001: boolean = false;
     // b002: boolean = false;
     // b003: boolean = false;
@@ -242,7 +239,7 @@ export class New {
     // b028: boolean = false;
     // b029: boolean = false;
     // b030: boolean = false;
-    // r000: number = 0.0;
+    r000: number = 0.0;
     // r001: number = 0.0;
     // r002: number = 0.0;
     // r003: number = 0.0;
@@ -273,7 +270,7 @@ export class New {
     // r028: number = 0.0;
     // r029: number = 0.0;
     // r030: number = 0.0;
-    // t000: Date = new Date(0);
+    t000: Date = new Date(0);
     // t001: Date = new Date(0);
     // t002: Date = new Date(0);
     // t003: Date = new Date(0);
@@ -294,7 +291,7 @@ export class New {
     // t018: Date = new Date(0);
     // t019: Date = new Date(0);
     // t020: Date = new Date(0);
-    // l000: string[] = [];
+    l000: string[] = [];
     // l001: string[] = [];
     // l002: string[] = [];
     // l003: string[] = [];
@@ -315,7 +312,7 @@ export class New {
     // l018: string[] = [];
     // l019: string[] = [];
     // l020: string[] = [];
-    // m000: { [key: string]: any } = {};
+    m000: { [key: string]: any } = {};
     // m001: { [key: string]: any } = {};
     // m002: { [key: string]: any } = {};
     // m003: { [key: string]: any } = {};
@@ -336,7 +333,7 @@ export class New {
     // m018: { [key: string]: any } = {};
     // m019: { [key: string]: any } = {};
     // m020: { [key: string]: any } = {};
-    // c000: OtherModel = new OtherModel();
+    c000: Sub2 = new Sub2();
     // c001: OtherModel = new OtherModel();
     // c002: OtherModel = new OtherModel();
     // c003: OtherModel = new OtherModel();
@@ -357,7 +354,7 @@ export class New {
     // c018: OtherModel = new OtherModel();
     // c019: OtherModel = new OtherModel();
     // c020: OtherModel = new OtherModel();
-    // j000 : OtherModel[] = [];
+    j000 : Sub2[] = [];
     // j001 : OtherModel[] = [];
     // j002 : OtherModel[] = [];
     // j003 : OtherModel[] = [];
@@ -378,7 +375,7 @@ export class New {
     // j018 : OtherModel[] = [];
     // j019 : OtherModel[] = [];
     // j020 : OtherModel[] = [];
-    // e000: SomeEnum = SomeEnum.notSelected;
+    e000: TestEnumTest = TestEnumTest.notSelected;
     // e001: SomeEnum = SomeEnum.notSelected;
     // e002: SomeEnum = SomeEnum.notSelected;
     // e003: SomeEnum = SomeEnum.notSelected;
@@ -404,7 +401,7 @@ export class New {
 
     toDataString(): string {
         return btoa(Array.from(new TextEncoder().encode(new URLSearchParams({
-            // s000: this.s000,
+            s000: this.s000,
             // s001: this.s001,
             // s002: this.s002,
             // s003: this.s003,
@@ -504,7 +501,7 @@ export class New {
             // s097: this.s097,
             // s098: this.s098,
             // s099: this.s099,
-            // i000: this.i000.toString(),
+            i000: this.i000.toString(),
             // i001: this.i001.toString(),
             // i002: this.i002.toString(),
             // i003: this.i003.toString(),
@@ -604,7 +601,7 @@ export class New {
             // i097: this.i097.toString(),
             // i098: this.i098.toString(),
             // i099: this.i099.toString(),
-            // b000: this.b000.toString(),
+            b000: this.b000.toString(),
             // b001: this.b001.toString(),
             // b002: this.b002.toString(),
             // b003: this.b003.toString(),
@@ -635,7 +632,7 @@ export class New {
             // b028: this.b028.toString(),
             // b029: this.b029.toString(),
             // b030: this.b030.toString(),
-            // r000: this.r000.toString(),
+            r000: this.r000.toString(),
             // r001: this.r001.toString(),
             // r002: this.r002.toString(),
             // r003: this.r003.toString(),
@@ -666,7 +663,7 @@ export class New {
             // r028: this.r028.toString(),
             // r029: this.r029.toString(),
             // r030: this.r030.toString(),
-            // t000: this.t000.getTime().toString(),
+            t000: this.t000.getTime().toString(),
             // t001: this.t001.getTime().toString(),
             // t002: this.t002.getTime().toString(),
             // t003: this.t003.getTime().toString(),
@@ -687,7 +684,7 @@ export class New {
             // t018: this.t018.getTime().toString(),
             // t019: this.t019.getTime().toString(),
             // t020: this.t020.getTime().toString(),
-            // l000: JSON.stringify(this.l000),
+            l000: JSON.stringify(this.l000),
             // l001: JSON.stringify(this.l001),
             // l002: JSON.stringify(this.l002),
             // l003: JSON.stringify(this.l003),
@@ -708,7 +705,7 @@ export class New {
             // l018: JSON.stringify(this.l018),
             // l019: JSON.stringify(this.l019),
             // l020: JSON.stringify(this.l020),
-            // m000: JSON.stringify(this.m000),
+            m000: JSON.stringify(this.m000),
             // m001: JSON.stringify(this.m001),
             // m002: JSON.stringify(this.m002),
             // m003: JSON.stringify(this.m003),
@@ -729,7 +726,7 @@ export class New {
             // m018: JSON.stringify(this.m018),
             // m019: JSON.stringify(this.m019),
             // m020: JSON.stringify(this.m020),
-            // c000: this.c000.toDataString(),
+            c000: this.c000.toDataString(),
             // c001: this.c001.toDataString(),
             // c002: this.c002.toDataString(),
             // c003: this.c003.toDataString(),
@@ -750,7 +747,7 @@ export class New {
             // c018: this.c018.toDataString(),
             // c019: this.c019.toDataString(),
             // c020: this.c020.toDataString(),
-            // j000: JSON.stringify(this.j000.map((model: OtherModel) => model.toDataString())),
+            j000: JSON.stringify(this.j000.map((model: Sub2) => model.toDataString())),
             // j001: JSON.stringify(this.j001.map((model: OtherModel) => model.toDataString())),
             // j002: JSON.stringify(this.j002.map((model: OtherModel) => model.toDataString())),
             // j003: JSON.stringify(this.j003.map((model: OtherModel) => model.toDataString())),
@@ -771,7 +768,7 @@ export class New {
             // j018: JSON.stringify(this.j018.map((model: OtherModel) => model.toDataString())),
             // j019: JSON.stringify(this.j019.map((model: OtherModel) => model.toDataString())),
             // j020: JSON.stringify(this.j020.map((model: OtherModel) => model.toDataString())),
-            // e000: this.e000,
+            e000: this.e000,
             // e001: this.e001,
             // e002: this.e002,
             // e003: this.e003,
@@ -796,12 +793,12 @@ export class New {
         }).toString())).map(byte => String.fromCharCode(byte)).join(""));
     }
 
-    static fromDataString(dataString: string): New {
+    static fromDataString(dataString: string): Sub {
         const queryParams = Object.fromEntries(new URLSearchParams(atob(dataString)));
 
-        const object = new New();
+        const object = new Sub();
 
-        // object.s000 = queryParams["s000"] || "";
+        object.s000 = queryParams["s000"] || "";
         // object.s001 = queryParams["s001"] || "";
         // object.s002 = queryParams["s002"] || "";
         // object.s003 = queryParams["s003"] || "";
@@ -901,7 +898,7 @@ export class New {
         // object.s097 = queryParams["s097"] || "";
         // object.s098 = queryParams["s098"] || "";
         // object.s099 = queryParams["s099"] || "";
-        // object.i000 = parseInt(queryParams["i000"] || "0", 10);
+        object.i000 = parseInt(queryParams["i000"] || "0", 10);
         // object.i001 = parseInt(queryParams["i001"] || "0", 10);
         // object.i002 = parseInt(queryParams["i002"] || "0", 10);
         // object.i003 = parseInt(queryParams["i003"] || "0", 10);
@@ -1001,7 +998,7 @@ export class New {
         // object.i097 = parseInt(queryParams["i097"] || "0", 10);
         // object.i098 = parseInt(queryParams["i098"] || "0", 10);
         // object.i099 = parseInt(queryParams["i099"] || "0", 10);
-        // object.b000 = queryParams["b000"] === "true";
+        object.b000 = queryParams["b000"] === "true";
         // object.b001 = queryParams["b001"] === "true";
         // object.b002 = queryParams["b002"] === "true";
         // object.b003 = queryParams["b003"] === "true";
@@ -1032,7 +1029,7 @@ export class New {
         // object.b028 = queryParams["b028"] === "true";
         // object.b029 = queryParams["b029"] === "true";
         // object.b030 = queryParams["b030"] === "true";
-        // object.r000 = parseFloat(queryParams["r000"] || "0");
+        object.r000 = parseFloat(queryParams["r000"] || "0");
         // object.r001 = parseFloat(queryParams["r001"] || "0");
         // object.r002 = parseFloat(queryParams["r002"] || "0");
         // object.r003 = parseFloat(queryParams["r003"] || "0");
@@ -1063,7 +1060,7 @@ export class New {
         // object.r028 = parseFloat(queryParams["r028"] || "0");
         // object.r029 = parseFloat(queryParams["r029"] || "0");
         // object.r030 = parseFloat(queryParams["r030"] || "0");
-        // object.t000 = new Date(parseInt(queryParams["t000"] || "0", 10));
+        object.t000 = new Date(parseInt(queryParams["t000"] || "0", 10));
         // object.t001 = new Date(parseInt(queryParams["t001"] || "0", 10));
         // object.t002 = new Date(parseInt(queryParams["t002"] || "0", 10));
         // object.t003 = new Date(parseInt(queryParams["t003"] || "0", 10));
@@ -1084,7 +1081,7 @@ export class New {
         // object.t018 = new Date(parseInt(queryParams["t018"] || "0", 10));
         // object.t019 = new Date(parseInt(queryParams["t019"] || "0", 10));
         // object.t020 = new Date(parseInt(queryParams["t020"] || "0", 10));
-        // object.l000 = JSON.parse(queryParams["l000"] || "[]");
+        object.l000 = JSON.parse(queryParams["l000"] || "[]");
         // object.l001 = JSON.parse(queryParams["l001"] || "[]");
         // object.l002 = JSON.parse(queryParams["l002"] || "[]");
         // object.l003 = JSON.parse(queryParams["l003"] || "[]");
@@ -1105,7 +1102,7 @@ export class New {
         // object.l018 = JSON.parse(queryParams["l018"] || "[]");
         // object.l019 = JSON.parse(queryParams["l019"] || "[]");
         // object.l020 = JSON.parse(queryParams["l020"] || "[]");
-        // object.m000 = JSON.parse(queryParams["m000"] || "{}");
+        object.m000 = JSON.parse(queryParams["m000"] || "{}");
         // object.m001 = JSON.parse(queryParams["m001"] || "{}");
         // object.m002 = JSON.parse(queryParams["m002"] || "{}");
         // object.m003 = JSON.parse(queryParams["m003"] || "{}");
@@ -1126,7 +1123,7 @@ export class New {
         // object.m018 = JSON.parse(queryParams["m018"] || "{}");
         // object.m019 = JSON.parse(queryParams["m019"] || "{}");
         // object.m020 = JSON.parse(queryParams["m020"] || "{}");
-        // object.c000 = OtherModel.fromDataString(queryParams["c000"] || new OtherModel().toDataString());
+        object.c000 = Sub2.fromDataString(queryParams["c000"] || new Sub2().toDataString());
         // object.c001 = OtherModel.fromDataString(queryParams["c001"] || new OtherModel().toDataString());
         // object.c002 = OtherModel.fromDataString(queryParams["c002"] || new OtherModel().toDataString());
         // object.c003 = OtherModel.fromDataString(queryParams["c003"] || new OtherModel().toDataString());
@@ -1147,7 +1144,7 @@ export class New {
         // object.c018 = OtherModel.fromDataString(queryParams["c018"] || new OtherModel().toDataString());
         // object.c019 = OtherModel.fromDataString(queryParams["c019"] || new OtherModel().toDataString());
         // object.c020 = OtherModel.fromDataString(queryParams["c020"] || new OtherModel().toDataString());
-        // object.j000 = (JSON.parse(queryParams["j000"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
+        object.j000 = (JSON.parse(queryParams["j000"] || "[]") || []).map((item: string) => Sub2.fromDataString(item));
         // object.j001 = (JSON.parse(queryParams["j001"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j002 = (JSON.parse(queryParams["j002"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j003 = (JSON.parse(queryParams["j003"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
@@ -1168,7 +1165,7 @@ export class New {
         // object.j018 = (JSON.parse(queryParams["j018"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j019 = (JSON.parse(queryParams["j019"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j020 = (JSON.parse(queryParams["j020"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.e000 = SomeEnumHelper.fromString(queryParams["e000"] || SomeEnum.notSelected);
+        object.e000 = TestEnumTestHelper.fromString(queryParams["e000"] || TestEnumTest.notSelected);
         // object.e001 = SomeEnumHelper.fromString(queryParams["e001"] || SomeEnum.notSelected);
         // object.e002 = SomeEnumHelper.fromString(queryParams["e002"] || SomeEnum.notSelected);
         // object.e003 = SomeEnumHelper.fromString(queryParams["e003"] || SomeEnum.notSelected);
@@ -1196,7 +1193,7 @@ export class New {
 
     toMap(): object {
         return {
-            // s000: this.s000,
+            s000: this.s000,
             // s001: this.s001,
             // s002: this.s002,
             // s003: this.s003,
@@ -1296,7 +1293,7 @@ export class New {
             // s097: this.s097,
             // s098: this.s098,
             // s099: this.s099,
-            // i000: this.i000,
+            i000: this.i000,
             // i001: this.i001,
             // i002: this.i002,
             // i003: this.i003,
@@ -1396,7 +1393,7 @@ export class New {
             // i097: this.i097,
             // i098: this.i098,
             // i099: this.i099,
-            // b000: this.b000 ? 1 : 0,
+            b000: this.b000 ? 1 : 0,
             // b001: this.b001 ? 1 : 0,
             // b002: this.b002 ? 1 : 0,
             // b003: this.b003 ? 1 : 0,
@@ -1427,7 +1424,7 @@ export class New {
             // b028: this.b028 ? 1 : 0,
             // b029: this.b029 ? 1 : 0,
             // b030: this.b030 ? 1 : 0,
-            // r000: this.r000,
+            r000: this.r000,
             // r001: this.r001,
             // r002: this.r002,
             // r003: this.r003,
@@ -1458,7 +1455,7 @@ export class New {
             // r028: this.r028,
             // r029: this.r029,
             // r030: this.r030,
-            // t000: this.t000.getTime(),
+            t000: this.t000.getTime(),
             // t001: this.t001.getTime(),
             // t002: this.t002.getTime(),
             // t003: this.t003.getTime(),
@@ -1479,7 +1476,7 @@ export class New {
             // t018: this.t018.getTime(),
             // t019: this.t019.getTime(),
             // t020: this.t020.getTime(),
-            // l000: JSON.stringify(this.l000),
+            l000: JSON.stringify(this.l000),
             // l001: JSON.stringify(this.l001),
             // l002: JSON.stringify(this.l002),
             // l003: JSON.stringify(this.l003),
@@ -1500,7 +1497,7 @@ export class New {
             // l018: JSON.stringify(this.l018),
             // l019: JSON.stringify(this.l019),
             // l020: JSON.stringify(this.l020),
-            // m000: JSON.stringify(this.m000),
+            m000: JSON.stringify(this.m000),
             // m001: JSON.stringify(this.m001),
             // m002: JSON.stringify(this.m002),
             // m003: JSON.stringify(this.m003),
@@ -1521,7 +1518,7 @@ export class New {
             // m018: JSON.stringify(this.m018),
             // m019: JSON.stringify(this.m019),
             // m020: JSON.stringify(this.m020),
-            // c000: this.c000.toDataString(),
+            c000: this.c000.toDataString(),
             // c001: this.c001.toDataString(),
             // c002: this.c002.toDataString(),
             // c003: this.c003.toDataString(),
@@ -1542,7 +1539,7 @@ export class New {
             // c018: this.c018.toDataString(),
             // c019: this.c019.toDataString(),
             // c020: this.c020.toDataString(),
-            // j000: JSON.stringify(this.j000.map((model: OtherModel) => model.toDataString())),
+            j000: JSON.stringify(this.j000.map((model: Sub2) => model.toDataString())),
             // j001: JSON.stringify(this.j001.map((model: OtherModel) => model.toDataString())),
             // j002: JSON.stringify(this.j002.map((model: OtherModel) => model.toDataString())),
             // j003: JSON.stringify(this.j003.map((model: OtherModel) => model.toDataString())),
@@ -1563,7 +1560,7 @@ export class New {
             // j018: JSON.stringify(this.j018.map((model: OtherModel) => model.toDataString())),
             // j019: JSON.stringify(this.j019.map((model: OtherModel) => model.toDataString())),
             // j020: JSON.stringify(this.j020.map((model: OtherModel) => model.toDataString())),
-            // e000: this.e000,
+            e000: this.e000,
             // e001: this.e001,
             // e002: this.e002,
             // e003: this.e003,
@@ -1588,10 +1585,10 @@ export class New {
         };
     }
 
-    static fromMap(queryParams: any): New {
-        const object = new New();
+    static fromMap(queryParams: any): Sub {
+        const object = new Sub();
 
-        // object.s000 = queryParams.s000 || '';
+        object.s000 = queryParams.s000 || '';
         // object.s001 = queryParams.s001 || '';
         // object.s002 = queryParams.s002 || '';
         // object.s003 = queryParams.s003 || '';
@@ -1691,7 +1688,7 @@ export class New {
         // object.s097 = queryParams.s097 || '';
         // object.s098 = queryParams.s098 || '';
         // object.s099 = queryParams.s099 || '';
-        // object.i000 = Number(queryParams.i000 || 0);
+        object.i000 = Number(queryParams.i000 || 0);
         // object.i001 = Number(queryParams.i001 || 0);
         // object.i002 = Number(queryParams.i002 || 0);
         // object.i003 = Number(queryParams.i003 || 0);
@@ -1791,7 +1788,7 @@ export class New {
         // object.i097 = Number(queryParams.i097 || 0);
         // object.i098 = Number(queryParams.i098 || 0);
         // object.i099 = Number(queryParams.i099 || 0);
-        // object.b000 = queryParams.b000 === 1;
+        object.b000 = queryParams.b000 === 1;
         // object.b001 = queryParams.b001 === 1;
         // object.b002 = queryParams.b002 === 1;
         // object.b003 = queryParams.b003 === 1;
@@ -1822,7 +1819,7 @@ export class New {
         // object.b028 = queryParams.b028 === 1;
         // object.b029 = queryParams.b029 === 1;
         // object.b030 = queryParams.b030 === 1;
-        // object.r000 = queryParams.r000 || 0.0;
+        object.r000 = queryParams.r000 || 0.0;
         // object.r001 = queryParams.r001 || 0.0;
         // object.r002 = queryParams.r002 || 0.0;
         // object.r003 = queryParams.r003 || 0.0;
@@ -1853,7 +1850,7 @@ export class New {
         // object.r028 = queryParams.r028 || 0.0;
         // object.r029 = queryParams.r029 || 0.0;
         // object.r030 = queryParams.r030 || 0.0;
-        // object.t000 = new Date(queryParams.t000 || 0);
+        object.t000 = new Date(queryParams.t000 || 0);
         // object.t001 = new Date(queryParams.t001 || 0);
         // object.t002 = new Date(queryParams.t002 || 0);
         // object.t003 = new Date(queryParams.t003 || 0);
@@ -1874,7 +1871,7 @@ export class New {
         // object.t018 = new Date(queryParams.t018 || 0);
         // object.t019 = new Date(queryParams.t019 || 0);
         // object.t020 = new Date(queryParams.t020 || 0);
-        // object.l000 = JSON.parse(queryParams.l000 || '[]');
+        object.l000 = JSON.parse(queryParams.l000 || '[]');
         // object.l001 = JSON.parse(queryParams.l001 || '[]');
         // object.l002 = JSON.parse(queryParams.l002 || '[]');
         // object.l003 = JSON.parse(queryParams.l003 || '[]');
@@ -1895,7 +1892,7 @@ export class New {
         // object.l018 = JSON.parse(queryParams.l018 || '[]');
         // object.l019 = JSON.parse(queryParams.l019 || '[]');
         // object.l020 = JSON.parse(queryParams.l020 || '[]');
-        // object.m000 = JSON.parse(queryParams.m000 || '{}');
+        object.m000 = JSON.parse(queryParams.m000 || '{}');
         // object.m001 = JSON.parse(queryParams.m001 || '{}');
         // object.m002 = JSON.parse(queryParams.m002 || '{}');
         // object.m003 = JSON.parse(queryParams.m003 || '{}');
@@ -1916,7 +1913,7 @@ export class New {
         // object.m018 = JSON.parse(queryParams.m018 || '{}');
         // object.m019 = JSON.parse(queryParams.m019 || '{}');
         // object.m020 = JSON.parse(queryParams.m020 || '{}');
-        // object.c000 = OtherModel.fromDataString(queryParams.c000 || new OtherModel().toDataString());
+        object.c000 = Sub2.fromDataString(queryParams.c000 || new Sub2().toDataString());
         // object.c001 = OtherModel.fromDataString(queryParams.c001 || new OtherModel().toDataString());
         // object.c002 = OtherModel.fromDataString(queryParams.c002 || new OtherModel().toDataString());
         // object.c003 = OtherModel.fromDataString(queryParams.c003 || new OtherModel().toDataString());
@@ -1937,7 +1934,7 @@ export class New {
         // object.c018 = OtherModel.fromDataString(queryParams.c018 || new OtherModel().toDataString());
         // object.c019 = OtherModel.fromDataString(queryParams.c019 || new OtherModel().toDataString());
         // object.c020 = OtherModel.fromDataString(queryParams.c020 || new OtherModel().toDataString());
-        // object.j000 = (JSON.parse(queryParams.j000 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
+        object.j000 = (JSON.parse(queryParams.j000 || '[]') || []).map((item: string) => Sub2.fromDataString(item));
         // object.j001 = (JSON.parse(queryParams.j001 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j002 = (JSON.parse(queryParams.j002 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j003 = (JSON.parse(queryParams.j003 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
@@ -1958,7 +1955,7 @@ export class New {
         // object.j018 = (JSON.parse(queryParams.j018 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j019 = (JSON.parse(queryParams.j019 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
         // object.j020 = (JSON.parse(queryParams.j020 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.e000 = SomeEnumHelper.fromString(queryParams.e000 || SomeEnum.notSelected);
+        object.e000 = TestEnumTestHelper.fromString(queryParams.e000 || TestEnumTest.notSelected);
         // object.e001 = SomeEnumHelper.fromString(queryParams.e001 || SomeEnum.notSelected);
         // object.e002 = SomeEnumHelper.fromString(queryParams.e002 || SomeEnum.notSelected);
         // object.e003 = SomeEnumHelper.fromString(queryParams.e003 || SomeEnum.notSelected);
@@ -1980,1249 +1977,6 @@ export class New {
         // object.e019 = SomeEnumHelper.fromString(queryParams.e019 || SomeEnum.notSelected);
         // object.e020 = SomeEnumHelper.fromString(queryParams.e020 || SomeEnum.notSelected);
         object.docId = queryParams.docId;
-
-        return object;
-    }
-}
-
-export class NewDynamoDb {
-
-    static client = new DynamoDBClient({
-        region: process.env.AWS_REGION ?? 'ap-northeast-2',
-        credentials: {
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? '',
-        },
-    });
-
-    static async createTable() {
-        const tableParams = {
-            TableName: "New",
-            KeySchema: [
-                { AttributeName: "docId", KeyType: "HASH" as const },
-            ],
-            AttributeDefinitions: [
-                { AttributeName: "docId", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s000", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s001", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s002", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s003", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s004", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s005", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s006", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s007", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s008", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s009", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s010", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s011", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s012", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s013", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s014", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s015", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s016", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s017", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s018", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s019", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s020", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s021", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s022", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s023", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s024", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s025", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s026", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s027", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s028", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s029", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s030", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s031", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s032", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s033", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s034", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s035", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s036", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s037", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s038", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s039", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s040", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s041", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s042", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s043", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s044", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s045", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s046", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s047", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s048", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s049", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s050", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s051", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s052", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s053", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s054", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s055", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s056", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s057", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s058", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s059", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s060", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s061", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s062", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s063", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s064", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s065", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s066", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s067", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s068", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s069", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s070", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s071", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s072", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s073", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s074", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s075", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s076", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s077", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s078", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s079", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s080", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s081", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s082", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s083", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s084", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s085", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s086", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s087", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s088", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s089", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s090", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s091", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s092", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s093", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s094", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s095", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s096", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s097", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s098", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "s099", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "i000", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i001", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i002", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i003", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i004", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i005", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i006", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i007", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i008", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i009", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i010", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i011", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i012", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i013", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i014", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i015", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i016", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i017", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i018", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i019", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i020", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i021", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i022", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i023", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i024", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i025", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i026", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i027", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i028", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i029", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i030", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i031", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i032", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i033", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i034", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i035", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i036", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i037", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i038", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i039", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i040", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i041", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i042", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i043", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i044", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i045", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i046", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i047", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i048", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i049", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i050", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i051", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i052", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i053", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i054", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i055", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i056", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i057", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i058", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i059", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i060", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i061", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i062", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i063", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i064", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i065", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i066", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i067", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i068", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i069", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i070", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i071", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i072", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i073", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i074", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i075", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i076", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i077", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i078", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i079", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i080", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i081", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i082", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i083", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i084", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i085", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i086", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i087", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i088", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i089", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i090", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i091", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i092", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i093", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i094", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i095", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i096", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i097", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i098", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "i099", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b000", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b001", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b002", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b003", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b004", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b005", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b006", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b007", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b008", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b009", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b010", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b011", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b012", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b013", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b014", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b015", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b016", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b017", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b018", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b019", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b020", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b021", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b022", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b023", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b024", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b025", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b026", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b027", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b028", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b029", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "b030", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r000", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r001", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r002", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r003", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r004", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r005", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r006", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r007", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r008", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r009", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r010", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r011", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r012", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r013", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r014", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r015", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r016", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r017", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r018", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r019", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r020", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r021", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r022", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r023", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r024", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r025", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r026", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r027", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r028", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r029", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "r030", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t000", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t001", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t002", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t003", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t004", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t005", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t006", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t007", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t008", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t009", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t010", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t011", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t012", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t013", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t014", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t015", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t016", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t017", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t018", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t019", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "t020", AttributeType: "N" as ScalarAttributeType },
-                // { AttributeName: "l000", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l001", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l002", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l003", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l004", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l005", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l006", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l007", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l008", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l009", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l010", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l011", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l012", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l013", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l014", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l015", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l016", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l017", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l018", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l019", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "l020", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m000", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m001", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m002", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m003", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m004", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m005", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m006", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m007", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m008", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m009", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m010", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m011", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m012", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m013", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m014", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m015", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m016", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m017", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m018", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m019", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "m020", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c000", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c001", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c002", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c003", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c004", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c005", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c006", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c007", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c008", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c009", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c010", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c011", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c012", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c013", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c014", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c015", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c016", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c017", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c018", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c019", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "c020", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j000", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j001", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j002", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j003", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j004", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j005", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j006", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j007", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j008", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j009", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j010", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j011", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j012", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j013", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j014", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j015", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j016", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j017", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j018", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j019", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "j020", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e000", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e001", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e002", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e003", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e004", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e005", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e006", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e007", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e008", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e009", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e010", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e011", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e012", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e013", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e014", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e015", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e016", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e017", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e018", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e019", AttributeType: "S" as ScalarAttributeType },
-                // { AttributeName: "e020", AttributeType: "S" as ScalarAttributeType },
-            ],
-            BillingMode: "PAY_PER_REQUEST" as const,
-        }
-
-        try {
-            const usersTable = await NewDynamoDb.client.send(new CreateTableCommand(tableParams));
-            console.log("table created:", usersTable);
-        } catch (err) {
-            console.error("table creation failed:", err);
-        }
-    }
-
-    static async upsert(object: New) {
-
-        const upsertParams = {
-            TableName: "New",
-            Item: {
-                docId: { S: object.docId },
-                // s000: { S: object.s000 },
-                // s001: { S: object.s001 },
-                // s002: { S: object.s002 },
-                // s003: { S: object.s003 },
-                // s004: { S: object.s004 },
-                // s005: { S: object.s005 },
-                // s006: { S: object.s006 },
-                // s007: { S: object.s007 },
-                // s008: { S: object.s008 },
-                // s009: { S: object.s009 },
-                // s010: { S: object.s010 },
-                // s011: { S: object.s011 },
-                // s012: { S: object.s012 },
-                // s013: { S: object.s013 },
-                // s014: { S: object.s014 },
-                // s015: { S: object.s015 },
-                // s016: { S: object.s016 },
-                // s017: { S: object.s017 },
-                // s018: { S: object.s018 },
-                // s019: { S: object.s019 },
-                // s020: { S: object.s020 },
-                // s021: { S: object.s021 },
-                // s022: { S: object.s022 },
-                // s023: { S: object.s023 },
-                // s024: { S: object.s024 },
-                // s025: { S: object.s025 },
-                // s026: { S: object.s026 },
-                // s027: { S: object.s027 },
-                // s028: { S: object.s028 },
-                // s029: { S: object.s029 },
-                // s030: { S: object.s030 },
-                // s031: { S: object.s031 },
-                // s032: { S: object.s032 },
-                // s033: { S: object.s033 },
-                // s034: { S: object.s034 },
-                // s035: { S: object.s035 },
-                // s036: { S: object.s036 },
-                // s037: { S: object.s037 },
-                // s038: { S: object.s038 },
-                // s039: { S: object.s039 },
-                // s040: { S: object.s040 },
-                // s041: { S: object.s041 },
-                // s042: { S: object.s042 },
-                // s043: { S: object.s043 },
-                // s044: { S: object.s044 },
-                // s045: { S: object.s045 },
-                // s046: { S: object.s046 },
-                // s047: { S: object.s047 },
-                // s048: { S: object.s048 },
-                // s049: { S: object.s049 },
-                // s050: { S: object.s050 },
-                // s051: { S: object.s051 },
-                // s052: { S: object.s052 },
-                // s053: { S: object.s053 },
-                // s054: { S: object.s054 },
-                // s055: { S: object.s055 },
-                // s056: { S: object.s056 },
-                // s057: { S: object.s057 },
-                // s058: { S: object.s058 },
-                // s059: { S: object.s059 },
-                // s060: { S: object.s060 },
-                // s061: { S: object.s061 },
-                // s062: { S: object.s062 },
-                // s063: { S: object.s063 },
-                // s064: { S: object.s064 },
-                // s065: { S: object.s065 },
-                // s066: { S: object.s066 },
-                // s067: { S: object.s067 },
-                // s068: { S: object.s068 },
-                // s069: { S: object.s069 },
-                // s070: { S: object.s070 },
-                // s071: { S: object.s071 },
-                // s072: { S: object.s072 },
-                // s073: { S: object.s073 },
-                // s074: { S: object.s074 },
-                // s075: { S: object.s075 },
-                // s076: { S: object.s076 },
-                // s077: { S: object.s077 },
-                // s078: { S: object.s078 },
-                // s079: { S: object.s079 },
-                // s080: { S: object.s080 },
-                // s081: { S: object.s081 },
-                // s082: { S: object.s082 },
-                // s083: { S: object.s083 },
-                // s084: { S: object.s084 },
-                // s085: { S: object.s085 },
-                // s086: { S: object.s086 },
-                // s087: { S: object.s087 },
-                // s088: { S: object.s088 },
-                // s089: { S: object.s089 },
-                // s090: { S: object.s090 },
-                // s091: { S: object.s091 },
-                // s092: { S: object.s092 },
-                // s093: { S: object.s093 },
-                // s094: { S: object.s094 },
-                // s095: { S: object.s095 },
-                // s096: { S: object.s096 },
-                // s097: { S: object.s097 },
-                // s098: { S: object.s098 },
-                // s099: { S: object.s099 },
-                // s100: { S: object.s100 },
-                // i000: { N: object.i000.toString() },
-                // i001: { N: object.i001.toString() },
-                // i002: { N: object.i002.toString() },
-                // i003: { N: object.i003.toString() },
-                // i004: { N: object.i004.toString() },
-                // i005: { N: object.i005.toString() },
-                // i006: { N: object.i006.toString() },
-                // i007: { N: object.i007.toString() },
-                // i008: { N: object.i008.toString() },
-                // i009: { N: object.i009.toString() },
-                // i010: { N: object.i010.toString() },
-                // i011: { N: object.i011.toString() },
-                // i012: { N: object.i012.toString() },
-                // i013: { N: object.i013.toString() },
-                // i014: { N: object.i014.toString() },
-                // i015: { N: object.i015.toString() },
-                // i016: { N: object.i016.toString() },
-                // i017: { N: object.i017.toString() },
-                // i018: { N: object.i018.toString() },
-                // i019: { N: object.i019.toString() },
-                // i020: { N: object.i020.toString() },
-                // i021: { N: object.i021.toString() },
-                // i022: { N: object.i022.toString() },
-                // i023: { N: object.i023.toString() },
-                // i024: { N: object.i024.toString() },
-                // i025: { N: object.i025.toString() },
-                // i026: { N: object.i026.toString() },
-                // i027: { N: object.i027.toString() },
-                // i028: { N: object.i028.toString() },
-                // i029: { N: object.i029.toString() },
-                // i030: { N: object.i030.toString() },
-                // i031: { N: object.i031.toString() },
-                // i032: { N: object.i032.toString() },
-                // i033: { N: object.i033.toString() },
-                // i034: { N: object.i034.toString() },
-                // i035: { N: object.i035.toString() },
-                // i036: { N: object.i036.toString() },
-                // i037: { N: object.i037.toString() },
-                // i038: { N: object.i038.toString() },
-                // i039: { N: object.i039.toString() },
-                // i040: { N: object.i040.toString() },
-                // i041: { N: object.i041.toString() },
-                // i042: { N: object.i042.toString() },
-                // i043: { N: object.i043.toString() },
-                // i044: { N: object.i044.toString() },
-                // i045: { N: object.i045.toString() },
-                // i046: { N: object.i046.toString() },
-                // i047: { N: object.i047.toString() },
-                // i048: { N: object.i048.toString() },
-                // i049: { N: object.i049.toString() },
-                // i050: { N: object.i050.toString() },
-                // i051: { N: object.i051.toString() },
-                // i052: { N: object.i052.toString() },
-                // i053: { N: object.i053.toString() },
-                // i054: { N: object.i054.toString() },
-                // i055: { N: object.i055.toString() },
-                // i056: { N: object.i056.toString() },
-                // i057: { N: object.i057.toString() },
-                // i058: { N: object.i058.toString() },
-                // i059: { N: object.i059.toString() },
-                // i060: { N: object.i060.toString() },
-                // i061: { N: object.i061.toString() },
-                // i062: { N: object.i062.toString() },
-                // i063: { N: object.i063.toString() },
-                // i064: { N: object.i064.toString() },
-                // i065: { N: object.i065.toString() },
-                // i066: { N: object.i066.toString() },
-                // i067: { N: object.i067.toString() },
-                // i068: { N: object.i068.toString() },
-                // i069: { N: object.i069.toString() },
-                // i070: { N: object.i070.toString() },
-                // i071: { N: object.i071.toString() },
-                // i072: { N: object.i072.toString() },
-                // i073: { N: object.i073.toString() },
-                // i074: { N: object.i074.toString() },
-                // i075: { N: object.i075.toString() },
-                // i076: { N: object.i076.toString() },
-                // i077: { N: object.i077.toString() },
-                // i078: { N: object.i078.toString() },
-                // i079: { N: object.i079.toString() },
-                // i080: { N: object.i080.toString() },
-                // i081: { N: object.i081.toString() },
-                // i082: { N: object.i082.toString() },
-                // i083: { N: object.i083.toString() },
-                // i084: { N: object.i084.toString() },
-                // i085: { N: object.i085.toString() },
-                // i086: { N: object.i086.toString() },
-                // i087: { N: object.i087.toString() },
-                // i088: { N: object.i088.toString() },
-                // i089: { N: object.i089.toString() },
-                // i090: { N: object.i090.toString() },
-                // i091: { N: object.i091.toString() },
-                // i092: { N: object.i092.toString() },
-                // i093: { N: object.i093.toString() },
-                // i094: { N: object.i094.toString() },
-                // i095: { N: object.i095.toString() },
-                // i096: { N: object.i096.toString() },
-                // i097: { N: object.i097.toString() },
-                // i098: { N: object.i098.toString() },
-                // i099: { N: object.i099.toString() },
-                // b000: { N: (object.b000 ? 1 : 0).toString() },
-                // b001: { N: (object.b001 ? 1 : 0).toString() },
-                // b002: { N: (object.b002 ? 1 : 0).toString() },
-                // b003: { N: (object.b003 ? 1 : 0).toString() },
-                // b004: { N: (object.b004 ? 1 : 0).toString() },
-                // b005: { N: (object.b005 ? 1 : 0).toString() },
-                // b006: { N: (object.b006 ? 1 : 0).toString() },
-                // b007: { N: (object.b007 ? 1 : 0).toString() },
-                // b008: { N: (object.b008 ? 1 : 0).toString() },
-                // b009: { N: (object.b009 ? 1 : 0).toString() },
-                // b010: { N: (object.b010 ? 1 : 0).toString() },
-                // b011: { N: (object.b011 ? 1 : 0).toString() },
-                // b012: { N: (object.b012 ? 1 : 0).toString() },
-                // b013: { N: (object.b013 ? 1 : 0).toString() },
-                // b014: { N: (object.b014 ? 1 : 0).toString() },
-                // b015: { N: (object.b015 ? 1 : 0).toString() },
-                // b016: { N: (object.b016 ? 1 : 0).toString() },
-                // b017: { N: (object.b017 ? 1 : 0).toString() },
-                // b018: { N: (object.b018 ? 1 : 0).toString() },
-                // b019: { N: (object.b019 ? 1 : 0).toString() },
-                // b020: { N: (object.b020 ? 1 : 0).toString() },
-                // b021: { N: (object.b021 ? 1 : 0).toString() },
-                // b022: { N: (object.b022 ? 1 : 0).toString() },
-                // b023: { N: (object.b023 ? 1 : 0).toString() },
-                // b024: { N: (object.b024 ? 1 : 0).toString() },
-                // b025: { N: (object.b025 ? 1 : 0).toString() },
-                // b026: { N: (object.b026 ? 1 : 0).toString() },
-                // b027: { N: (object.b027 ? 1 : 0).toString() },
-                // b028: { N: (object.b028 ? 1 : 0).toString() },
-                // b029: { N: (object.b029 ? 1 : 0).toString() },
-                // b030: { N: (object.b030 ? 1 : 0).toString() },
-                // r000: { N: object.r000.toString() },
-                // r001: { N: object.r001.toString() },
-                // r002: { N: object.r002.toString() },
-                // r003: { N: object.r003.toString() },
-                // r004: { N: object.r004.toString() },
-                // r005: { N: object.r005.toString() },
-                // r006: { N: object.r006.toString() },
-                // r007: { N: object.r007.toString() },
-                // r008: { N: object.r008.toString() },
-                // r009: { N: object.r009.toString() },
-                // r010: { N: object.r010.toString() },
-                // r011: { N: object.r011.toString() },
-                // r012: { N: object.r012.toString() },
-                // r013: { N: object.r013.toString() },
-                // r014: { N: object.r014.toString() },
-                // r015: { N: object.r015.toString() },
-                // r016: { N: object.r016.toString() },
-                // r017: { N: object.r017.toString() },
-                // r018: { N: object.r018.toString() },
-                // r019: { N: object.r019.toString() },
-                // r020: { N: object.r020.toString() },
-                // r021: { N: object.r021.toString() },
-                // r022: { N: object.r022.toString() },
-                // r023: { N: object.r023.toString() },
-                // r024: { N: object.r024.toString() },
-                // r025: { N: object.r025.toString() },
-                // r026: { N: object.r026.toString() },
-                // r027: { N: object.r027.toString() },
-                // r028: { N: object.r028.toString() },
-                // r029: { N: object.r029.toString() },
-                // r030: { N: object.r030.toString() },
-                // t000: { N: object.t000.getTime().toString() },
-                // t001: { N: object.t001.getTime().toString() },
-                // t002: { N: object.t002.getTime().toString() },
-                // t003: { N: object.t003.getTime().toString() },
-                // t004: { N: object.t004.getTime().toString() },
-                // t005: { N: object.t005.getTime().toString() },
-                // t006: { N: object.t006.getTime().toString() },
-                // t007: { N: object.t007.getTime().toString() },
-                // t008: { N: object.t008.getTime().toString() },
-                // t009: { N: object.t009.getTime().toString() },
-                // t010: { N: object.t010.getTime().toString() },
-                // t011: { N: object.t011.getTime().toString() },
-                // t012: { N: object.t012.getTime().toString() },
-                // t013: { N: object.t013.getTime().toString() },
-                // t014: { N: object.t014.getTime().toString() },
-                // t015: { N: object.t015.getTime().toString() },
-                // t016: { N: object.t016.getTime().toString() },
-                // t017: { N: object.t017.getTime().toString() },
-                // t018: { N: object.t018.getTime().toString() },
-                // t019: { N: object.t019.getTime().toString() },
-                // t020: { N: object.t020.getTime().toString() },
-                // l000: { S: JSON.stringify(object.l000) },
-                // l001: { S: JSON.stringify(object.l001) },
-                // l002: { S: JSON.stringify(object.l002) },
-                // l003: { S: JSON.stringify(object.l003) },
-                // l004: { S: JSON.stringify(object.l004) },
-                // l005: { S: JSON.stringify(object.l005) },
-                // l006: { S: JSON.stringify(object.l006) },
-                // l007: { S: JSON.stringify(object.l007) },
-                // l008: { S: JSON.stringify(object.l008) },
-                // l009: { S: JSON.stringify(object.l009) },
-                // l010: { S: JSON.stringify(object.l010) },
-                // l011: { S: JSON.stringify(object.l011) },
-                // l012: { S: JSON.stringify(object.l012) },
-                // l013: { S: JSON.stringify(object.l013) },
-                // l014: { S: JSON.stringify(object.l014) },
-                // l015: { S: JSON.stringify(object.l015) },
-                // l016: { S: JSON.stringify(object.l016) },
-                // l017: { S: JSON.stringify(object.l017) },
-                // l018: { S: JSON.stringify(object.l018) },
-                // l019: { S: JSON.stringify(object.l019) },
-                // l020: { S: JSON.stringify(object.l020) },
-                // m000: { S: JSON.stringify(object.m000) },
-                // m001: { S: JSON.stringify(object.m001) },
-                // m002: { S: JSON.stringify(object.m002) },
-                // m003: { S: JSON.stringify(object.m003) },
-                // m004: { S: JSON.stringify(object.m004) },
-                // m005: { S: JSON.stringify(object.m005) },
-                // m006: { S: JSON.stringify(object.m006) },
-                // m007: { S: JSON.stringify(object.m007) },
-                // m008: { S: JSON.stringify(object.m008) },
-                // m009: { S: JSON.stringify(object.m009) },
-                // m010: { S: JSON.stringify(object.m010) },
-                // m011: { S: JSON.stringify(object.m011) },
-                // m012: { S: JSON.stringify(object.m012) },
-                // m013: { S: JSON.stringify(object.m013) },
-                // m014: { S: JSON.stringify(object.m014) },
-                // m015: { S: JSON.stringify(object.m015) },
-                // m016: { S: JSON.stringify(object.m016) },
-                // m017: { S: JSON.stringify(object.m017) },
-                // m018: { S: JSON.stringify(object.m018) },
-                // m019: { S: JSON.stringify(object.m019) },
-                // m020: { S: JSON.stringify(object.m020) },
-                // c000: { S: object.c000.toDataString() },
-                // c001: { S: object.c001.toDataString() },
-                // c002: { S: object.c002.toDataString() },
-                // c003: { S: object.c003.toDataString() },
-                // c004: { S: object.c004.toDataString() },
-                // c005: { S: object.c005.toDataString() },
-                // c006: { S: object.c006.toDataString() },
-                // c007: { S: object.c007.toDataString() },
-                // c008: { S: object.c008.toDataString() },
-                // c009: { S: object.c009.toDataString() },
-                // c010: { S: object.c010.toDataString() },
-                // c011: { S: object.c011.toDataString() },
-                // c012: { S: object.c012.toDataString() },
-                // c013: { S: object.c013.toDataString() },
-                // c014: { S: object.c014.toDataString() },
-                // c015: { S: object.c015.toDataString() },
-                // c016: { S: object.c016.toDataString() },
-                // c017: { S: object.c017.toDataString() },
-                // c018: { S: object.c018.toDataString() },
-                // c019: { S: object.c019.toDataString() },
-                // c020: { S: object.c020.toDataString() },
-                // j000: { S: JSON.stringify(object.j000.map((model: OtherModel) => model.toDataString())) },
-                // j001: { S: JSON.stringify(object.j001.map((model: OtherModel) => model.toDataString())) },
-                // j002: { S: JSON.stringify(object.j002.map((model: OtherModel) => model.toDataString())) },
-                // j003: { S: JSON.stringify(object.j003.map((model: OtherModel) => model.toDataString())) },
-                // j004: { S: JSON.stringify(object.j004.map((model: OtherModel) => model.toDataString())) },
-                // j005: { S: JSON.stringify(object.j005.map((model: OtherModel) => model.toDataString())) },
-                // j006: { S: JSON.stringify(object.j006.map((model: OtherModel) => model.toDataString())) },
-                // j007: { S: JSON.stringify(object.j007.map((model: OtherModel) => model.toDataString())) },
-                // j008: { S: JSON.stringify(object.j008.map((model: OtherModel) => model.toDataString())) },
-                // j009: { S: JSON.stringify(object.j009.map((model: OtherModel) => model.toDataString())) },
-                // j010: { S: JSON.stringify(object.j010.map((model: OtherModel) => model.toDataString())) },
-                // j011: { S: JSON.stringify(object.j011.map((model: OtherModel) => model.toDataString())) },
-                // j012: { S: JSON.stringify(object.j012.map((model: OtherModel) => model.toDataString())) },
-                // j013: { S: JSON.stringify(object.j013.map((model: OtherModel) => model.toDataString())) },
-                // j014: { S: JSON.stringify(object.j014.map((model: OtherModel) => model.toDataString())) },
-                // j015: { S: JSON.stringify(object.j015.map((model: OtherModel) => model.toDataString())) },
-                // j016: { S: JSON.stringify(object.j016.map((model: OtherModel) => model.toDataString())) },
-                // j017: { S: JSON.stringify(object.j017.map((model: OtherModel) => model.toDataString())) },
-                // j018: { S: JSON.stringify(object.j018.map((model: OtherModel) => model.toDataString())) },
-                // j019: { S: JSON.stringify(object.j019.map((model: OtherModel) => model.toDataString())) },
-                // j020: { S: JSON.stringify(object.j020.map((model: OtherModel) => model.toDataString())) },
-                // e000: { S: object.e000 },
-                // e001: { S: object.e001 },
-                // e002: { S: object.e002 },
-                // e003: { S: object.e003 },
-                // e004: { S: object.e004 },
-                // e005: { S: object.e005 },
-                // e006: { S: object.e006 },
-                // e007: { S: object.e007 },
-                // e008: { S: object.e008 },
-                // e009: { S: object.e009 },
-                // e010: { S: object.e010 },
-                // e011: { S: object.e011 },
-                // e012: { S: object.e012 },
-                // e013: { S: object.e013 },
-                // e014: { S: object.e014 },
-                // e015: { S: object.e015 },
-                // e016: { S: object.e016 },
-                // e017: { S: object.e017 },
-                // e018: { S: object.e018 },
-                // e019: { S: object.e019 },
-                // e020: { S: object.e020 },
-            }
-        };
-
-        await NewDynamoDb.client.send(new PutItemCommand(upsertParams));
-    }
-
-    static async delete(docId: string): Promise<boolean> {
-
-
-        try {
-            const result = await NewDynamoDb.client.send(new DeleteItemCommand({
-                TableName: "New",
-                Key: { docId: { S: docId } },
-                ReturnValues: "ALL_OLD"  // 삭제된 항목 반환
-            }));
-            return !!result.Attributes;  // 항목이 실제로 삭제되었는지 확인
-        } catch (error) {
-            console.error('Failed to delete item:', error);
-            throw error;  // 또는 에러 처리 로직
-        }
-    }
-
-    static async get(docId: string): Promise<New | null> {
-
-        const getParams = {
-            TableName: "New",
-            Key: { docId: { S: docId } }
-        };
-
-        const result = await NewDynamoDb.client.send(new GetItemCommand(getParams));
-        return this.fromMap(result.Item);
-    }
-
-    static fromMap(queryParams: any): New {
-        const object = new New();
-
-        // object.s000 = queryParams.s000?.S ?? '';
-        // object.s001 = queryParams.s001?.S ?? '';
-        // object.s002 = queryParams.s002?.S ?? '';
-        // object.s003 = queryParams.s003?.S ?? '';
-        // object.s004 = queryParams.s004?.S ?? '';
-        // object.s005 = queryParams.s005?.S ?? '';
-        // object.s006 = queryParams.s006?.S ?? '';
-        // object.s007 = queryParams.s007?.S ?? '';
-        // object.s008 = queryParams.s008?.S ?? '';
-        // object.s009 = queryParams.s009?.S ?? '';
-        // object.s010 = queryParams.s010?.S ?? '';
-        // object.s011 = queryParams.s011?.S ?? '';
-        // object.s012 = queryParams.s012?.S ?? '';
-        // object.s013 = queryParams.s013?.S ?? '';
-        // object.s014 = queryParams.s014?.S ?? '';
-        // object.s015 = queryParams.s015?.S ?? '';
-        // object.s016 = queryParams.s016?.S ?? '';
-        // object.s017 = queryParams.s017?.S ?? '';
-        // object.s018 = queryParams.s018?.S ?? '';
-        // object.s019 = queryParams.s019?.S ?? '';
-        // object.s020 = queryParams.s020?.S ?? '';
-        // object.s021 = queryParams.s021?.S ?? '';
-        // object.s022 = queryParams.s022?.S ?? '';
-        // object.s023 = queryParams.s023?.S ?? '';
-        // object.s024 = queryParams.s024?.S ?? '';
-        // object.s025 = queryParams.s025?.S ?? '';
-        // object.s026 = queryParams.s026?.S ?? '';
-        // object.s027 = queryParams.s027?.S ?? '';
-        // object.s028 = queryParams.s028?.S ?? '';
-        // object.s029 = queryParams.s029?.S ?? '';
-        // object.s030 = queryParams.s030?.S ?? '';
-        // object.s031 = queryParams.s031?.S ?? '';
-        // object.s032 = queryParams.s032?.S ?? '';
-        // object.s033 = queryParams.s033?.S ?? '';
-        // object.s034 = queryParams.s034?.S ?? '';
-        // object.s035 = queryParams.s035?.S ?? '';
-        // object.s036 = queryParams.s036?.S ?? '';
-        // object.s037 = queryParams.s037?.S ?? '';
-        // object.s038 = queryParams.s038?.S ?? '';
-        // object.s039 = queryParams.s039?.S ?? '';
-        // object.s040 = queryParams.s040?.S ?? '';
-        // object.s041 = queryParams.s041?.S ?? '';
-        // object.s042 = queryParams.s042?.S ?? '';
-        // object.s043 = queryParams.s043?.S ?? '';
-        // object.s044 = queryParams.s044?.S ?? '';
-        // object.s045 = queryParams.s045?.S ?? '';
-        // object.s046 = queryParams.s046?.S ?? '';
-        // object.s047 = queryParams.s047?.S ?? '';
-        // object.s048 = queryParams.s048?.S ?? '';
-        // object.s049 = queryParams.s049?.S ?? '';
-        // object.s050 = queryParams.s050?.S ?? '';
-        // object.s051 = queryParams.s051?.S ?? '';
-        // object.s052 = queryParams.s052?.S ?? '';
-        // object.s053 = queryParams.s053?.S ?? '';
-        // object.s054 = queryParams.s054?.S ?? '';
-        // object.s055 = queryParams.s055?.S ?? '';
-        // object.s056 = queryParams.s056?.S ?? '';
-        // object.s057 = queryParams.s057?.S ?? '';
-        // object.s058 = queryParams.s058?.S ?? '';
-        // object.s059 = queryParams.s059?.S ?? '';
-        // object.s060 = queryParams.s060?.S ?? '';
-        // object.s061 = queryParams.s061?.S ?? '';
-        // object.s062 = queryParams.s062?.S ?? '';
-        // object.s063 = queryParams.s063?.S ?? '';
-        // object.s064 = queryParams.s064?.S ?? '';
-        // object.s065 = queryParams.s065?.S ?? '';
-        // object.s066 = queryParams.s066?.S ?? '';
-        // object.s067 = queryParams.s067?.S ?? '';
-        // object.s068 = queryParams.s068?.S ?? '';
-        // object.s069 = queryParams.s069?.S ?? '';
-        // object.s070 = queryParams.s070?.S ?? '';
-        // object.s071 = queryParams.s071?.S ?? '';
-        // object.s072 = queryParams.s072?.S ?? '';
-        // object.s073 = queryParams.s073?.S ?? '';
-        // object.s074 = queryParams.s074?.S ?? '';
-        // object.s075 = queryParams.s075?.S ?? '';
-        // object.s076 = queryParams.s076?.S ?? '';
-        // object.s077 = queryParams.s077?.S ?? '';
-        // object.s078 = queryParams.s078?.S ?? '';
-        // object.s079 = queryParams.s079?.S ?? '';
-        // object.s080 = queryParams.s080?.S ?? '';
-        // object.s081 = queryParams.s081?.S ?? '';
-        // object.s082 = queryParams.s082?.S ?? '';
-        // object.s083 = queryParams.s083?.S ?? '';
-        // object.s084 = queryParams.s084?.S ?? '';
-        // object.s085 = queryParams.s085?.S ?? '';
-        // object.s086 = queryParams.s086?.S ?? '';
-        // object.s087 = queryParams.s087?.S ?? '';
-        // object.s088 = queryParams.s088?.S ?? '';
-        // object.s089 = queryParams.s089?.S ?? '';
-        // object.s090 = queryParams.s090?.S ?? '';
-        // object.s091 = queryParams.s091?.S ?? '';
-        // object.s092 = queryParams.s092?.S ?? '';
-        // object.s093 = queryParams.s093?.S ?? '';
-        // object.s094 = queryParams.s094?.S ?? '';
-        // object.s095 = queryParams.s095?.S ?? '';
-        // object.s096 = queryParams.s096?.S ?? '';
-        // object.s097 = queryParams.s097?.S ?? '';
-        // object.s098 = queryParams.s098?.S ?? '';
-        // object.s099 = queryParams.s099?.S ?? '';
-        // object.i000 = Number(queryParams.i000?.N ?? '0');
-        // object.i001 = Number(queryParams.i001?.N ?? '0');
-        // object.i002 = Number(queryParams.i002?.N ?? '0');
-        // object.i003 = Number(queryParams.i003?.N ?? '0');
-        // object.i004 = Number(queryParams.i004?.N ?? '0');
-        // object.i005 = Number(queryParams.i005?.N ?? '0');
-        // object.i006 = Number(queryParams.i006?.N ?? '0');
-        // object.i007 = Number(queryParams.i007?.N ?? '0');
-        // object.i008 = Number(queryParams.i008?.N ?? '0');
-        // object.i009 = Number(queryParams.i009?.N ?? '0');
-        // object.i010 = Number(queryParams.i010?.N ?? '0');
-        // object.i011 = Number(queryParams.i011?.N ?? '0');
-        // object.i012 = Number(queryParams.i012?.N ?? '0');
-        // object.i013 = Number(queryParams.i013?.N ?? '0');
-        // object.i014 = Number(queryParams.i014?.N ?? '0');
-        // object.i015 = Number(queryParams.i015?.N ?? '0');
-        // object.i016 = Number(queryParams.i016?.N ?? '0');
-        // object.i017 = Number(queryParams.i017?.N ?? '0');
-        // object.i018 = Number(queryParams.i018?.N ?? '0');
-        // object.i019 = Number(queryParams.i019?.N ?? '0');
-        // object.i020 = Number(queryParams.i020?.N ?? '0');
-        // object.i021 = Number(queryParams.i021?.N ?? '0');
-        // object.i022 = Number(queryParams.i022?.N ?? '0');
-        // object.i023 = Number(queryParams.i023?.N ?? '0');
-        // object.i024 = Number(queryParams.i024?.N ?? '0');
-        // object.i025 = Number(queryParams.i025?.N ?? '0');
-        // object.i026 = Number(queryParams.i026?.N ?? '0');
-        // object.i027 = Number(queryParams.i027?.N ?? '0');
-        // object.i028 = Number(queryParams.i028?.N ?? '0');
-        // object.i029 = Number(queryParams.i029?.N ?? '0');
-        // object.i030 = Number(queryParams.i030?.N ?? '0');
-        // object.i031 = Number(queryParams.i031?.N ?? '0');
-        // object.i032 = Number(queryParams.i032?.N ?? '0');
-        // object.i033 = Number(queryParams.i033?.N ?? '0');
-        // object.i034 = Number(queryParams.i034?.N ?? '0');
-        // object.i035 = Number(queryParams.i035?.N ?? '0');
-        // object.i036 = Number(queryParams.i036?.N ?? '0');
-        // object.i037 = Number(queryParams.i037?.N ?? '0');
-        // object.i038 = Number(queryParams.i038?.N ?? '0');
-        // object.i039 = Number(queryParams.i039?.N ?? '0');
-        // object.i040 = Number(queryParams.i040?.N ?? '0');
-        // object.i041 = Number(queryParams.i041?.N ?? '0');
-        // object.i042 = Number(queryParams.i042?.N ?? '0');
-        // object.i043 = Number(queryParams.i043?.N ?? '0');
-        // object.i044 = Number(queryParams.i044?.N ?? '0');
-        // object.i045 = Number(queryParams.i045?.N ?? '0');
-        // object.i046 = Number(queryParams.i046?.N ?? '0');
-        // object.i047 = Number(queryParams.i047?.N ?? '0');
-        // object.i048 = Number(queryParams.i048?.N ?? '0');
-        // object.i049 = Number(queryParams.i049?.N ?? '0');
-        // object.i050 = Number(queryParams.i050?.N ?? '0');
-        // object.i051 = Number(queryParams.i051?.N ?? '0');
-        // object.i052 = Number(queryParams.i052?.N ?? '0');
-        // object.i053 = Number(queryParams.i053?.N ?? '0');
-        // object.i054 = Number(queryParams.i054?.N ?? '0');
-        // object.i055 = Number(queryParams.i055?.N ?? '0');
-        // object.i056 = Number(queryParams.i056?.N ?? '0');
-        // object.i057 = Number(queryParams.i057?.N ?? '0');
-        // object.i058 = Number(queryParams.i058?.N ?? '0');
-        // object.i059 = Number(queryParams.i059?.N ?? '0');
-        // object.i060 = Number(queryParams.i060?.N ?? '0');
-        // object.i061 = Number(queryParams.i061?.N ?? '0');
-        // object.i062 = Number(queryParams.i062?.N ?? '0');
-        // object.i063 = Number(queryParams.i063?.N ?? '0');
-        // object.i064 = Number(queryParams.i064?.N ?? '0');
-        // object.i065 = Number(queryParams.i065?.N ?? '0');
-        // object.i066 = Number(queryParams.i066?.N ?? '0');
-        // object.i067 = Number(queryParams.i067?.N ?? '0');
-        // object.i068 = Number(queryParams.i068?.N ?? '0');
-        // object.i069 = Number(queryParams.i069?.N ?? '0');
-        // object.i070 = Number(queryParams.i070?.N ?? '0');
-        // object.i071 = Number(queryParams.i071?.N ?? '0');
-        // object.i072 = Number(queryParams.i072?.N ?? '0');
-        // object.i073 = Number(queryParams.i073?.N ?? '0');
-        // object.i074 = Number(queryParams.i074?.N ?? '0');
-        // object.i075 = Number(queryParams.i075?.N ?? '0');
-        // object.i076 = Number(queryParams.i076?.N ?? '0');
-        // object.i077 = Number(queryParams.i077?.N ?? '0');
-        // object.i078 = Number(queryParams.i078?.N ?? '0');
-        // object.i079 = Number(queryParams.i079?.N ?? '0');
-        // object.i080 = Number(queryParams.i080?.N ?? '0');
-        // object.i081 = Number(queryParams.i081?.N ?? '0');
-        // object.i082 = Number(queryParams.i082?.N ?? '0');
-        // object.i083 = Number(queryParams.i083?.N ?? '0');
-        // object.i084 = Number(queryParams.i084?.N ?? '0');
-        // object.i085 = Number(queryParams.i085?.N ?? '0');
-        // object.i086 = Number(queryParams.i086?.N ?? '0');
-        // object.i087 = Number(queryParams.i087?.N ?? '0');
-        // object.i088 = Number(queryParams.i088?.N ?? '0');
-        // object.i089 = Number(queryParams.i089?.N ?? '0');
-        // object.i090 = Number(queryParams.i090?.N ?? '0');
-        // object.i091 = Number(queryParams.i091?.N ?? '0');
-        // object.i092 = Number(queryParams.i092?.N ?? '0');
-        // object.i093 = Number(queryParams.i093?.N ?? '0');
-        // object.i094 = Number(queryParams.i094?.N ?? '0');
-        // object.i095 = Number(queryParams.i095?.N ?? '0');
-        // object.i096 = Number(queryParams.i096?.N ?? '0');
-        // object.i097 = Number(queryParams.i097?.N ?? '0');
-        // object.i098 = Number(queryParams.i098?.N ?? '0');
-        // object.i099 = Number(queryParams.i099?.N ?? '0');
-        // object.b000 = Number(queryParams.b000?.N ?? '0') === 1;
-        // object.b001 = Number(queryParams.b001?.N ?? '0') === 1;
-        // object.b002 = Number(queryParams.b002?.N ?? '0') === 1;
-        // object.b003 = Number(queryParams.b003?.N ?? '0') === 1;
-        // object.b004 = Number(queryParams.b004?.N ?? '0') === 1;
-        // object.b005 = Number(queryParams.b005?.N ?? '0') === 1;
-        // object.b006 = Number(queryParams.b006?.N ?? '0') === 1;
-        // object.b007 = Number(queryParams.b007?.N ?? '0') === 1;
-        // object.b008 = Number(queryParams.b008?.N ?? '0') === 1;
-        // object.b009 = Number(queryParams.b009?.N ?? '0') === 1;
-        // object.b010 = Number(queryParams.b010?.N ?? '0') === 1;
-        // object.b011 = Number(queryParams.b011?.N ?? '0') === 1;
-        // object.b012 = Number(queryParams.b012?.N ?? '0') === 1;
-        // object.b013 = Number(queryParams.b013?.N ?? '0') === 1;
-        // object.b014 = Number(queryParams.b014?.N ?? '0') === 1;
-        // object.b015 = Number(queryParams.b015?.N ?? '0') === 1;
-        // object.b016 = Number(queryParams.b016?.N ?? '0') === 1;
-        // object.b017 = Number(queryParams.b017?.N ?? '0') === 1;
-        // object.b018 = Number(queryParams.b018?.N ?? '0') === 1;
-        // object.b019 = Number(queryParams.b019?.N ?? '0') === 1;
-        // object.b020 = Number(queryParams.b020?.N ?? '0') === 1;
-        // object.b021 = Number(queryParams.b021?.N ?? '0') === 1;
-        // object.b022 = Number(queryParams.b022?.N ?? '0') === 1;
-        // object.b023 = Number(queryParams.b023?.N ?? '0') === 1;
-        // object.b024 = Number(queryParams.b024?.N ?? '0') === 1;
-        // object.b025 = Number(queryParams.b025?.N ?? '0') === 1;
-        // object.b026 = Number(queryParams.b026?.N ?? '0') === 1;
-        // object.b027 = Number(queryParams.b027?.N ?? '0') === 1;
-        // object.b028 = Number(queryParams.b028?.N ?? '0') === 1;
-        // object.b029 = Number(queryParams.b029?.N ?? '0') === 1;
-        // object.b030 = Number(queryParams.b030?.N ?? '0') === 1;
-        // object.r000 = Number(queryParams.r000?.N ?? '0.0');
-        // object.r001 = Number(queryParams.r001?.N ?? '0.0');
-        // object.r002 = Number(queryParams.r002?.N ?? '0.0');
-        // object.r003 = Number(queryParams.r003?.N ?? '0.0');
-        // object.r004 = Number(queryParams.r004?.N ?? '0.0');
-        // object.r005 = Number(queryParams.r005?.N ?? '0.0');
-        // object.r006 = Number(queryParams.r006?.N ?? '0.0');
-        // object.r007 = Number(queryParams.r007?.N ?? '0.0');
-        // object.r008 = Number(queryParams.r008?.N ?? '0.0');
-        // object.r009 = Number(queryParams.r009?.N ?? '0.0');
-        // object.r010 = Number(queryParams.r010?.N ?? '0.0');
-        // object.r011 = Number(queryParams.r011?.N ?? '0.0');
-        // object.r012 = Number(queryParams.r012?.N ?? '0.0');
-        // object.r013 = Number(queryParams.r013?.N ?? '0.0');
-        // object.r014 = Number(queryParams.r014?.N ?? '0.0');
-        // object.r015 = Number(queryParams.r015?.N ?? '0.0');
-        // object.r016 = Number(queryParams.r016?.N ?? '0.0');
-        // object.r017 = Number(queryParams.r017?.N ?? '0.0');
-        // object.r018 = Number(queryParams.r018?.N ?? '0.0');
-        // object.r019 = Number(queryParams.r019?.N ?? '0.0');
-        // object.r020 = Number(queryParams.r020?.N ?? '0.0');
-        // object.r021 = Number(queryParams.r021?.N ?? '0.0');
-        // object.r022 = Number(queryParams.r022?.N ?? '0.0');
-        // object.r023 = Number(queryParams.r023?.N ?? '0.0');
-        // object.r024 = Number(queryParams.r024?.N ?? '0.0');
-        // object.r025 = Number(queryParams.r025?.N ?? '0.0');
-        // object.r026 = Number(queryParams.r026?.N ?? '0.0');
-        // object.r027 = Number(queryParams.r027?.N ?? '0.0');
-        // object.r028 = Number(queryParams.r028?.N ?? '0.0');
-        // object.r029 = Number(queryParams.r029?.N ?? '0.0');
-        // object.r030 = Number(queryParams.r030?.N ?? '0.0');
-        // object.t000 = new Date(Number(queryParams.t000?.N ?? '0'));
-        // object.t001 = new Date(Number(queryParams.t001?.N ?? '0'));
-        // object.t002 = new Date(Number(queryParams.t002?.N ?? '0'));
-        // object.t003 = new Date(Number(queryParams.t003?.N ?? '0'));
-        // object.t004 = new Date(Number(queryParams.t004?.N ?? '0'));
-        // object.t005 = new Date(Number(queryParams.t005?.N ?? '0'));
-        // object.t006 = new Date(Number(queryParams.t006?.N ?? '0'));
-        // object.t007 = new Date(Number(queryParams.t007?.N ?? '0'));
-        // object.t008 = new Date(Number(queryParams.t008?.N ?? '0'));
-        // object.t009 = new Date(Number(queryParams.t009?.N ?? '0'));
-        // object.t010 = new Date(Number(queryParams.t010?.N ?? '0'));
-        // object.t011 = new Date(Number(queryParams.t011?.N ?? '0'));
-        // object.t012 = new Date(Number(queryParams.t012?.N ?? '0'));
-        // object.t013 = new Date(Number(queryParams.t013?.N ?? '0'));
-        // object.t014 = new Date(Number(queryParams.t014?.N ?? '0'));
-        // object.t015 = new Date(Number(queryParams.t015?.N ?? '0'));
-        // object.t016 = new Date(Number(queryParams.t016?.N ?? '0'));
-        // object.t017 = new Date(Number(queryParams.t017?.N ?? '0'));
-        // object.t018 = new Date(Number(queryParams.t018?.N ?? '0'));
-        // object.t019 = new Date(Number(queryParams.t019?.N ?? '0'));
-        // object.t020 = new Date(Number(queryParams.t020?.N ?? '0'));
-        // object.l000 = JSON.parse(queryParams.l000?.S ?? '[]');
-        // object.l001 = JSON.parse(queryParams.l001?.S ?? '[]');
-        // object.l002 = JSON.parse(queryParams.l002?.S ?? '[]');
-        // object.l003 = JSON.parse(queryParams.l003?.S ?? '[]');
-        // object.l004 = JSON.parse(queryParams.l004?.S ?? '[]');
-        // object.l005 = JSON.parse(queryParams.l005?.S ?? '[]');
-        // object.l006 = JSON.parse(queryParams.l006?.S ?? '[]');
-        // object.l007 = JSON.parse(queryParams.l007?.S ?? '[]');
-        // object.l008 = JSON.parse(queryParams.l008?.S ?? '[]');
-        // object.l009 = JSON.parse(queryParams.l009?.S ?? '[]');
-        // object.l010 = JSON.parse(queryParams.l010?.S ?? '[]');
-        // object.l011 = JSON.parse(queryParams.l011?.S ?? '[]');
-        // object.l012 = JSON.parse(queryParams.l012?.S ?? '[]');
-        // object.l013 = JSON.parse(queryParams.l013?.S ?? '[]');
-        // object.l014 = JSON.parse(queryParams.l014?.S ?? '[]');
-        // object.l015 = JSON.parse(queryParams.l015?.S ?? '[]');
-        // object.l016 = JSON.parse(queryParams.l016?.S ?? '[]');
-        // object.l017 = JSON.parse(queryParams.l017?.S ?? '[]');
-        // object.l018 = JSON.parse(queryParams.l018?.S ?? '[]');
-        // object.l019 = JSON.parse(queryParams.l019?.S ?? '[]');
-        // object.l020 = JSON.parse(queryParams.l020?.S ?? '[]');
-        // object.m000 = JSON.parse(queryParams.m000?.S ?? '{}');
-        // object.m001 = JSON.parse(queryParams.m001?.S ?? '{}');
-        // object.m002 = JSON.parse(queryParams.m002?.S ?? '{}');
-        // object.m003 = JSON.parse(queryParams.m003?.S ?? '{}');
-        // object.m004 = JSON.parse(queryParams.m004?.S ?? '{}');
-        // object.m005 = JSON.parse(queryParams.m005?.S ?? '{}');
-        // object.m006 = JSON.parse(queryParams.m006?.S ?? '{}');
-        // object.m007 = JSON.parse(queryParams.m007?.S ?? '{}');
-        // object.m008 = JSON.parse(queryParams.m008?.S ?? '{}');
-        // object.m009 = JSON.parse(queryParams.m009?.S ?? '{}');
-        // object.m010 = JSON.parse(queryParams.m010?.S ?? '{}');
-        // object.m011 = JSON.parse(queryParams.m011?.S ?? '{}');
-        // object.m012 = JSON.parse(queryParams.m012?.S ?? '{}');
-        // object.m013 = JSON.parse(queryParams.m013?.S ?? '{}');
-        // object.m014 = JSON.parse(queryParams.m014?.S ?? '{}');
-        // object.m015 = JSON.parse(queryParams.m015?.S ?? '{}');
-        // object.m016 = JSON.parse(queryParams.m016?.S ?? '{}');
-        // object.m017 = JSON.parse(queryParams.m017?.S ?? '{}');
-        // object.m018 = JSON.parse(queryParams.m018?.S ?? '{}');
-        // object.m019 = JSON.parse(queryParams.m019?.S ?? '{}');
-        // object.m020 = JSON.parse(queryParams.m020?.S ?? '{}');
-        // object.c000 = OtherModel.fromDataString(queryParams.c000?.S ?? new OtherModel().toDataString());
-        // object.c001 = OtherModel.fromDataString(queryParams.c001?.S ?? new OtherModel().toDataString());
-        // object.c002 = OtherModel.fromDataString(queryParams.c002?.S ?? new OtherModel().toDataString());
-        // object.c003 = OtherModel.fromDataString(queryParams.c003?.S ?? new OtherModel().toDataString());
-        // object.c004 = OtherModel.fromDataString(queryParams.c004?.S ?? new OtherModel().toDataString());
-        // object.c005 = OtherModel.fromDataString(queryParams.c005?.S ?? new OtherModel().toDataString());
-        // object.c006 = OtherModel.fromDataString(queryParams.c006?.S ?? new OtherModel().toDataString());
-        // object.c007 = OtherModel.fromDataString(queryParams.c007?.S ?? new OtherModel().toDataString());
-        // object.c008 = OtherModel.fromDataString(queryParams.c008?.S ?? new OtherModel().toDataString());
-        // object.c009 = OtherModel.fromDataString(queryParams.c009?.S ?? new OtherModel().toDataString());
-        // object.c010 = OtherModel.fromDataString(queryParams.c010?.S ?? new OtherModel().toDataString());
-        // object.c011 = OtherModel.fromDataString(queryParams.c011?.S ?? new OtherModel().toDataString());
-        // object.c012 = OtherModel.fromDataString(queryParams.c012?.S ?? new OtherModel().toDataString());
-        // object.c013 = OtherModel.fromDataString(queryParams.c013?.S ?? new OtherModel().toDataString());
-        // object.c014 = OtherModel.fromDataString(queryParams.c014?.S ?? new OtherModel().toDataString());
-        // object.c015 = OtherModel.fromDataString(queryParams.c015?.S ?? new OtherModel().toDataString());
-        // object.c016 = OtherModel.fromDataString(queryParams.c016?.S ?? new OtherModel().toDataString());
-        // object.c017 = OtherModel.fromDataString(queryParams.c017?.S ?? new OtherModel().toDataString());
-        // object.c018 = OtherModel.fromDataString(queryParams.c018?.S ?? new OtherModel().toDataString());
-        // object.c019 = OtherModel.fromDataString(queryParams.c019?.S ?? new OtherModel().toDataString());
-        // object.c020 = OtherModel.fromDataString(queryParams.c020?.S ?? new OtherModel().toDataString());
-        // object.j000 = (JSON.parse(queryParams.j000?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j001 = (JSON.parse(queryParams.j001?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j002 = (JSON.parse(queryParams.j002?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j003 = (JSON.parse(queryParams.j003?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j004 = (JSON.parse(queryParams.j004?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j005 = (JSON.parse(queryParams.j005?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j006 = (JSON.parse(queryParams.j006?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j007 = (JSON.parse(queryParams.j007?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j008 = (JSON.parse(queryParams.j008?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j009 = (JSON.parse(queryParams.j009?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j010 = (JSON.parse(queryParams.j010?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j011 = (JSON.parse(queryParams.j011?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j012 = (JSON.parse(queryParams.j012?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j013 = (JSON.parse(queryParams.j013?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j014 = (JSON.parse(queryParams.j014?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j015 = (JSON.parse(queryParams.j015?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j016 = (JSON.parse(queryParams.j016?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j017 = (JSON.parse(queryParams.j017?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j018 = (JSON.parse(queryParams.j018?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j019 = (JSON.parse(queryParams.j019?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.j020 = (JSON.parse(queryParams.j020?.S ?? '[]') || []).map((item: string) => OtherModel.fromDataString(item));
-        // object.e000 = SomeEnumHelper.fromString(queryParams.e000?.S ?? SomeEnum.notSelected);
-        // object.e001 = SomeEnumHelper.fromString(queryParams.e001?.S ?? SomeEnum.notSelected);
-        // object.e002 = SomeEnumHelper.fromString(queryParams.e002?.S ?? SomeEnum.notSelected);
-        // object.e003 = SomeEnumHelper.fromString(queryParams.e003?.S ?? SomeEnum.notSelected);
-        // object.e004 = SomeEnumHelper.fromString(queryParams.e004?.S ?? SomeEnum.notSelected);
-        // object.e005 = SomeEnumHelper.fromString(queryParams.e005?.S ?? SomeEnum.notSelected);
-        // object.e006 = SomeEnumHelper.fromString(queryParams.e006?.S ?? SomeEnum.notSelected);
-        // object.e007 = SomeEnumHelper.fromString(queryParams.e007?.S ?? SomeEnum.notSelected);
-        // object.e008 = SomeEnumHelper.fromString(queryParams.e008?.S ?? SomeEnum.notSelected);
-        // object.e009 = SomeEnumHelper.fromString(queryParams.e009?.S ?? SomeEnum.notSelected);
-        // object.e010 = SomeEnumHelper.fromString(queryParams.e010?.S ?? SomeEnum.notSelected);
-        // object.e011 = SomeEnumHelper.fromString(queryParams.e011?.S ?? SomeEnum.notSelected);
-        // object.e012 = SomeEnumHelper.fromString(queryParams.e012?.S ?? SomeEnum.notSelected);
-        // object.e013 = SomeEnumHelper.fromString(queryParams.e013?.S ?? SomeEnum.notSelected);
-        // object.e014 = SomeEnumHelper.fromString(queryParams.e014?.S ?? SomeEnum.notSelected);
-        // object.e015 = SomeEnumHelper.fromString(queryParams.e015?.S ?? SomeEnum.notSelected);
-        // object.e016 = SomeEnumHelper.fromString(queryParams.e016?.S ?? SomeEnum.notSelected);
-        // object.e017 = SomeEnumHelper.fromString(queryParams.e017?.S ?? SomeEnum.notSelected);
-        // object.e018 = SomeEnumHelper.fromString(queryParams.e018?.S ?? SomeEnum.notSelected);
-        // object.e019 = SomeEnumHelper.fromString(queryParams.e019?.S ?? SomeEnum.notSelected);
-        // object.e020 = SomeEnumHelper.fromString(queryParams.e020?.S ?? SomeEnum.notSelected);
-        object.docId = queryParams.docId.S;
 
         return object;
     }

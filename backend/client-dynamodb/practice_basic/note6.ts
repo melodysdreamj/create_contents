@@ -44,6 +44,7 @@ async function main() {
 
     console.log("전체 게시글 수:", allPosts.length);
     console.log("전체 게시글 목록:", allPosts);
+    console.log(allPosts[0].title.S)
 
   } catch (err) {
     console.error("데이터 조회 중 오류 발생:", err);
