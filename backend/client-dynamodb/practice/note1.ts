@@ -38,10 +38,6 @@ const usersTableParams = {
       ],
       Projection: {
         ProjectionType: "ALL"
-      },
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5
       }
     }
   ],
@@ -69,10 +65,6 @@ const postsTableParams = {
       ],
       Projection: {
         ProjectionType: "ALL"
-      },
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5
       }
     }
   ],
@@ -81,27 +73,11 @@ const postsTableParams = {
 
   try {
     // Users 테이블 생성
-    const usersTable = await client.send(new CreateTableCommand({
-      ...usersTableParams,
-      GlobalSecondaryIndexes: [{
-        ...usersTableParams.GlobalSecondaryIndexes[0],
-        Projection: {
-          ProjectionType: "ALL" as const
-        }
-      }]
-    }));
+    const usersTable = await client.send(new CreateTableCommand(usersTableParams));
     console.log("Users 테이블 생성 완료:", usersTable);
 
     // Posts 테이블 생성 
-    const postsTable = await client.send(new CreateTableCommand({
-      ...postsTableParams,
-      GlobalSecondaryIndexes: [{
-        ...postsTableParams.GlobalSecondaryIndexes[0],
-        Projection: {
-          ProjectionType: "ALL" as const
-        }
-      }]
-    }));
+    const postsTable = await client.send(new CreateTableCommand(postsTableParams));
     console.log("Posts 테이블 생성 완료:", postsTable);
   } catch (err) {
     console.error("테이블 생성 중 오류 발생:", err);
