@@ -2444,7 +2444,10 @@ export class PracticeDynamoDb {
         };
 
         const result = await PracticeDynamoDb.client.send(new GetItemCommand(getParams));
-        return this.fromMap(result.Item);
+        if (result.Item) {
+            return this.fromMap(result.Item);
+        }
+        return null;
     }
 
     static fromMap(queryParams: any): Practice {
