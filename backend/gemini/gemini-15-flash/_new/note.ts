@@ -1,4 +1,4 @@
-import {requestGeminiFlash} from "./_";
+import {requestGeminiFlash} from "../_";
 
 async function main() {
     console.log("start");
