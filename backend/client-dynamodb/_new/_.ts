@@ -2005,6 +2005,7 @@ export class NewDynamoDb {
                 { AttributeName: "docId", AttributeType: "S" as ScalarAttributeType },
             ],
             BillingMode: "PAY_PER_REQUEST" as const,
+            // TableClass: "STANDARD_INFREQUENT_ACCESS" as const, // DynamoDB Standard-IA 테이블 클래스 지정
         }
 
         try {
