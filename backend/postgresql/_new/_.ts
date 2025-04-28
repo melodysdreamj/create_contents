@@ -2035,7 +2035,7 @@ export class NewPostgresql {
   static _createIndexSqlString(columns: string[]): string {
     let indexName = `idx_new_${columns.join("_")}`;
     indexName = indexName.replace(/\(.*?\)/g, "");
-    const tableName = `"NewModel"`; // 대소문자 구분 위해 따옴표 사용 가정
+    const tableName = `"New"`; // 대소문자 구분 위해 따옴표 사용 가정
     const columnString = columns.map((c) => `"${c}"`).join(", ");
     return `CREATE INDEX IF NOT EXISTS "${indexName}" ON ${tableName} (${columnString});`;
   }
