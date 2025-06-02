@@ -144,7 +144,7 @@ export class CheckPostgresql {
       `"docId" TEXT PRIMARY KEY` +
       `,"s000" TEXT` +
       `,"i000" BIGINT` +
-      `,"b000" INTEGER CHECK(b000 IN (0, 1))` +
+      `,"b000" INTEGER CHECK("b000" IN (0, 1))` +
       `,"r000" DOUBLE PRECISION` +
       `,"t000" BIGINT` +
       `,"l000" TEXT` +
