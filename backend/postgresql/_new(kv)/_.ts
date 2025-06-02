@@ -25,7 +25,7 @@ const connectionDetails = {
 
 export class New {
   constructor() {
-    this.docId = LegoUtil.randomString(10);
+    this.docId = "app";
   }
 
   // s000: string = "";
@@ -39,7 +39,7 @@ export class New {
   // j000 : OtherModel[] = [];
   // e000: SomeEnum = SomeEnum.notSelected;
 
-  docId: string = "";
+  docId: string = "app";
 
   toDataString(): string {
     return btoa(
@@ -77,11 +77,12 @@ export class New {
     // object.b000 = parseInt(queryParams["b000"]) === 1;
     // object.r000 = parseFloat(queryParams["r000"] || "0");
     // object.t000 = new Date(parseInt(queryParams["t000"] || "0", 10));
+    // object.l000 = JSON.parse(queryParams["l000"] || "[]");
     // object.m000 = JSON.parse(queryParams["m000"] || "{}");
     // object.c000 = OtherModel.fromDataString(queryParams["c000"] || new OtherModel().toDataString());
     // object.j000 = (JSON.parse(queryParams["j000"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
     // object.e000 = SomeEnumHelper.fromString(queryParams["e000"] || SomeEnum.notSelected);
-    object.docId = queryParams["docId"] || "";
+    object.docId = queryParams["docId"] || "app";
 
     return object;
   }
@@ -115,7 +116,7 @@ export class New {
     // object.c000 = OtherModel.fromDataString(queryParams.c000 || new OtherModel().toDataString());
     // object.j000 = (JSON.parse(queryParams.j000 || '[]') || []).map((item: string) => OtherModel.fromDataString(item));
     // object.e000 = SomeEnumHelper.fromString(queryParams.e000 || SomeEnum.notSelected);
-    object.docId = queryParams.docId;
+    object.docId = queryParams.docId || "app";
 
     return object;
   }
@@ -151,7 +152,7 @@ export class NewPostgresql {
   static async createTable() {
     const createTableSQL: string =
       `CREATE TABLE IF NOT EXISTS "New" (` +
-      `"docId" TEXT PRIMARY KEY` +
+      `"docId" TEXT PRIMARY KEY DEFAULT 'app'` +
       // `,"s000" TEXT` +
       // `,"i000" BIGINT` +
       // `,"b000" INTEGER CHECK("b000" IN (0, 1))` +
@@ -219,22 +220,16 @@ export class NewPostgresql {
   }
 
   static async upsert(object: New) {
-    if ((await this.get(object.docId)) == null) {
+    if ((await this.get()) == null) {
       await this.insert(object);
     } else {
       await this.update(object);
     }
   }
 
-  static async delete(docId: string) {
-    const sql = 'DELETE FROM "New" WHERE "docId" = ${docId}';
-    const params = { docId };
-    const result = await NewPostgresql.db.result(sql, params);
-  }
-
-  static async get(docId: string): Promise<New | null> {
+  static async get(): Promise<New | null> {
     const sql = 'SELECT * FROM "New" WHERE "docId" = ${docId}';
-    const params = { docId };
+    const params = { docId: "app" };
     const result = await NewPostgresql.db.oneOrNone(sql, params);
 
     if (result == null) {
