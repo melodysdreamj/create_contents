@@ -1,6 +1,7 @@
 // https://developers.cloudflare.com/ai-gateway/providers/google-ai-studio/
 
 import dotenv from 'dotenv';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Initialize environment variables
 dotenv.config();
@@ -13,45 +14,23 @@ if (!ACCOUNT_ID || !GATEWAY_NAME || !GOOGLE_STUDIO_API_KEY) {
     throw new Error('Required environment variables are not set');
 }
 
+const genAI = new GoogleGenerativeAI(GOOGLE_STUDIO_API_KEY || '');
+
+const model = genAI.getGenerativeModel(
+    { model: "gemini-2.0-flash-lite" },
+    {
+        baseUrl: `https://gateway.ai.cloudflare.com/v1/${ACCOUNT_ID}/${GATEWAY_NAME}/google-ai-studio`,
+    },
+);
+
 export async function requestCloudflareGatewayGemini20FlashLite(prompt: string): Promise<string | null> {
     try {
         console.log("Gemini 2.0 Flash Lite chat started");
 
-        const headers = new Headers({
-            'Content-Type': 'application/json',
-            'x-goog-api-key': GOOGLE_STUDIO_API_KEY || ''
-        });
-
-        const response = await fetch(
-            `https://gateway.ai.cloudflare.com/v1/${ACCOUNT_ID}/${GATEWAY_NAME}/google-ai-studio/v1/models/gemini-2.0-flash-lite:generateContent`,
-            {
-                method: 'POST',
-                headers,
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [
-                                { text: prompt }
-                            ]
-                        }
-                    ]
-                })
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const result = await model.generateContent(prompt);
+        const response = result.response;
         
-        // Extract the response text from the Gemini API response
-        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-            return data.candidates[0].content.parts[0].text;
-        }
-
-        return null;
+        return response.text();
     } catch (error) {
         console.error("Error in Gemini 2.0 Flash Lite chat:", error);
         return null;
