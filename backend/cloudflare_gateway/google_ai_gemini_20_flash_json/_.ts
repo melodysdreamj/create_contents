@@ -23,7 +23,7 @@ const model = genAI.getGenerativeModel(
     },
 );
 
-export async function requestCloudflareGatewayGemini20Flash(prompt: string): Promise<string | null> {
+export async function requestCloudflareGatewayGemini20FlashJson(prompt: string): Promise<string | null> {
     try {
         console.log("Gemini 2.0 Flash chat started");
 

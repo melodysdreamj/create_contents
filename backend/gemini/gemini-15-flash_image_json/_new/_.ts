@@ -33,7 +33,7 @@ async function uploadImageFile(filePath: string): Promise<{ uri: string, mimeTyp
 }
 
 // 텍스트와 이미지 기반 요청을 처리하는 함수
-export async function requestGeminiFlashWithImage(prompt: string, imagePath: string): Promise<string | null> {
+export async function requestGemini15FlashImageJson(prompt: string, imagePath: string): Promise<string | null> {
     try {
         // 이미지 업로드
         const uploadResponse = await uploadImageFile(imagePath);
@@ -58,7 +58,7 @@ export async function requestGeminiFlashWithImage(prompt: string, imagePath: str
 
         return text;
     } catch (error) {
-        console.error('Error in requestGeminiFlashWithImage:', error);
+        console.error('Error in requestGemini15FlashImageJson:', error);
         return null;
     }
 }

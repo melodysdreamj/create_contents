@@ -11,10 +11,13 @@ if (!API_KEY) {
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 
-export async function requestGeminiFlash(prompt: string): Promise<string | null> {
+export async function requestGemini20FlashExpJson(prompt: string): Promise<string | null> {
     try {
         const model: GenerativeModel = genAI.getGenerativeModel({
             model: "gemini-2.0-flash-exp",
+            generationConfig: {
+                responseMimeType: "application/json",
+              },
         });
 
         const result = await model.generateContent(prompt);
@@ -22,7 +25,7 @@ export async function requestGeminiFlash(prompt: string): Promise<string | null>
 
         return response;
     } catch (error) {
-        console.error("Error in requestGeminiFlash:", error);
+        console.error("Error in requestGemini20FlashExpJson:", error);
         return null;
     }
 }
