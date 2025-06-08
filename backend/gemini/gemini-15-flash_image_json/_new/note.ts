@@ -1,4 +1,4 @@
-import { requestGeminiFlashWithImage } from "./_";
+import { requestGemini15FlashImageJson } from "./_";
 
 async function main() {
     console.log("start");
@@ -16,7 +16,7 @@ async function main() {
 
     const imagePath = 'backend/gemini/gemini-15-flash_image/sample.png'; // 업로드할 이미지 파일 경로
 
-    const response = await requestGeminiFlashWithImage(prompt, imagePath);
+    const response = await requestGemini15FlashImageJson(prompt, imagePath);
     console.log('Generated Response:', response);
 }
 
