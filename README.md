@@ -111,3 +111,17 @@ AWS_REGION=us-east-1
 ```
 
 Ensure that your environment is configured securely and that sensitive credentials are never exposed in public repositories.
+
+
+
+### Qdrant docker create
+```bash
+docker volume create qdrant_data
+docker run -d \
+  -p 6333:6333 \
+  -p 6334:6334 \
+  -v qdrant_data:/qdrant/storage \
+  -e QDRANT__SERVICE__API_KEY="my-super-secret-key" \
+  --name qdrant-server \
+  qdrant/qdrant:latest
+```
