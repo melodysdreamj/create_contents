@@ -133,9 +133,6 @@ export class NewQdrant {
                         distance: distance,         // Inner Product - 정규화된 벡터에 더 적합
                     }
                 });
-                console.log(`✅ Collection "${collectionName}" was created.`);
-            } else {
-                console.log(`ℹ️ Collection "${collectionName}" already exists. Skipping creation.`);
             }
         } catch (error) {
             console.error(`❌ An error occurred while checking or creating the collection:`, error);
@@ -209,13 +206,11 @@ export class NewQdrant {
             
             const point = result[0];
             if (!point.payload) {
-                console.warn(`⚠️ 포인트 ${docId}에 payload가 없습니다.`);
                 return null;
             }
             
             // payload를 바로 New 객체로 변환 (이미 docId 포함)
             const newObject = New.fromMap(point.payload);
-            console.log(`✅ 포인트 ${docId}를 New 객체로 변환했습니다.`);
             return newObject;
             
         } catch (error) {
@@ -240,8 +235,6 @@ export class NewQdrant {
                     with_payload: true,
                     with_vector: false
                 });
-                
-                console.log(`🔄 ${result.points?.length || 0}개의 포인트를 조회했습니다. (누적: ${totalRetrieved}개)`);
                 
                 // 현재 배치의 포인트들을 New 객체로 변환
                 if (result.points) {
@@ -268,7 +261,6 @@ export class NewQdrant {
                 
             } while (offset !== null && offset !== undefined);
             
-            console.log(`✅ 전체 ${totalRetrieved}개의 New 객체를 조회했습니다.`);
             return allObjects;
         } catch (error) {
             console.error(`❌ 전체 포인트 조회 중 오류:`, error);
@@ -291,8 +283,6 @@ export class NewQdrant {
                 with_vector: false
             });
             
-            console.log(`🔍 "${query}"에 대한 ${searchResults.length}개의 검색 결과를 찾았습니다.`);
-            
             // 검색 결과를 New 객체로 변환
             const objects: New[] = [];
             for (const result of searchResults) {
@@ -308,7 +298,6 @@ export class NewQdrant {
                 }
             }
             
-            console.log(`✅ ${objects.length}개의 New 객체로 변환되었습니다.`);
             return objects;
         } catch (error) {
             console.error(`❌ 검색 중 오류:`, error);
@@ -326,10 +315,8 @@ export class NewQdrant {
     static async _embedTexts(texts: string[]): Promise<number[][]> {
 
         if (NewQdrant.extractor === null) {
-            console.log("🔄 BGE-M3 모델 초기화 중...");
             NewQdrant.extractor = await pipeline('feature-extraction', 'Xenova/bge-m3');
         }
-        console.log(`🔄 ${texts.length}개의 텍스트를 임베딩하는 중...`);
           
         // BGE-M3로 임베딩 생성 (CLS pooling과 정규화 적용)
         const embeddings = await NewQdrant.extractor(texts, { 
@@ -340,7 +327,6 @@ export class NewQdrant {
         // JavaScript 배열로 변환
         const embeddingsList = embeddings.tolist();
         
-        console.log(`✅ ${texts.length}개의 임베딩이 생성되었습니다.`);
         return embeddingsList;
     }
 
