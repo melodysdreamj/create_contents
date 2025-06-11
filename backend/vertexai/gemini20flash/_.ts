@@ -1,28 +1,41 @@
-import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
+import { VertexAI } from "@google-cloud/vertexai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const API_KEY = process.env.GEMINI_API_KEY;
+const project = process.env.VERTEX_AI_PROJECT_ID;
+const location = process.env.VERTEX_AI_LOCATION;
 
-if (!API_KEY) {
-  throw new Error("GEMINI_API_KEY is not set in the environment variables");
+if (!project || !location) {
+  throw new Error(
+    "VERTEX_AI_PROJECT_ID and VERTEX_AI_LOCATION must be set in the environment variables"
+  );
 }
 
-const genAI = new GoogleGenerativeAI(API_KEY);
+const vertexAI = new VertexAI({ project, location });
 
 export async function requestGemini20Flash(
   prompt: string
 ): Promise<string | null> {
   try {
-    const model: GenerativeModel = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+    // Instantiate the models
+    const generativeModel = vertexAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
     });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
 
-    return text;
+    const req = {
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+    };
+
+    const resp = await generativeModel.generateContent(req);
+
+    if (!resp.response.candidates?.length) {
+      return null;
+    }
+
+    const text = resp.response.candidates[0].content.parts[0].text;
+
+    return text ?? null;
   } catch (error) {
     console.error("Error in requestGemini20Flash:", error);
     return null;
