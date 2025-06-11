@@ -20,10 +20,10 @@
 
    ```json
    {
-       "code-runner.executorMap": {
-           "typescript": "npx tsx ${file}"
-       },
-       "code-runner.runInTerminal": true
+     "code-runner.executorMap": {
+       "typescript": "npx tsx ${file}"
+     },
+     "code-runner.runInTerminal": true
    }
    ```
 
@@ -35,7 +35,6 @@
    - Right-click within the file editor and select **Run Code**.
 
 This will run the current file using `npx tsx` directly in the terminal.
-
 
 ## Obtaining the `serviceAccountKey.json` File
 
@@ -56,20 +55,20 @@ The `serviceAccountKey.json` file is the service account key for your Firebase p
    - In the warning dialog, click "Generate Key".
    - A JSON file will be automatically downloaded.
 
+## 포컷베이스 와 b2 같이 사용할때
 
-## 포컷베이스 와 b2 같이 사용할때 
 b2에서 keyID 가 Access Key이고 applicationKey 가 Secret Key이다. 그에 맞게 설정하면 된다.
 Endpoint, Bucket, Region(예: us-west-001)을 설정하면 된다.
 
-
 ## Memcached
+
 ### macOS
+
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install memcached
 memcached -d -p 11211
 brew services start memcached
 brew services list
-
 
 ## client-DynamoDB
 
@@ -88,12 +87,13 @@ AWS_REGION=us-east-1
 ### How to Obtain These Values
 
 1. **Create an IAM User** in the AWS Console:
+
    - Go to [AWS IAM Console](https://console.aws.amazon.com/iam/) and create a new user with **programmatic access**.
    - Attach the required permissions, such as \`AmazonDynamoDBFullAccess\` or \`AmazonDynamoDBReadOnlyAccess\`, depending on your application's needs.
    - Once the user is created, you will see the **Access Key ID** and **Secret Access Key**. **Save these securely**, as you won't be able to view the Secret Access Key again.
 
 2. **Set the AWS Region**:
-   - Choose the AWS region where your DynamoDB table is located. 
+   - Choose the AWS region where your DynamoDB table is located.
    - Common region codes include:
      - \`us-east-1\` for US East (N. Virginia)
      - \`us-west-1\` for US West (N. California)
@@ -112,9 +112,8 @@ AWS_REGION=us-east-1
 
 Ensure that your environment is configured securely and that sensitive credentials are never exposed in public repositories.
 
-
-
 ### Qdrant docker create
+
 ```bash
 docker volume create qdrant_data
 docker run -d \
@@ -125,3 +124,11 @@ docker run -d \
   --name qdrant-server \
   qdrant/qdrant:latest
 ```
+
+docker run -d \
+ -p 6333:6333 \
+ -p 6334:6334 \
+ -v poster_qdrant_data:/qdrant/storage \
+ -e QDRANT**SERVICE**API_KEY="my-super-secret-key" \
+ --name qdrant-server \
+ qdrant/qdrant:latest
