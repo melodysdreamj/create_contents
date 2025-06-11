@@ -132,3 +132,9 @@ docker run -d \
  -e QDRANT**SERVICE**API_KEY="my-super-secret-key" \
  --name qdrant-server \
  qdrant/qdrant:latest
+
+### When Use Vertex ai
+
+```bash
+gcloud auth application-default login
+```
