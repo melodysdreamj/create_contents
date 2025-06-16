@@ -245,13 +245,52 @@ export class NewPostgresql {
   }
 
   static async getAll(): Promise<New[]> {
-    const sql = 'SELECT * FROM "New"';
-    // console.log("Executing SQL for getAll:", sql);
-    const results = await NewPostgresql.db.any(sql);
-    // console.log(`getAll completed. Fetched ${results.length} rows.`);
-    return results.map((row) => NewPostgresql.fromMap(row));
-  }
+    const allResults: New[] = [];
+    const chunkSize = 100000; // 한 번에 가져올 데이터 묶음 크기
+    let lastDocId: string | null = null;
+    let keepFetching = true;
 
+    while (keepFetching) {
+      let sql: string;
+      const params: any = { chunkSize };
+
+      if (lastDocId === null) {
+        // 첫 페이지 조회: 단순히 docId로 정렬하여 상위 N개를 가져옵니다.
+        sql = 'SELECT * FROM "New" ORDER BY "docId" LIMIT ${chunkSize}';
+      } else {
+        // 다음 페이지 조회 (키셋 페이지네이션):
+        // OFFSET 대신 마지막으로 가져온 docId보다 큰 다음 N개를 가져옵니다.
+        // 이 방식은 인덱스를 효율적으로 사용하여 매우 빠릅니다.
+        sql =
+          'SELECT * FROM "New" WHERE "docId" > ${lastDocId} ORDER BY "docId" LIMIT ${chunkSize}';
+        params.lastDocId = lastDocId;
+      }
+
+      try {
+        const chunk = await NewPostgresql.db.any(sql, params);
+
+        if (chunk.length > 0) {
+          allResults.push(...chunk.map((row) => NewPostgresql.fromMap(row)));
+
+          // 다음 조회를 위해 이번에 가져온 데이터의 마지막 docId를 기록합니다.
+          lastDocId = chunk[chunk.length - 1].docId;
+        }
+
+        // 가져온 데이터가 요청한 묶음 크기보다 작으면, 더 이상 데이터가 없는 것이므로 루프를 중단합니다.
+        if (chunk.length < chunkSize) {
+          keepFetching = false;
+        }
+      } catch (error) {
+        console.error(
+          "Error fetching a chunk in getAll with keyset pagination:",
+          error
+        );
+        throw new Error(`Error fetching data from New: ${error}`);
+      }
+    }
+
+    return allResults;
+  }
   // static async getByI000(value: number): Promise<New | null> {
   //   const sql = 'SELECT * FROM "New" WHERE "i000" = ${value}'; // 컬럼명, 테이블명 확인
   //   const params = { value };
