@@ -219,11 +219,97 @@ export class NewPostgresql {
   }
 
   static async upsert(object: New) {
-    if ((await this.get(object.docId)) == null) {
-      await this.insert(object);
-    } else {
-      await this.update(object);
+    const sql =
+      `INSERT INTO "New" (` +
+      `"docId"` +
+      // `,"s000"` +
+      // `,"i000"` +
+      // `,"b000"` +
+      // `,"r000"` +
+      // `,"t000"` +
+      // `,"l000"` +
+      // `,"m000"` +
+      // `,"c000"` +
+      // `,"j000"` +
+      // `,"e000"` +
+      `) VALUES (` +
+      "${docId}" +
+      // ',${s000}' +
+      // ',${i000}' +
+      // ',${b000}' +
+      // ',${r000}' +
+      // ',${t000}' +
+      // ',${l000}' +
+      // ',${m000}' +
+      // ',${c000}' +
+      // ',${j000}' +
+      // ',${e000}' +
+      `) ON CONFLICT ("docId") DO UPDATE SET ` +
+      '"docId" = ${docId}' +
+      // ',"s000" = ${s000}' +
+      // ',"i000" = ${i000}' +
+      // ',"b000" = ${b000}' +
+      // ',"r000" = ${r000}' +
+      // ',"t000" = ${t000}' +
+      // ',"l000" = ${l000}' +
+      // ',"m000" = ${m000}' +
+      // ',"c000" = ${c000}' +
+      // ',"j000" = ${j000}' +
+      // ',"e000" = ${e000}' +
+      ``;
+    await NewPostgresql.db.none(sql, object.toMap());
+  }
+
+  static async upsertMany(objects: New[]) {
+    if (!objects || objects.length === 0) {
+      return;
     }
+
+    // 삽입 또는 업데이트할 컬럼을 정의합니다. 주석을 해제하면 쿼리에 자동으로 포함됩니다.
+    const columns = [
+      "docId",
+      // 's000',
+      // 'i000',
+      // 'b000',
+      // 'r000',
+      // 't000',
+      // 'l000',
+      // 'm000',
+      // 'c000',
+      // 'j000',
+      // 'e000',
+    ];
+
+    // pg-promise의 ColumnSet을 사용하여 대량 삽입/업데이트를 위한 준비를 합니다.
+    const cs = new NewPostgresql.pgp.helpers.ColumnSet(columns, {
+      table: "New",
+    });
+
+    // ON CONFLICT...DO UPDATE SET... 부분을 미리 생성합니다.
+    const updateQuery = cs.assignColumns({ from: "EXCLUDED" });
+
+    // 대용량 데이터를 처리하기 위해 트랜잭션 내에서 데이터를 작은 묶음(chunk)으로 나눕니다.
+    // 이는 SQL 쿼리 길이 제한 및 메모리 문제를 방지합니다.
+    const chunkSize = 10000; // 한 번의 쿼리로 처리할 데이터 수
+
+    await NewPostgresql.db.tx(async (t) => {
+      const queries = [];
+      for (let i = 0; i < objects.length; i += chunkSize) {
+        const chunk = objects.slice(i, i + chunkSize);
+        const data = chunk.map((obj) => obj.toMap());
+
+        // 현재 chunk에 대한 대량 삽입 쿼리를 생성합니다.
+        const insertQuery = NewPostgresql.pgp.helpers.insert(data, cs);
+
+        // 최종 쿼리를 조합합니다.
+        const sql = `${insertQuery} ON CONFLICT ("docId") DO UPDATE SET ${updateQuery}`;
+
+        // 트랜잭션에 쿼리를 추가합니다.
+        queries.push(t.none(sql));
+      }
+      // 모든 chunk에 대한 쿼리를 하나의 트랜잭션으로 실행합니다.
+      return t.batch(queries);
+    });
   }
 
   static async delete(docId: string) {
