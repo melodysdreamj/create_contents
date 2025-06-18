@@ -130,24 +130,21 @@ export class NewPostgresql {
   // 데이터베이스 연결 객체
   private static db = NewPostgresql.pgp(connectionDetails);
 
-  // createIndex: public. 제거. 기존 방식 유지하되 DDL 실행 시도.
-  static async createIndex(columns: string[]) {
-    const sql = this._createIndexSqlString(columns); // 내부 함수에서 public. 제거 필요
-    try {
-      // db.none으로 DDL 실행 시도
-      await NewPostgresql.db.none(sql);
-    } catch (error) {
-      throw error;
-    }
+  static async createIndex() {
+    // await this.createIndex1();
   }
 
-  static _createIndexSqlString(columns: string[]): string {
-    let indexName = `idx_new_${columns.join("_")}`;
-    indexName = indexName.replace(/\(.*?\)/g, "");
-    const tableName = `"New"`; // 대소문자 구분 위해 따옴표 사용 가정
-    const columnString = columns.map((c) => `"${c}"`).join(", ");
-    return `CREATE INDEX IF NOT EXISTS "${indexName}" ON ${tableName} (${columnString});`;
-  }
+  // static async createIndex1() {
+  //   const sql = ""
+  //   try {
+  //     // db.none으로 DDL 실행 시도
+  //     await NeedSentenceInfoPostgresql.db.none(sql);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
+  
   static async createTable() {
     const createTableSQL: string =
       `CREATE TABLE IF NOT EXISTS "New" (` +
