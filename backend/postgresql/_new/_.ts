@@ -131,18 +131,16 @@ export class NewPostgresql {
   private static db = NewPostgresql.pgp(connectionDetails);
 
   static async createIndex() {
-    // await this.createIndex1();
+    const sql1 = ""
+    const sql2 = ""
+    try {
+      // db.none으로 DDL 실행 시도
+      await NewPostgresql.db.none(sql1);
+      await NewPostgresql.db.none(sql2);
+    } catch (error) {
+      throw error;
+    }
   }
-
-  // static async createIndex1() {
-  //   const sql = ""
-  //   try {
-  //     // db.none으로 DDL 실행 시도
-  //     await NeedSentenceInfoPostgresql.db.none(sql);
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
 
   
   static async createTable() {
