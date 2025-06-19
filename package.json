@@ -50,7 +50,7 @@
     "node-fetch": "^3.3.2",
     "openai": "^4.56.0",
     "pg-promise": "^11.13.0",
-    "pocketbase": "^0.21.4",
+    "pocketbase": "^0.26.1",
     "postgres": "^3.4.4",
     "quick-lru": "^7.0.0",
     "redis": "^4.7.0",
