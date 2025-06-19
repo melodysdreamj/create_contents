@@ -443,38 +443,38 @@ export class NewPocketBaseCollection {
   }
 
   static async downloadFile(object: New, filePath: string): Promise<boolean> {
-    // 먼저 해당하는 파일이 서버에 있는지 확인후, 있을경우 다운로드 없을경우 실패
-
     await NewPocketBaseCollection.getDb();
 
-    const obj = await this.getRow(object.docId);
+    try {
+      const record = await this.getRow(object.docId);
 
-    if (obj == null) {
-      console.log("object is not found");
-      return false;
-    } else {
-      try {
-        // Axios를 사용하여 다운로드 요청 수행
-        const downloadResponse: AxiosResponse<any> = await axios.get(
-          `${pb.baseUrl}/api/files/${obj.collectionId}/${obj.id}/${obj.fileName}`,
-          {
-            responseType: "stream",
-            headers: {
-              Authorization: `Bearer ${pb.authStore.token}`, // 인증 토큰 헤더에 추가
-            },
-          }
-        );
+      if (record && record.fileName) {
+        const fileUrl = pb.getFileUrl(record, record.fileName);
+        console.log("다운로드 URL:", fileUrl);
+        const response: AxiosResponse<any> = await axios({
+          method: "get",
+          url: fileUrl,
+          responseType: "arraybuffer", // 스트림 대신 arraybuffer를 사용합니다.
+        });
 
-        // 파일 스트림 생성
-        const fileStream = fs.createWriteStream(filePath);
-        // 다운로드한 파일 스트림을 파일로 저장
-        downloadResponse.data.pipe(fileStream);
+        // 파일 저장 경로를 확인하고 필요한 경우 디렉토리를 생성합니다.
+        const dir = path.dirname(filePath);
+        if (!fs.existsSync(dir)) {
+          fs.mkdirSync(dir, { recursive: true });
+        }
 
+        // 파일 데이터를 저장합니다.
+        fs.writeFileSync(filePath, response.data);
+
+        console.log("파일 다운로드 및 저장 완료:", filePath);
         return true;
-      } catch (e) {
-        console.log("failed to download", e);
+      } else {
+        console.log("다운로드할 파일이 없습니다.");
         return false;
       }
+    } catch (error) {
+      console.error("파일 다운로드 실패:", error);
+      return false;
     }
   }
 
