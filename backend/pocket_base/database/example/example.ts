@@ -90,7 +90,7 @@ export class Example {
     const object = new Example();
     object.s000 = queryParams.s000 || "";
     object.i000 = Number(queryParams.i000 || 0);
-    object.b000 = queryParams.b000 === 1;
+    object.b000 = queryParams.b000 === 1 || queryParams.b000 === true;
     object.r000 = queryParams.r000 || 0.0;
     object.t000 = new Date(queryParams.t000 || 0);
     object.l000 = JSON.parse(queryParams.l000 || "[]");
@@ -124,7 +124,7 @@ export class ExamplePocketBaseCollection {
     const collectionData = {
       name: "Example",
       type: "base",
-      schema: [
+      fields: [
         { name: "docId", type: "text", required: true, unique: true },
         { name: "s000", type: "text", required: false },
         { name: "i000", type: "number", required: false },
@@ -152,7 +152,7 @@ export class ExamplePocketBaseCollection {
       docId: object.docId,
       s000: object.s000,
       i000: object.i000,
-      b000: object.b000,
+      b000: object.b000 ? 1 : 0,
       r000: object.r000,
       t000: object.t000.getTime(),
       l000: JSON.stringify(object.l000),
@@ -176,7 +176,7 @@ export class ExamplePocketBaseCollection {
         docId: object.docId,
         s000: object.s000,
         i000: object.i000,
-        b000: object.b000,
+        b000: object.b000 ? 1 : 0,
         r000: object.r000,
         t000: object.t000.getTime(),
         l000: JSON.stringify(object.l000),

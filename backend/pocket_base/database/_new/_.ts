@@ -102,7 +102,7 @@ export class New {
 
     // object.s000 = queryParams.s000 || '';
     // object.i000 = Number(queryParams.i000 || 0);
-    // object.b000 = queryParams.b000 === 1;
+    // object.b000 = queryParams.b000 === 1 || queryParams.b000 === true;
     // object.r000 = queryParams.r000 || 0.0;
     // object.t000 = new Date(queryParams.t000 || 0);
     // object.l000 = JSON.parse(queryParams.l000 || '[]');
@@ -123,7 +123,16 @@ export class NewPocketBaseCollection {
   static async getDb() {
     if (NewPocketBaseCollection._ready) return;
     dotenv.config();
+
+    // URL 끝에 있을 수 있는 슬래시를 제거하여 주소를 정규화합니다.
+    pb.baseUrl = (process.env.POCKET_BASE_URL || "").replace(/\/$/, "");
+
+    console.log("Connecting to PocketBase at (normalized):", pb.baseUrl);
     // 어드민 로그인 (아이디와 비밀번호 설정 필요)
+    console.log(
+      "Trying to auth as ADMIN with email:",
+      process.env.POCKET_BASE_ADMIN_EMAIL
+    );
     await pb.admins.authWithPassword(
       process.env.POCKET_BASE_ADMIN_EMAIL,
       process.env.POCKET_BASE_ADMIN_PASSWORD
@@ -136,7 +145,7 @@ export class NewPocketBaseCollection {
     const collectionData = {
       name: "New",
       type: "base",
-      schema: [
+      fields: [
         { name: "docId", type: "text", required: true, unique: true },
         // {name: 's000', type: 'text', required: false},
         // {name: 'i000', type: 'number', required: false},
@@ -177,7 +186,7 @@ export class NewPocketBaseCollection {
       docId: object.docId,
       // s000: object.s000,
       // i000: object.i000,
-      // b000: object.b000,
+      // b000: object.b000 ? 1 : 0,
       // r000: object.r000,
       // t000: object.t000.getTime(),
       // l000: JSON.stringify(object.l000),
@@ -207,7 +216,7 @@ export class NewPocketBaseCollection {
         docId: object.docId,
         // s000: object.s000,
         // i000: object.i000,
-        // b000: object.b000,
+        // b000: object.b000 ? 1 : 0,
         // r000: object.r000,
         // t000: object.t000.getTime(),
         // l000: JSON.stringify(object.l000),
