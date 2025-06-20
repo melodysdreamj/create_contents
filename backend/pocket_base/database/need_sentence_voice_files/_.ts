@@ -1,7 +1,6 @@
 import { LegoUtil } from "../../../../util";
 import * as fs from "fs";
 import dotenv from "dotenv";
-import { Readable } from "stream";
 
 import path from "path";
 import FormData from "form-data";
@@ -13,10 +12,17 @@ const PocketBase = require("pocketbase").default;
 // PocketBase 클라이언트 초기화
 const pb = new PocketBase(process.env.POCKET_BASE_URL);
 
-export class New {
-  constructor() {
-    this.docId = LegoUtil.randomString(10);
+export class NeedSentenceVoiceFiles {
+  constructor(docId: string) {
+    this.docId = docId;
   }
+
+  sentenceLanguage: string = "";
+  originalInput: string = "";
+  isGenerated: boolean = false;
+  isDeployed: boolean = false;
+  isStartGenerateAt: Date = new Date(0);
+  updateAt: Date = new Date(0);
 
   // s000: string = "";
   // i000: number = 0;
@@ -37,6 +43,12 @@ export class New {
       Array.from(
         new TextEncoder().encode(
           new URLSearchParams({
+            sentenceLanguage: this.sentenceLanguage,
+            originalInput: this.originalInput,
+            isGenerated: this.isGenerated.toString(),
+            isDeployed: this.isDeployed.toString(),
+            isStartGenerateAt: this.isStartGenerateAt.getTime().toString(),
+            updateAt: this.updateAt.getTime().toString(),
             // s000: this.s000,
             // i000: this.i000.toString(),
             // b000: this.b000.toString(),
@@ -57,12 +69,19 @@ export class New {
     );
   }
 
-  static fromDataString(dataString: string): New {
+  static fromDataString(dataString: string): NeedSentenceVoiceFiles {
     const queryParams = Object.fromEntries(
       new URLSearchParams(atob(dataString))
     );
 
-    const object = new New();
+    const object = new NeedSentenceVoiceFiles(queryParams["docId"] || "");
+
+    object.sentenceLanguage = queryParams["sentenceLanguage"] || "";
+    object.originalInput = queryParams["originalInput"] || "";
+    object.isGenerated = queryParams["isGenerated"] === "true";
+    object.isDeployed = queryParams["isDeployed"] === "true";
+    object.isStartGenerateAt = new Date(parseInt(queryParams["isStartGenerateAt"] || "0", 10));
+    object.updateAt = new Date(parseInt(queryParams["updateAt"] || "0", 10));
 
     // object.s000 = queryParams["s000"] || "";
     // object.i000 = parseInt(queryParams["i000"] || "0", 10);
@@ -82,6 +101,12 @@ export class New {
 
   toMap(): object {
     return {
+      sentenceLanguage: this.sentenceLanguage,
+      originalInput: this.originalInput,
+      isGenerated: this.isGenerated ? 1 : 0,
+      isDeployed: this.isDeployed ? 1 : 0,
+      isStartGenerateAt: this.isStartGenerateAt.getTime(),
+      updateAt: this.updateAt.getTime(),
       // s000: this.s000,
       // i000: this.i000,
       // b000: this.b000 ? 1 : 0,
@@ -98,9 +123,15 @@ export class New {
     };
   }
 
-  static fromMap(queryParams: any): New {
-    const object = new New();
+  static fromMap(queryParams: any): NeedSentenceVoiceFiles {
+    const object = new NeedSentenceVoiceFiles(queryParams.docId);
 
+    object.sentenceLanguage = queryParams.sentenceLanguage || "";
+    object.originalInput = queryParams.originalInput || "";
+    object.isGenerated = queryParams.isGenerated === 1 || queryParams.isGenerated === true;
+    object.isDeployed = queryParams.isDeployed === 1 || queryParams.isDeployed === true;
+    object.isStartGenerateAt = new Date(queryParams.isStartGenerateAt || 0);
+    object.updateAt = new Date(queryParams.updateAt || 0);
     // object.s000 = queryParams.s000 || '';
     // object.i000 = Number(queryParams.i000 || 0);
     // object.b000 = queryParams.b000 === 1 || queryParams.b000 === true;
@@ -118,11 +149,11 @@ export class New {
   }
 }
 
-export class NewPocketBaseCollection {
+export class NeedSentenceVoiceFilesPocketBaseCollection {
   static _ready = false;
 
   static async getDb() {
-    if (NewPocketBaseCollection._ready) return;
+    if (NeedSentenceVoiceFilesPocketBaseCollection._ready) return;
     dotenv.config();
 
     // URL 끝에 있을 수 있는 슬래시를 제거하여 주소를 정규화합니다.
@@ -138,16 +169,22 @@ export class NewPocketBaseCollection {
       process.env.POCKET_BASE_ADMIN_EMAIL,
       process.env.POCKET_BASE_ADMIN_PASSWORD
     );
-    NewPocketBaseCollection._ready = true;
+    NeedSentenceVoiceFilesPocketBaseCollection._ready = true;
   }
 
   static async createTable() {
-    await NewPocketBaseCollection.getDb();
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
     const collectionData = {
-      name: "New",
+      name: "NeedSentenceVoiceFiles",
       type: "base",
       fields: [
         { name: "docId", type: "text", required: true, unique: true },
+        { name: "sentenceLanguage", type: "text", required: false },
+        { name: "originalInput", type: "text", required: false },
+        { name: "isGenerated", type: "bool", required: false },
+        { name: "isDeployed", type: "bool", required: false },
+        { name: "isStartGenerateAt", type: "number", required: false },
+        { name: "updateAt", type: "number", required: false },
         // {name: 's000', type: 'text', required: false},
         // {name: 'i000', type: 'number', required: false},
         // {name: 'b000', type: 'bool', required: false},
@@ -180,11 +217,17 @@ export class NewPocketBaseCollection {
     }
   }
 
-  static async insert(object: New): Promise<string> {
-    await NewPocketBaseCollection.getDb();
+  static async insert(object: NeedSentenceVoiceFiles): Promise<string> {
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     const recordData = {
       docId: object.docId,
+      sentenceLanguage: object.sentenceLanguage,
+      originalInput: object.originalInput,
+      isGenerated: object.isGenerated ? 1 : 0,
+      isDeployed: object.isDeployed ? 1 : 0,
+      isStartGenerateAt: object.isStartGenerateAt.getTime(),
+      updateAt: object.updateAt.getTime(),
       // s000: object.s000,
       // i000: object.i000,
       // b000: object.b000 ? 1 : 0,
@@ -199,14 +242,14 @@ export class NewPocketBaseCollection {
     };
 
     // 레코드 삽입 요청
-    const record = await pb.collection("New").create(recordData);
+    const record = await pb.collection("NeedSentenceVoiceFiles").create(recordData);
     console.log("레코드 삽입 완료:", record);
 
     return record.id;
   }
 
-  static async upsert(object: New): Promise<string | null> {
-    await NewPocketBaseCollection.getDb();
+  static async upsert(object: NeedSentenceVoiceFiles): Promise<string | null> {
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     const rawObj = await this.getRow(object.docId);
 
@@ -215,6 +258,12 @@ export class NewPocketBaseCollection {
     } else {
       const updatedData = {
         docId: object.docId,
+        sentenceLanguage: object.sentenceLanguage,
+        originalInput: object.originalInput,
+        isGenerated: object.isGenerated ? 1 : 0,
+        isDeployed: object.isDeployed ? 1 : 0,
+        isStartGenerateAt: object.isStartGenerateAt.getTime(),
+        updateAt: object.updateAt.getTime(),
         // s000: object.s000,
         // i000: object.i000,
         // b000: object.b000 ? 1 : 0,
@@ -230,7 +279,7 @@ export class NewPocketBaseCollection {
 
       try {
         const updatedRecord = await pb
-          .collection("New")
+          .collection("NeedSentenceVoiceFiles")
           .update(rawObj.id, updatedData);
         return updatedRecord.id;
       } catch (e) {
@@ -241,26 +290,26 @@ export class NewPocketBaseCollection {
   }
 
   static async delete(docId: string) {
-    await NewPocketBaseCollection.getDb();
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     const rawObj = await this.getRow(docId);
 
     if (rawObj != null) {
-      await pb.collection("New").delete(rawObj.id);
+      await pb.collection("NeedSentenceVoiceFiles").delete(rawObj.id);
     } else {
       console.log("failed to delete because object is not found");
     }
   }
 
-  static async get(docId: string): Promise<New | null> {
-    await NewPocketBaseCollection.getDb();
+  static async get(docId: string): Promise<NeedSentenceVoiceFiles | null> {
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     try {
       const xs = await pb
-        .collection("New")
+        .collection("NeedSentenceVoiceFiles")
         .getFirstListItem(`docId="${docId}"`);
 
-      return New.fromMap(xs);
+      return NeedSentenceVoiceFiles.fromMap(xs);
     } catch (e) {
       // console.log(e);
       return null;
@@ -268,18 +317,18 @@ export class NewPocketBaseCollection {
   }
 
   static async getRow(docId: string): Promise<any> {
-    await NewPocketBaseCollection.getDb();
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     try {
-      return await pb.collection("New").getFirstListItem(`docId="${docId}"`);
+      return await pb.collection("NeedSentenceVoiceFiles").getFirstListItem(`docId="${docId}"`);
     } catch (e) {
       // console.log(e);
       return null;
     }
   }
 
-  static async getAll(): Promise<New[]> {
-    await NewPocketBaseCollection.getDb();
+  static async getAll(): Promise<NeedSentenceVoiceFiles[]> {
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     try {
       let page = 1;
@@ -290,7 +339,7 @@ export class NewPocketBaseCollection {
       while (hasMore) {
         // 각 페이지별 레코드 리스트 가져오기
         const resultList = await pb
-          .collection("New")
+          .collection("NeedSentenceVoiceFiles")
           .getList({ page: page, perPage: perPage });
         // 레코드를 allRecords 배열에 추가
         allRecords = allRecords.concat(resultList.items);
@@ -304,10 +353,10 @@ export class NewPocketBaseCollection {
         page += 1;
       }
 
-      const result: New[] = [];
+      const result: NeedSentenceVoiceFiles[] = [];
 
       for (let i = 0; i < allRecords.length; i++) {
-        result.push(New.fromMap(allRecords[i]));
+        result.push(NeedSentenceVoiceFiles.fromMap(allRecords[i]));
       }
 
       return result;
@@ -317,20 +366,20 @@ export class NewPocketBaseCollection {
     }
   }
 
-  static async getByI000(value: number): Promise<New | null> {
-    await NewPocketBaseCollection.getDb();
+  static async getByI000(value: number): Promise<NeedSentenceVoiceFiles | null> {
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     try {
-      const xs = await pb.collection("New").getFirstListItem(`i000=${value}`);
+      const xs = await pb.collection("NeedSentenceVoiceFiles").getFirstListItem(`i000=${value}`);
 
-      return New.fromMap(xs);
+      return NeedSentenceVoiceFiles.fromMap(xs);
     } catch (e) {
       return null;
     }
   }
 
   static async deleteAll() {
-    await NewPocketBaseCollection.getDb();
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     let page = 1;
     const perPage = 100; // 한 번에 가져올 레코드 수
@@ -340,7 +389,7 @@ export class NewPocketBaseCollection {
     while (hasMore) {
       // 각 페이지별 레코드 리스트 가져오기
       const resultList = await pb
-        .collection("New")
+        .collection("NeedSentenceVoiceFiles")
         .getList({ page: page, perPage: perPage });
       // 레코드를 allRecords 배열에 추가
       allRecords = allRecords.concat(resultList.items);
@@ -355,38 +404,38 @@ export class NewPocketBaseCollection {
     }
 
     for (let i = 0; i < allRecords.length; i++) {
-      await pb.collection("New").delete(allRecords[i].id);
+      await pb.collection("NeedSentenceVoiceFiles").delete(allRecords[i].id);
     }
 
     console.log("All records are deleted");
   }
 
   static async resetTable() {
-    await NewPocketBaseCollection.getDb();
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     // 모든 컬렉션 목록 가져오기
     const collections: any[] = await pb.collections.getFullList(); // 컬렉션 목록의 타입을 any로 설정
 
     // 이름으로 컬렉션 찾기
     const collectionToDelete = collections.find(
-      (collection: any) => collection.name === "New"
+      (collection: any) => collection.name === "NeedSentenceVoiceFiles"
     );
 
     if (collectionToDelete) {
       // 컬렉션 삭제 요청
       await pb.collections.delete(collectionToDelete.id);
-      console.log("컬렉션 삭제 완료:", "New");
+      console.log("컬렉션 삭제 완료:", "NeedSentenceVoiceFiles");
     } else {
-      console.log("컬렉션을 찾을 수 없습니다:", "New");
+      console.log("컬렉션을 찾을 수 없습니다:", "NeedSentenceVoiceFiles");
     }
 
-    await NewPocketBaseCollection.createTable();
+    await NeedSentenceVoiceFilesPocketBaseCollection.createTable();
   }
 
-  static async upsertFile(object: New, filePath: string) {
+  static async upsertFile(object: NeedSentenceVoiceFiles, filePath: string) {
     // 먼저 해당하는 파일이 있는지 확인후, 있을경우 업데이트 없을경우 삽입
 
-    await NewPocketBaseCollection.getDb();
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     const obj = await this.getRow(object.docId);
 
@@ -402,7 +451,7 @@ export class NewPocketBaseCollection {
         });
         // Axios를 사용하여 업로드 요청 수행
         const uploadResponse: AxiosResponse<any> = await axios.patch(
-          `${pb.baseUrl}/api/collections/New/records/${id}`,
+          `${pb.baseUrl}/api/collections/NeedSentenceVoiceFiles/records/${id}`,
           formData,
           {
             headers: {
@@ -423,7 +472,7 @@ export class NewPocketBaseCollection {
         });
         // Axios를 사용하여 업로드 요청 수행
         const uploadResponse: AxiosResponse<any> = await axios.patch(
-          `${pb.baseUrl}/api/collections/New/records/${obj.id}`,
+          `${pb.baseUrl}/api/collections/NeedSentenceVoiceFiles/records/${obj.id}`,
           formData,
           {
             headers: {
@@ -443,52 +492,8 @@ export class NewPocketBaseCollection {
     }
   }
 
-  static async upsertFileFromStream(
-    object: New,
-    stream: Readable,
-    fileName: string
-  ) {
-    await NewPocketBaseCollection.getDb();
-
-    const obj = await this.getRow(object.docId);
-
-    try {
-      let recordId;
-      if (obj == null) {
-        // 레코드가 존재하지 않으면 먼저 삽입합니다.
-        recordId = await this.insert(object);
-      } else {
-        recordId = obj.id;
-      }
-
-      // FormData 객체 생성
-      const formData = new FormData();
-      formData.append("fileName", stream, {
-        filename: fileName,
-      });
-      // Axios를 사용하여 업로드 요청 수행
-      const uploadResponse: AxiosResponse<any> = await axios.patch(
-        `${pb.baseUrl}/api/collections/New/records/${recordId}`,
-        formData,
-        {
-          headers: {
-            ...formData.getHeaders(),
-            Authorization: `Bearer ${pb.authStore.token}`, // 인증 토큰 헤더에 추가
-          },
-        }
-      );
-
-      console.log("스트림 업로드 완료:", uploadResponse.data);
-
-      return uploadResponse.data;
-    } catch (e) {
-      console.log("스트림으로부터 파일 업서트 실패", e);
-      return null;
-    }
-  }
-
-  static async downloadFile(object: New, filePath: string): Promise<boolean> {
-    await NewPocketBaseCollection.getDb();
+  static async downloadFile(object: NeedSentenceVoiceFiles, filePath: string): Promise<boolean> {
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     try {
       const record = await this.getRow(object.docId);
@@ -496,10 +501,10 @@ export class NewPocketBaseCollection {
       if (record && record.fileName) {
         const fileUrl = pb.getFileUrl(record, record.fileName);
         console.log("다운로드 URL:", fileUrl);
-        const response: AxiosResponse<Readable> = await axios({
+        const response: AxiosResponse<any> = await axios({
           method: "get",
           url: fileUrl,
-          responseType: "stream",
+          responseType: "arraybuffer", // 스트림 대신 arraybuffer를 사용합니다.
         });
 
         // 파일 저장 경로를 확인하고 필요한 경우 디렉토리를 생성합니다.
@@ -508,19 +513,11 @@ export class NewPocketBaseCollection {
           fs.mkdirSync(dir, { recursive: true });
         }
 
-        const writer = fs.createWriteStream(filePath);
-        response.data.pipe(writer);
+        // 파일 데이터를 저장합니다.
+        fs.writeFileSync(filePath, response.data);
 
-        return new Promise((resolve, reject) => {
-          writer.on("finish", () => {
-            console.log("파일 다운로드 및 저장 완료:", filePath);
-            resolve(true);
-          });
-          writer.on("error", (error) => {
-            console.error("파일 저장 실패:", error);
-            reject(false);
-          });
-        });
+        console.log("파일 다운로드 및 저장 완료:", filePath);
+        return true;
       } else {
         console.log("다운로드할 파일이 없습니다.");
         return false;
@@ -531,39 +528,13 @@ export class NewPocketBaseCollection {
     }
   }
 
-  static async downloadFileAsStream(object: New): Promise<Readable | null> {
-    await NewPocketBaseCollection.getDb();
-
-    try {
-      const record = await this.getRow(object.docId);
-
-      if (record && record.fileName) {
-        const fileUrl = pb.getFileUrl(record, record.fileName);
-        console.log("스트림으로 다운로드할 URL:", fileUrl);
-        const response: AxiosResponse<Readable> = await axios({
-          method: "get",
-          url: fileUrl,
-          responseType: "stream",
-        });
-
-        return response.data;
-      } else {
-        console.log("다운로드할 파일이 없습니다.");
-        return null;
-      }
-    } catch (error) {
-      console.error("스트림으로 파일 다운로드 실패:", error);
-      return null;
-    }
-  }
-
-  static async getDownloadUrl(object: New | null): Promise<string | null> {
+  static async getDownloadUrl(object: NeedSentenceVoiceFiles | null): Promise<string | null> {
     if (object == null) {
       console.log("object is null");
       return null;
     }
 
-    await NewPocketBaseCollection.getDb();
+    await NeedSentenceVoiceFilesPocketBaseCollection.getDb();
 
     const obj = await this.getRow(object.docId);
 
