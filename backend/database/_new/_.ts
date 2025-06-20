@@ -240,6 +240,95 @@ export class NewPocketBaseCollection {
     }
   }
 
+  static async upsertMany(objects: New[]): Promise<string[] | null> {
+    if (objects.length === 0) {
+      return [];
+    }
+
+    await NewPocketBaseCollection.getDb();
+
+    // 제안에 따라 청크 크기를 100으로 조정하여 병렬 처리
+    const chunkSize = 50;
+    const allResultIds: string[] = [];
+
+    try {
+      // 데이터를 100개씩 청크로 나누어 처리
+      for (let i = 0; i < objects.length; i += chunkSize) {
+        const chunk = objects.slice(i, i + chunkSize);
+        console.log(
+          `[upsertMany] Processing chunk ${i / chunkSize + 1} / ${Math.ceil(
+            objects.length / chunkSize
+          )} (size: ${chunk.length})`
+        );
+
+        // 1. 현재 청크의 docId 추출
+        const docIds = chunk.map((o) => o.docId);
+
+        // 2. 필터 문자열 생성
+        const filter = docIds.map((id) => `docId = "${id}"`).join(" || ");
+
+        // 3. 기존 레코드 한 번에 가져오기
+        const existingRecords = await pb
+          .collection("New")
+          .getFullList({ filter });
+
+        // 4. 빠른 조회를 위한 맵 생성
+        const existingRecordsMap = new Map<string, any>();
+        existingRecords.forEach((record: { id: string; docId: string }) => {
+          existingRecordsMap.set(record.docId, record);
+        });
+
+        const promises: Promise<any>[] = [];
+
+        // 청크 내에서는 병렬 처리를 위해 Promise 배열 생성
+        for (const object of chunk) {
+          const existingRecord = existingRecordsMap.get(object.docId);
+
+          const recordData = {
+            docId: object.docId,
+            // s000: object.s000,
+            // i000: object.i000,
+            // b000: object.b000 ? 1 : 0,
+            // r000: object.r000,
+            // t000: object.t000.getTime(),
+            // l000: JSON.stringify(object.l000),
+            // m000: JSON.stringify(object.m000),
+            // c000: object.c000.toDataString(),
+            // j000: JSON.stringify(object.j000.map((model: OtherModel) => model.toDataString())),
+            // e000: object.e000,
+            fileName: object.fileName,
+          };
+
+          try {
+            if (existingRecord) {
+              // 업데이트
+              const result = await pb
+                .collection("New")
+                .update(existingRecord.id, recordData);
+              allResultIds.push(result.id);
+            } else {
+              // 생성
+              const result = await pb.collection("New").create(recordData);
+              allResultIds.push(result.id);
+            }
+          } catch (e) {
+            console.error(
+              `[upsertMany] Failed to process docId ${object.docId}:`,
+              e
+            );
+            // 오류가 발생해도 계속 진행하도록 선택할 수 있습니다.
+            // 또는 여기서 에러를 던져 전체 작업을 중단시킬 수도 있습니다.
+          }
+        }
+      }
+
+      return allResultIds;
+    } catch (error) {
+      console.error("upsertMany 중 오류 발생:", error);
+      return null;
+    }
+  }
+
   static async delete(docId: string) {
     await NewPocketBaseCollection.getDb();
 
@@ -280,40 +369,42 @@ export class NewPocketBaseCollection {
 
   static async getAll(): Promise<New[]> {
     await NewPocketBaseCollection.getDb();
+    const allRecords = [];
+    let page = 1;
+    const perPage = 50;
 
     try {
-      let page = 1;
-      const perPage = 100; // 한 번에 가져올 레코드 수
-      let allRecords: any[] = [];
-      let hasMore = true;
+      while (true) {
+        // 정렬 옵션을 제거하고 가장 기본적인 형태로 호출합니다.
+        const resultList = await pb.collection("New").getList(page, perPage);
 
-      while (hasMore) {
-        // 각 페이지별 레코드 리스트 가져오기
-        const resultList = await pb
-          .collection("New")
-          .getList({ page: page, perPage: perPage });
-        // 레코드를 allRecords 배열에 추가
-        allRecords = allRecords.concat(resultList.items);
-
-        // 더 이상 레코드가 없으면 종료
-        if (resultList.items.length < perPage) {
-          hasMore = false;
+        if (resultList.items && resultList.items.length > 0) {
+          allRecords.push(...resultList.items);
         }
 
-        // 다음 페이지로 이동
-        page += 1;
+        if (page >= resultList.totalPages) {
+          break;
+        }
+
+        page++;
       }
 
-      const result: New[] = [];
-
-      for (let i = 0; i < allRecords.length; i++) {
-        result.push(New.fromMap(allRecords[i]));
+      return allRecords.map((record: any) => New.fromMap(record));
+    } catch (error) {
+      console.error(
+        `[New] Error during manual pagination on page ${page}:`,
+        error
+      );
+      if (error && typeof error === "object" && "response" in error) {
+        const response = (error as any).response;
+        if (response && "data" in response) {
+          console.error(
+            "Error Response Body:",
+            JSON.stringify(response.data, null, 2)
+          );
+        }
       }
-
-      return result;
-    } catch (e) {
-      console.log(e);
-      return [];
+      throw error;
     }
   }
 
