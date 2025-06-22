@@ -248,7 +248,7 @@ export class NewPocketBaseCollection {
     await NewPocketBaseCollection.getDb();
 
     // 제안에 따라 청크 크기를 100으로 조정하여 병렬 처리
-    const chunkSize = 50;
+    const chunkSize = 100;
     const allResultIds: string[] = [];
 
     try {
@@ -371,7 +371,7 @@ export class NewPocketBaseCollection {
     await NewPocketBaseCollection.getDb();
     const allRecords = [];
     let page = 1;
-    const perPage = 50;
+    const perPage = 1000;
 
     try {
       while (true) {
@@ -405,6 +405,42 @@ export class NewPocketBaseCollection {
         }
       }
       throw error;
+    }
+  }
+
+  static async getMany(docIds: string[]): Promise<New[]> {
+    if (docIds.length === 0) {
+      return [];
+    }
+
+    await NewPocketBaseCollection.getDb();
+    const allRecords: any[] = [];
+    const chunkSize = 50; // URL 길이 제한을 고려하여 청크 크기 설정
+
+    try {
+      for (let i = 0; i < docIds.length; i += chunkSize) {
+        const chunk = docIds.slice(i, i + chunkSize);
+
+        if (chunk.length === 0) {
+          continue;
+        }
+
+        const filter = chunk.map((id) => `docId = "${id}"`).join(" || ");
+
+        const records = await pb.collection("New").getFullList({
+          filter: filter,
+        });
+
+        allRecords.push(...records);
+      }
+
+      return allRecords.map((record) => New.fromMap(record));
+    } catch (error) {
+      console.error(
+        `[NewPocketBaseCollection.getMany] Error fetching records:`,
+        error
+      );
+      return [];
     }
   }
 
