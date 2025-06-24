@@ -77,6 +77,7 @@ export class New {
     // object.b000 = parseInt(queryParams["b000"]) === 1;
     // object.r000 = parseFloat(queryParams["r000"] || "0");
     // object.t000 = new Date(parseInt(queryParams["t000"] || "0", 10));
+    // object.l000 = JSON.parse(queryParams["l000"] || "[]");
     // object.m000 = JSON.parse(queryParams["m000"] || "{}");
     // object.c000 = OtherModel.fromDataString(queryParams["c000"] || new OtherModel().toDataString());
     // object.j000 = (JSON.parse(queryParams["j000"] || "[]") || []).map((item: string) => OtherModel.fromDataString(item));
@@ -131,18 +132,19 @@ export class NewPostgresql {
   private static db = NewPostgresql.pgp(connectionDetails);
 
   static async createIndex() {
-    const sql1 = ""
-    const sql2 = ""
-    try {
-      // db.none으로 DDL 실행 시도
-      await NewPostgresql.db.none(sql1);
-      await NewPostgresql.db.none(sql2);
-    } catch (error) {
-      throw error;
-    }
+    // await this.createIndex1();
   }
 
-  
+  // static async createIndex1() {
+  //   const sql = ""
+  //   try {
+  //     // db.none으로 DDL 실행 시도
+  //     await NeedSentenceInfoPostgresql.db.none(sql);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
   static async createTable() {
     const createTableSQL: string =
       `CREATE TABLE IF NOT EXISTS "New" (` +
@@ -213,6 +215,7 @@ export class NewPostgresql {
     await NewPostgresql.db.none(sql, object.toMap());
   }
 
+  // docId가 충돌하면 업데이트하고, 없으면 삽입합니다.
   static async upsert(object: New) {
     const sql =
       `INSERT INTO "New" (` +
@@ -325,6 +328,28 @@ export class NewPostgresql {
     return NewPostgresql.fromMap(result);
   }
 
+  static async getMany(docIds: string[]): Promise<New[]> {
+    if (docIds.length === 0) {
+      return [];
+    }
+
+    const chunkSize = 1000;
+    const chunks: string[][] = [];
+    for (let i = 0; i < docIds.length; i += chunkSize) {
+      chunks.push(docIds.slice(i, i + chunkSize));
+    }
+
+    const promises = chunks.map(async (chunk) => {
+      const sql = 'SELECT * FROM "New" WHERE "docId" IN ($<docIds:list>)';
+      const params = { docIds: chunk };
+      const results = await NewPostgresql.db.any(sql, params);
+      return results.map((row) => NewPostgresql.fromMap(row));
+    });
+
+    const chunkResults = await Promise.all(promises);
+    return chunkResults.flat();
+  }
+
   static async getAll(): Promise<New[]> {
     const allResults: New[] = [];
     const chunkSize = 100000; // 한 번에 가져올 데이터 묶음 크기
@@ -372,6 +397,7 @@ export class NewPostgresql {
 
     return allResults;
   }
+
   // static async getByI000(value: number): Promise<New | null> {
   //   const sql = 'SELECT * FROM "New" WHERE "i000" = ${value}'; // 컬럼명, 테이블명 확인
   //   const params = { value };
