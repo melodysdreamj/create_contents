@@ -288,7 +288,7 @@ export class NewPostgresql {
 
     // 대용량 데이터를 처리하기 위해 트랜잭션 내에서 데이터를 작은 묶음(chunk)으로 나눕니다.
     // 이는 SQL 쿼리 길이 제한 및 메모리 문제를 방지합니다.
-    const chunkSize = 10000; // 한 번의 쿼리로 처리할 데이터 수
+    const chunkSize = 500; // 한 번의 쿼리로 처리할 데이터 수
 
     await NewPostgresql.db.tx(async (t) => {
       const queries = [];
@@ -333,7 +333,7 @@ export class NewPostgresql {
       return [];
     }
 
-    const chunkSize = 1000;
+    const chunkSize = 500;
     const chunks: string[][] = [];
     for (let i = 0; i < docIds.length; i += chunkSize) {
       chunks.push(docIds.slice(i, i + chunkSize));
@@ -352,7 +352,7 @@ export class NewPostgresql {
 
   static async getAll(): Promise<New[]> {
     const allResults: New[] = [];
-    const chunkSize = 100000; // 한 번에 가져올 데이터 묶음 크기
+    const chunkSize = 500; // 한 번에 가져올 데이터 묶음 크기
     let lastDocId: string | null = null;
     let keepFetching = true;
 
