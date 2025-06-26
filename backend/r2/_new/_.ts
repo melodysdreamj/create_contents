@@ -89,6 +89,26 @@ export class R2New {
     }
   }
 
+  static async uploadBuffer(buffer: Buffer, key: string): Promise<void> {
+    const params = {
+      Bucket: BUCKET_NAME!,
+      Key: key, // R2에 저장될 이름 (예: 'my-audio.wav')
+      Body: buffer, // 업로드할 버퍼 객체
+      ContentLength: buffer.length, // 버퍼의 길이
+    };
+
+    try {
+      // CantoSentenceVoiceR2에 있는 R2 클라이언트를 직접 사용하거나
+      // 유사한 방식으로 command를 생성하여 전송합니다.
+      const command = new PutObjectCommand(params);
+      await R2.send(command); // R2는 _.ts 파일에 export된 클라이언트 인스턴스
+      console.log(`✅ Successfully uploaded buffer as ${key} to R2.`);
+    } catch (error) {
+      console.error(`❌ Error uploading buffer ${key} to R2:`, error);
+      throw error;
+    }
+  }
+
   /**
    * R2의 파일을 로컬 경로에 다운로드합니다.
    * @param key 다운로드할 객체의 키
@@ -108,7 +128,7 @@ export class R2New {
       const writer = createWriteStream(downloadPath);
       stream.pipe(writer);
       await new Promise((resolve, reject) => {
-        writer.on("finish", resolve);
+        writer.on("finish", () => resolve(true));
         writer.on("error", reject);
       });
       console.log(
@@ -152,5 +172,19 @@ export class R2New {
       }
       return null;
     }
+  }
+
+  static async downloadAsBuffer(key: string): Promise<Buffer | null> {
+    const stream = await this.downloadStream(key);
+    if (!stream) {
+      return null;
+    }
+
+    return new Promise((resolve, reject) => {
+      const chunks: Buffer[] = [];
+      stream.on("data", (chunk) => chunks.push(chunk));
+      stream.on("error", reject);
+      stream.on("end", () => resolve(Buffer.concat(chunks)));
+    });
   }
 }
