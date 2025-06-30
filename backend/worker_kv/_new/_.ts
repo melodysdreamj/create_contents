@@ -1,7 +1,9 @@
 import { LegoUtil } from "../../../util";
+import dotenv from "dotenv";
 
 const cloudFlareWorkersKV = require("@melodysdreamj/cloudflare-workers-kv");
 
+dotenv.config();
 export class New {
   constructor() {
     this.docId = LegoUtil.randomString(10);
